@@ -1,828 +1,367 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Alexis</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#f7f5f0;
-      --paper:#fbfaf7;
-      --ink:#0f1012;
-      --muted: rgba(15,16,18,0.62);
-      --line: rgba(15,16,18,0.10);
-      --soft: rgba(255,255,255,0.72);
-      --shadow: 0 38px 120px rgba(0,0,0,0.10);
-      --radius: 44px;
-      --max: 1160px;
-
-      --accentA: rgba(127,171,200,0.22);
-      --accentB: rgba(105,137,97,0.20);
-      --accentC: rgba(224,143,106,0.16);
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: var(--bg);
-      color: var(--ink);
-      overflow:hidden;
-    }
-
-    a{ color: inherit; text-decoration: none; }
-    a.underline{ border-bottom: 1px solid rgba(15,16,18,0.22); padding-bottom: 2px; }
-    a.underline:hover{ border-bottom-color: rgba(15,16,18,0.55); }
-
-    .bg{
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(900px 650px at 14% 12%, var(--accentA), transparent 62%),
-        radial-gradient(900px 650px at 86% 22%, var(--accentB), transparent 60%),
-        radial-gradient(900px 650px at 52% 88%, var(--accentC), transparent 62%);
-      filter: blur(2px);
-    }
-
-    .grain{
-      position: fixed;
-      inset: 0;
-      pointer-events:none;
-      opacity: 0.06;
-      mix-blend-mode: multiply;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-    }
-
-    .app{
-      height:100%;
-      position:relative;
-    }
-
-    .topbar{
-      position:absolute;
-      top: 18px;
-      left: 22px;
-      right: 22px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      z-index: 20;
-      pointer-events:none;
-    }
-
-    .brandRow{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      pointer-events:auto;
-    }
-
-    .brand{
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(15,16,18,0.55);
-    }
-
-    .dots{
-      display:flex;
-      gap: 6px;
-      align-items:center;
-      opacity: 0.7;
-    }
-    .dot{
-      width: 8px;
-      height: 8px;
-      border-radius: 99px;
-      background: rgba(15,16,18,0.22);
-    }
-
-    .contactLink{
-      pointer-events:auto;
-      font-size: 13px;
-      color: rgba(15,16,18,0.72);
-      border-bottom: 1px solid rgba(15,16,18,0.22);
-      padding-bottom: 2px;
-    }
-    .contactLink:hover{ border-bottom-color: rgba(15,16,18,0.55); }
-
-    .viewport{
-      height:100%;
-      width:100%;
-      overflow:hidden;
-      position:relative;
-    }
-
-    .track{
-      height:100%;
-      width:400vw;
-      display:flex;
-      transform: translateX(0);
-      transition: transform 700ms cubic-bezier(.2,.9,.18,1);
-      will-change: transform;
-    }
-
-    .screen{
-      width:100vw;
-      height:100%;
-      padding: 72px 0 28px;
-      display:flex;
-      justify-content:center;
-      align-items:stretch;
-    }
-
-    .frame{
-      width: min(var(--max), calc(100% - 44px));
-      height: 100%;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.74), rgba(255,255,255,0.58));
-      border: 1px solid rgba(255,255,255,0.70);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-
-    .inner{
-      height:100%;
-      overflow:auto;
-      padding: 54px 54px 44px;
-    }
-
-    h1,h2,h3{
-      font-family: Fraunces, serif;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      margin:0;
-    }
-
-    h1{
-      font-size: clamp(56px, 6vw, 92px);
-      line-height: 1.02;
-      margin-bottom: 16px;
-    }
-
-    h2{
-      font-size: clamp(42px, 4.6vw, 64px);
-      line-height: 1.06;
-      margin-bottom: 18px;
-    }
-
-    p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.8;
-      max-width: 860px;
-    }
-
-    .bento3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 36px;
-    }
-
-    .bentoCard{
-      border-radius: 34px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(15,16,18,0.10);
-      padding: 24px;
-      cursor:pointer;
-      transition: transform 320ms ease, box-shadow 320ms ease, background 320ms ease;
-      box-shadow: 0 22px 80px rgba(0,0,0,0.10);
-      overflow:hidden;
-    }
-
-    .bentoCard:hover{
-      transform: translateY(-4px);
-      background: rgba(255,255,255,0.74);
-      box-shadow: 0 30px 100px rgba(0,0,0,0.12);
-    }
-
-    .bentoCard h3{
-      font-size: 26px;
-      margin: 10px 0 10px;
-    }
-
-    .bentoCard .mini{
-      font-size: 15px;
-      line-height: 1.7;
-      color: var(--muted);
-      margin-top: 0;
-      max-width: none;
-    }
-
-    .iconBox{
-      width: 48px;
-      height: 48px;
-      border-radius: 18px;
-      background: rgba(15,16,18,0.06);
-      border: 1px solid rgba(15,16,18,0.10);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .iconBox svg{ width: 22px; height: 22px; opacity: 0.75; }
-
-    .pillRow{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-top: 22px;
-    }
-
-    .pill{
-      border-radius: 999px;
-      padding: 10px 12px;
-      font-size: 13px;
-      border: 1px solid rgba(15,16,18,0.10);
-      background: rgba(255,255,255,0.62);
-      color: rgba(15,16,18,0.76);
-    }
-
-    .divider{
-      height: 1px;
-      background: rgba(15,16,18,0.08);
-      margin: 26px 0;
-    }
-
-    /* Media Strategy studio version kept */
-    .panel{
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(15,16,18,0.10);
-      box-shadow: 0 20px 70px rgba(0,0,0,0.08);
-      overflow:hidden;
-    }
-
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      padding: 18px;
-    }
-
-    .card{
-      border-radius: 34px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(15,16,18,0.10);
-      padding: 22px;
-      transition: transform 320ms ease, box-shadow 320ms ease, background 320ms ease;
-    }
-
-    .card:hover{
-      transform: translateY(-4px);
-      background: rgba(255,255,255,0.74);
-      box-shadow: 0 22px 80px rgba(0,0,0,0.10);
-    }
-
-    .card h3{
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
-
-    .card p{
-      font-size: 16px;
-      line-height: 1.7;
-      color: var(--muted);
-      max-width: none;
-    }
-
-    .studio{
-      display:grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 14px;
-      padding: 18px;
-    }
-
-    .studioLeft{
-      padding: 28px 28px 26px;
-      border-radius: 34px;
-      background: rgba(255,255,255,0.60);
-      border: 1px solid rgba(15,16,18,0.10);
-    }
-
-    .studioLeft h3{
-      font-size: 34px;
-      margin-bottom: 10px;
-    }
-
-    .studioLeft p{
-      margin: 0;
-      font-size: 17px;
-      color: var(--muted);
-      max-width: 720px;
-    }
-
-    .studioWords{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .chip{
-      border-radius: 999px;
-      padding: 10px 12px;
-      font-size: 13px;
-      border: 1px solid rgba(15,16,18,0.10);
-      background: rgba(255,255,255,0.62);
-      color: rgba(15,16,18,0.76);
-    }
-
-    .studioRight{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .miniBox{
-      border-radius: 34px;
-      background: rgba(255,255,255,0.60);
-      border: 1px solid rgba(15,16,18,0.10);
-      padding: 22px;
-    }
-
-    .miniBox strong{ font-weight: 600; }
-
-    .miniBox .meta{
-      margin-top: 6px;
-      color: rgba(15,16,18,0.55);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    /* Photo layout that keeps portraits readable */
-    .photoLayout{
-      display:grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 14px;
-    }
-
-    .photoHero{
-      border-radius: 40px;
-      overflow:hidden;
-      border: 1px solid rgba(15,16,18,0.10);
-      background: rgba(15,16,18,0.04);
-      min-height: 520px;
-    }
-
-    .photoHero img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-      transform: scale(1.02);
-      animation: drift 10s ease-in-out infinite;
-      filter: saturate(0.95) contrast(0.98);
-    }
-
-    .photoSide{
-      display:grid;
-      grid-template-rows: auto 1fr;
-      gap: 14px;
-    }
-
-    .photoTextBox{
-      border-radius: 34px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(15,16,18,0.10);
-      padding: 22px;
-    }
-
-    .photoTextBox h3{
-      font-size: 30px;
-      margin-bottom: 8px;
-    }
-
-    .photoTextBox p{
-      font-size: 16px;
-      line-height: 1.7;
-      max-width:none;
-    }
-
-    .photoTriptych{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .photoTile{
-      border-radius: 34px;
-      overflow:hidden;
-      border: 1px solid rgba(15,16,18,0.10);
-      background: rgba(15,16,18,0.04);
-      height: 220px;
-    }
-
-    .photoTile img{
-      width:100%;
-      height:100%;
-      object-fit: contain;
-      display:block;
-      background: rgba(15,16,18,0.04);
-    }
-
-    /* Experience design */
-    .expGrid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .expCard{
-      border-radius: 34px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(15,16,18,0.10);
-      padding: 22px;
-      overflow:hidden;
-    }
-
-    .expCard h3{
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
-
-    .expCard p{
-      font-size: 16px;
-      line-height: 1.7;
-      max-width:none;
-    }
-
-    .expImages{
-      margin-top: 14px;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .expImg{
-      border-radius: 34px;
-      overflow:hidden;
-      border: 1px solid rgba(15,16,18,0.10);
-      background: rgba(15,16,18,0.04);
-      height: 220px;
-    }
-
-    .expImg img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-      transform: scale(1.02);
-      animation: drift 12s ease-in-out infinite;
-      filter: saturate(0.96) contrast(0.98);
-    }
-
-    .backRow{
-      margin-top: 18px;
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      border-radius: 999px;
-      padding: 12px 16px;
-      font-size: 14px;
-      border: 1px solid rgba(15,16,18,0.12);
-      background: rgba(255,255,255,0.62);
-      cursor:pointer;
-      transition: transform 220ms ease, box-shadow 220ms ease;
-      box-shadow: 0 14px 44px rgba(0,0,0,0.08);
-    }
-    .btn:hover{ transform: translateY(-2px); box-shadow: 0 18px 60px rgba(0,0,0,0.10); }
-    .btn.primary{ background: rgba(15,16,18,0.92); color: rgba(255,255,255,0.96); }
-
-    @keyframes drift{
-      0%{ transform: translateY(0) scale(1.02); }
-      50%{ transform: translateY(-7px) scale(1.03); }
-      100%{ transform: translateY(0) scale(1.02); }
-    }
-
-    @media (max-width: 980px){
-      .screen{ padding: 62px 0 18px; }
-      .inner{ padding: 34px 22px 30px; }
-      .bento3{ grid-template-columns: 1fr; }
-      .studio{ grid-template-columns: 1fr; }
-      .grid3{ grid-template-columns: 1fr; }
-      .photoLayout{ grid-template-columns: 1fr; }
-      .photoHero{ min-height: 420px; }
-      .photoTile{ height: 260px; }
-      .expGrid{ grid-template-columns: 1fr; }
-      .expImages{ grid-template-columns: 1fr; }
-      .expImg{ height: 240px; }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .track{ transition:none; }
-      .photoHero img, .expImg img{ animation:none; }
-      .btn, .bentoCard, .card{ transition:none; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alexis</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f7f5f0;
+  --ink:#0f1012;
+  --muted:rgba(15,16,18,.6);
+  --glass:rgba(255,255,255,.72);
+  --line:rgba(15,16,18,.1);
+  --radius:32px;
+  --shadow:0 24px 80px rgba(0,0,0,.08);
+  --max:1120px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,system-ui;
+  background:var(--bg);
+  color:var(--ink);
+  overflow:hidden;
+}
+
+a{color:inherit;text-decoration:none}
+
+.app{height:100%;position:relative}
+
+.topbar{
+  position:absolute;
+  top:16px;
+  left:20px;
+  right:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:10;
+}
+
+.brand{
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(15,16,18,.5);
+}
+
+.contact{
+  font-size:13px;
+  border-bottom:1px solid rgba(15,16,18,.25);
+}
+
+.viewport{
+  height:100%;
+  overflow:hidden;
+}
+
+.track{
+  display:flex;
+  height:100%;
+  width:400vw;
+  transition:transform 600ms cubic-bezier(.2,.9,.18,1);
+}
+
+.panel{
+  width:100vw;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.frame{
+  width:min(var(--max),calc(100% - 40px));
+  height:calc(100% - 80px);
+  background:var(--glass);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  border:1px solid var(--line);
+  padding:40px;
+  overflow:hidden;
+}
+
+h1,h2,h3{
+  font-family:Fraunces,serif;
+  font-weight:500;
+  margin:0;
+}
+
+h1{
+  font-size:clamp(56px,7vw,96px);
+  line-height:1.04;
+  max-width:1000px;
+}
+
+h2{
+  font-size:clamp(40px,5vw,60px);
+  margin-bottom:20px;
+}
+
+p{
+  font-size:16px;
+  line-height:1.7;
+  color:var(--muted);
+}
+
+.label{
+  margin-top:32px;
+  font-size:13px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(15,16,18,.5);
+}
+
+.bento3{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.bento{
+  background:rgba(255,255,255,.6);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:20px;
+  cursor:pointer;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+
+.bento:hover{
+  transform:translateY(-3px);
+  box-shadow:0 20px 60px rgba(0,0,0,.1);
+}
+
+.bento h3{
+  font-size:22px;
+  margin-top:10px;
+}
+
+.icon{
+  font-size:26px;
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.card{
+  background:rgba(255,255,255,.6);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:20px;
+}
+
+.photoGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  height:100%;
+}
+
+.photoBox{
+  border-radius:24px;
+  overflow:hidden;
+}
+
+.photoBox img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.expGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.expCard{
+  background:rgba(255,255,255,.6);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:20px;
+}
+
+.expImages{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.expImg{
+  border-radius:24px;
+  overflow:hidden;
+  height:200px;
+}
+
+.expImg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.back{
+  margin-top:16px;
+  font-size:14px;
+  cursor:pointer;
+  display:inline-block;
+  border-bottom:1px solid rgba(15,16,18,.25);
+}
+
+@media(max-width:900px){
+  .bento3,.grid3,.photoGrid,.expGrid,.expImages{grid-template-columns:1fr}
+  .frame{padding:24px}
+}
+</style>
 </head>
 
 <body>
-  <div class="bg"></div>
-  <div class="grain"></div>
+<div class="app">
 
-  <div class="app">
-    <div class="topbar">
-      <div class="brandRow">
-        <div class="brand">Digital Garden</div>
-        <div class="dots" aria-hidden="true">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        </div>
-      </div>
-      <a class="contactLink" href="mailto:hi.alexis@pm.me">Contact</a>
-    </div>
+<div class="topbar">
+  <div class="brand">Digital Garden</div>
+  <a class="contact" href="mailto:hi.alexis@pm.me">Contact</a>
+</div>
 
-    <div class="viewport">
-      <div class="track" id="track">
+<div class="viewport">
+<div class="track" id="track">
 
-        <!-- 0 Landing -->
-        <section class="screen">
-          <div class="frame">
-            <div class="inner">
-              <h1>Hi, I’m Alexis.</h1>
-              <p>
-                I work at the intersection of media strategy, photography, and experience design.
-                I help small teams shape ideas, document what matters, and build experiences people remember.
-              </p>
+<!-- Landing -->
+<section class="panel">
+<div class="frame">
+<h1>
+Hi, I’m Alexis.<br>
+I work at the intersection of media strategy, photography, and experience design.
+</h1>
 
-              <div class="bento3">
-                <div class="bentoCard" role="button" tabindex="0" onclick="go('media')" onkeydown="keyGo(event,'media')">
-                  <div class="iconBox" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M4 7h16"></path><path d="M7 12h10"></path><path d="M10 17h4"></path>
-                    </svg>
-                  </div>
-                  <h3>I develop media strategies</h3>
-                  <p class="mini">Positioning, narrative, and web systems that make ideas legible.</p>
-                </div>
+<div class="label">What I do</div>
+<div class="bento3">
+<div class="bento" onclick="go(1)">
+<div class="icon">📐</div>
+<h3>Media Strategy</h3>
+<p>Positioning, narrative, and launch systems.</p>
+</div>
 
-                <div class="bentoCard" role="button" tabindex="0" onclick="go('photo')" onkeydown="keyGo(event,'photo')">
-                  <div class="iconBox" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M9 7l1.5-2h3L15 7"></path>
-                      <rect x="4" y="7" width="16" height="13" rx="2"></rect>
-                      <circle cx="12" cy="13" r="3.2"></circle>
-                    </svg>
-                  </div>
-                  <h3>I document with photography</h3>
-                  <p class="mini">Quiet documentary work of people in motion.</p>
-                </div>
+<div class="bento" onclick="go(2)">
+<div class="icon">📷</div>
+<h3>Photography</h3>
+<p>Quiet documentary work of people in action.</p>
+</div>
 
-                <div class="bentoCard" role="button" tabindex="0" onclick="go('experience')" onkeydown="keyGo(event,'experience')">
-                  <div class="iconBox" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 2v20"></path>
-                      <path d="M5 9l7-7 7 7"></path>
-                      <path d="M5 15l7 7 7-7"></path>
-                    </svg>
-                  </div>
-                  <h3>I design experiences</h3>
-                  <p class="mini">Workshops, retreats, and private communities.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+<div class="bento" onclick="go(3)">
+<div class="icon">🔥</div>
+<h3>Experience Design</h3>
+<p>Workshops, retreats, and private communities.</p>
+</div>
+</div>
+</div>
+</section>
 
-        <!-- 1 Media Strategy (kept as studio version) -->
-        <section class="screen">
-          <div class="frame">
-            <div class="inner">
-              <h2>Media Strategy</h2>
-              <p>Studio work. Clear thinking. Clean execution.</p>
+<!-- Media Strategy -->
+<section class="panel">
+<div class="frame">
+<h2>Media Strategy</h2>
 
-              <div style="height:18px"></div>
+<div class="grid3">
+<div class="card">
+<h3>Product and narrative</h3>
+<p>Clarifying what you build and why it matters.</p>
+</div>
+<div class="card">
+<h3>Go to market</h3>
+<p>Positioning, launch strategy, first traction.</p>
+</div>
+<div class="card">
+<h3>Web and media systems</h3>
+<p>Websites and content systems built to evolve.</p>
+</div>
+</div>
 
-              <div class="panel">
-                <div class="studio">
-                  <div class="studioLeft">
-                    <h3>Make it legible.</h3>
-                    <p>
-                      The studio is where we turn a complicated product into a clear narrative, a coherent website, and a launch that feels inevitable.
-                    </p>
+<p style="margin-top:20px">
+<a href="https://nikolaskonstantin.com" target="_blank">nikolaskonstantin.com</a><br>
+<a href="https://holo.host" target="_blank">holo.host</a><br>
+<a href="https://www.atchai.com" target="_blank">atchai.com</a>
+</p>
 
-                    <div class="studioWords" aria-label="Studio qualities">
-                      <span class="chip">Positioning</span>
-                      <span class="chip">Narrative</span>
-                      <span class="chip">Website structure</span>
-                      <span class="chip">Editorial direction</span>
-                      <span class="chip">Launch assets</span>
-                      <span class="chip">Team alignment</span>
-                    </div>
-                  </div>
+<div class="back" onclick="go(0)">Back</div>
+</div>
+</section>
 
-                  <div class="studioRight">
-                    <div class="miniBox">
-                      <strong>Selected projects</strong>
-                      <div class="meta">Quiet proof. No case study theater.</div>
+<!-- Photography -->
+<section class="panel">
+<div class="frame">
+<h2>Photography</h2>
 
-                      <div style="margin-top:12px; line-height:1.9;">
-                        <a class="underline" href="https://nikolaskonstantin.com" target="_blank" rel="noopener">nikolaskonstantin.com</a><br>
-                        <a class="underline" href="https://holo.host" target="_blank" rel="noopener">holo.host</a><br>
-                        <a class="underline" href="https://www.atchai.com" target="_blank" rel="noopener">atchai.com</a>
-                      </div>
-                    </div>
+<div class="photoGrid">
+<div class="photoBox"><img src="images/DSC03329-2.jpg"></div>
+<div class="photoBox"><img src="images/DSC04208.jpg"></div>
+<div class="photoBox"><img src="images/DSC00173.jpg"></div>
+</div>
 
-                    <div class="miniBox">
-                      <strong>How it runs</strong>
-                      <div class="meta">
-                        We map the message, define the structure, then ship with a small team.
-                        Fast, calm, and high quality.
-                      </div>
-                      <div style="margin-top:12px">
-                        <a class="underline" href="mailto:hi.alexis@pm.me">Talk to me</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+<p style="margin-top:16px">
+<a href="https://www.ninja-photographer.com" target="_blank">Visit Ninja Photographer</a>
+</p>
 
-                <div class="grid3">
-                  <div class="card">
-                    <h3>Product and narrative</h3>
-                    <p>Clarify what it is, who it is for, and why it wins.</p>
-                  </div>
+<div class="back" onclick="go(0)">Back</div>
+</div>
+</section>
 
-                  <div class="card">
-                    <h3>Go to market</h3>
-                    <p>Positioning, launch sequence, and first traction assets.</p>
-                  </div>
+<!-- Experience Design -->
+<section class="panel">
+<div class="frame">
+<h2>Experience Design</h2>
 
-                  <div class="card">
-                    <h3>Web and media systems</h3>
-                    <p>Structure, pages, and content that can compound over time.</p>
-                  </div>
-                </div>
-              </div>
+<div class="expGrid">
+<div class="expCard">
+<h3>Workshops</h3>
+<p>Breathwork and ice bath sessions for teams.</p>
+</div>
+<div class="expCard">
+<h3>Retreats</h3>
+<p>Practical philosophy retreats in nature.</p>
+</div>
+<div class="expCard">
+<h3>Volta</h3>
+<p>Invitation only private community.</p>
+</div>
+</div>
 
-              <div class="backRow">
-                <button class="btn" onclick="go('home')">Back</button>
-              </div>
-            </div>
-          </div>
-        </section>
+<div class="expImages">
+<div class="expImg"><img src="images/hobbit.jpeg"></div>
+<div class="expImg"><img src="images/Screenshot 2025-12-23 at 17.11.43.png"></div>
+<div class="expImg"><img src="images/Screenshot 2025-12-23 at 17.12.59.png"></div>
+</div>
 
-        <!-- 2 Photography -->
-        <section class="screen">
-          <div class="frame">
-            <div class="inner">
-              <h2>Photography</h2>
-              <p>Quiet documentary photography of people in action.</p>
+<p style="margin-top:14px">
+<a href="https://www.volta.re" target="_blank">www.volta.re</a>
+</p>
 
-              <div style="height:18px"></div>
+<div class="back" onclick="go(0)">Back</div>
+</div>
+</section>
 
-              <div class="panel" style="padding:18px;">
-                <div class="photoLayout">
-                  <a class="photoHero" href="https://www.ninja-photographer.com" target="_blank" rel="noopener" aria-label="Open Ninja Photographer">
-                    <img src="images/DSC02316-2.jpg" alt="Ice bath portrait in winter light">
-                  </a>
+</div>
+</div>
+</div>
 
-                  <div class="photoSide">
-                    <div class="photoTextBox">
-                      <h3>Ninja Photographer</h3>
-                      <p>
-                        Quiet documentary photography of people in action.<br>
-                        <a class="underline" href="https://www.ninja-photographer.com" target="_blank" rel="noopener">Visit the full portfolio</a>
-                      </p>
-                      <div class="pillRow">
-                        <span class="pill">Documentary</span>
-                        <span class="pill">Natural light</span>
-                        <span class="pill">Minimal disturbance</span>
-                      </div>
-                    </div>
-
-                    <div class="photoTriptych" aria-label="Photography set">
-                      <a class="photoTile" href="https://www.ninja-photographer.com" target="_blank" rel="noopener">
-                        <img src="images/DSC03329-2.jpg" alt="Abstract portrait through glass">
-                      </a>
-                      <a class="photoTile" href="https://www.ninja-photographer.com" target="_blank" rel="noopener">
-                        <img src="images/DSC04208.jpg" alt="Dance moment in a crowd">
-                      </a>
-                      <a class="photoTile" href="https://www.ninja-photographer.com" target="_blank" rel="noopener">
-                        <img src="images/DSC00173.jpg" alt="Child in dappled light outdoors">
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="backRow">
-                <button class="btn" onclick="go('home')">Back</button>
-                <a class="btn primary" href="https://www.ninja-photographer.com" target="_blank" rel="noopener">Open portfolio</a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 3 Experience Design -->
-        <section class="screen">
-          <div class="frame">
-            <div class="inner">
-              <h2>Experience Design</h2>
-              <p>Embodied formats that create real shifts in people and teams.</p>
-
-              <div style="height:18px"></div>
-
-              <div class="panel" style="padding:18px;">
-                <div class="expGrid">
-                  <div class="expCard">
-                    <h3>I lead workshops</h3>
-                    <p>
-                      Breathwork and ice bath sessions designed for trust, clarity, and energy.
-                      Built with strong safety framing and clean facilitation.
-                    </p>
-                    <div class="pillRow">
-                      <span class="pill">Breathwork</span>
-                      <span class="pill">Ice bath</span>
-                      <span class="pill">Team focus</span>
-                    </div>
-                  </div>
-
-                  <div class="expCard">
-                    <h3>I host retreats</h3>
-                    <p>
-                      Practical philosophy in nature.
-                      Spacious structure, simple rituals, and deep conversation without performance.
-                    </p>
-                    <div class="pillRow">
-                      <span class="pill">Nature</span>
-                      <span class="pill">Ritual</span>
-                      <span class="pill">Reflection</span>
-                    </div>
-                  </div>
-
-                  <div class="expCard">
-                    <h3>Volta</h3>
-                    <p>
-                      Invitation only private community.
-                      Peripatetic retreats to recharge, share knowledge, and plant seeds for better habits.
-                    </p>
-                    <div class="pillRow">
-                      <span class="pill">Private</span>
-                      <span class="pill">Community</span>
-                      <span class="pill">Experimentation</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="divider"></div>
-
-                <div class="expImages" aria-label="Experience images">
-                  <a class="expImg" href="https://www.volta.re" target="_blank" rel="noopener" aria-label="Open Volta">
-                    <img src="images/hobbit.jpeg" alt="Hiking through a forest passage">
-                  </a>
-                  <a class="expImg" href="https://www.volta.re" target="_blank" rel="noopener" aria-label="Open Volta">
-                    <img src="images/Screenshot 2025-12-23 at 17.11.43.png" alt="Ice bath as a ritual moment">
-                  </a>
-                  <a class="expImg" href="https://www.volta.re" target="_blank" rel="noopener" aria-label="Open Volta">
-                    <img src="images/Screenshot 2025-12-23 at 17.12.59.png" alt="Fire and warmth as a closing ritual">
-                  </a>
-                </div>
-
-                <div class="backRow" style="margin-top:14px;">
-                  <a class="btn primary" href="https://www.volta.re" target="_blank" rel="noopener">Open Volta</a>
-                </div>
-              </div>
-
-              <div class="backRow">
-                <button class="btn" onclick="go('home')">Back</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const order = ["home","media","photo","experience"];
-    const track = document.getElementById("track");
-
-    function go(id){
-      const i = order.indexOf(id);
-      if(i < 0) return;
-      track.style.transform = "translateX(" + (-i * 100) + "vw)";
-    }
-
-    function keyGo(e,id){
-      if(e.key === "Enter" || e.key === " "){
-        e.preventDefault();
-        go(id);
-      }
-    }
-  </script>
+<script>
+function go(i){
+  document.getElementById("track").style.transform =
+    "translateX(" + (-i * 100) + "vw)";
+}
+</script>
 </body>
 </html>
