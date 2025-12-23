@@ -1,401 +1,789 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alexis Papageorgiou</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Alexis</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-<style>
-:root{
-  --bg:#f7f5f0;
-  --panel:rgba(255,255,255,0.78);
-  --text:#111;
-  --muted:rgba(17,17,17,0.6);
-  --line:rgba(17,17,17,0.1);
-  --radius:42px;
-  --shadow:0 40px 120px rgba(0,0,0,0.1);
-}
+  <style>
+    :root{
+      --bg:#f7f5f0;
+      --paper:#fbfaf7;
+      --ink:#0f1012;
+      --muted: rgba(15,16,18,0.62);
+      --line: rgba(15,16,18,0.10);
+      --soft: rgba(255,255,255,0.72);
+      --shadow: 0 38px 120px rgba(0,0,0,0.10);
+      --radius: 44px;
+      --max: 1160px;
 
-*{box-sizing:border-box}
-html,body{height:100%}
+      --accentA: rgba(127,171,200,0.28);
+      --accentB: rgba(105,137,97,0.22);
+      --accentC: rgba(224,143,106,0.18);
+    }
 
-body{
-  margin:0;
-  font-family:Inter,system-ui;
-  background:var(--bg);
-  color:var(--text);
-  overflow:hidden;
-}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
+    }
 
-.shell{
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:40px;
-}
+    a{ color: inherit; text-decoration: none; }
+    a.underline{ border-bottom: 1px solid rgba(15,16,18,0.22); padding-bottom: 2px; }
+    a.underline:hover{ border-bottom-color: rgba(15,16,18,0.55); }
 
-.stage{
-  width:100%;
-  max-width:1200px;
-  height:calc(100vh - 80px);
-  background:var(--panel);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  position:relative;
-  overflow:hidden;
-}
+    .bg{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(900px 650px at 14% 12%, var(--accentA), transparent 62%),
+        radial-gradient(900px 650px at 86% 22%, var(--accentB), transparent 60%),
+        radial-gradient(900px 650px at 52% 88%, var(--accentC), transparent 62%);
+      filter: blur(2px);
+    }
 
-header{
-  position:absolute;
-  top:20px;
-  left:32px;
-  right:32px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  z-index:10;
-}
+    .grain{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      opacity: 0.06;
+      mix-blend-mode: multiply;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+    }
 
-.brand{
-  font-size:12px;
-  letter-spacing:0.16em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
+    .wrap{
+      width: min(var(--max), calc(100% - 44px));
+      margin: 0 auto;
+      padding: 34px 0 120px;
+    }
 
-nav{
-  display:flex;
-  gap:10px;
-}
+    .topline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 10px 2px 24px;
+      color: rgba(15,16,18,0.55);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
 
-nav button{
-  border:1px solid var(--line);
-  background:white;
-  border-radius:999px;
-  padding:10px 14px;
-  cursor:pointer;
-  font-size:14px;
-}
+    .topline .dots{
+      display:flex;
+      gap: 6px;
+      align-items:center;
+    }
+    .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: rgba(15,16,18,0.22);
+    }
 
-nav button.primary{
-  background:#111;
-  color:white;
-  border-color:#111;
-}
+    .hero{
+      margin-top: 18px;
+      padding: 54px 54px 48px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.74), rgba(255,255,255,0.58));
+      border: 1px solid rgba(255,255,255,0.70);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
+    }
 
-.panel{
-  position:absolute;
-  inset:0;
-  padding:96px 56px 48px;
-  opacity:0;
-  transform:translateY(16px);
-  transition:opacity 0.5s ease, transform 0.5s ease;
-  pointer-events:none;
-  overflow:auto;
-}
+    .heroGlow{
+      position:absolute;
+      inset:-60px;
+      background:
+        radial-gradient(520px 420px at 20% 20%, rgba(127,171,200,0.16), transparent 62%),
+        radial-gradient(520px 420px at 78% 30%, rgba(105,137,97,0.14), transparent 62%);
+      pointer-events:none;
+      filter: blur(6px);
+    }
 
-.panel.active{
-  opacity:1;
-  transform:none;
-  pointer-events:auto;
-}
+    h1,h2,h3{
+      font-family: Fraunces, serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
 
-.content{
-  max-width:960px;
-}
+    h1{
+      font-size: clamp(54px, 6vw, 90px);
+      line-height: 1.02;
+      max-width: 920px;
+      position: relative;
+      z-index: 1;
+    }
 
-h1,h2,h3{
-  font-family:Fraunces,serif;
-  font-weight:500;
-  margin:0;
-}
+    .sub{
+      margin-top: 18px;
+      font-size: 19px;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 760px;
+      position: relative;
+      z-index: 1;
+    }
 
-h1{
-  font-size:72px;
-  margin-bottom:16px;
-}
+    .ctaRow{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 28px;
+      position: relative;
+      z-index: 1;
+    }
 
-h2{
-  font-size:52px;
-  margin-bottom:16px;
-}
+    .pill{
+      border: 1px solid rgba(15,16,18,0.12);
+      background: rgba(255,255,255,0.62);
+      color: rgba(15,16,18,0.86);
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-size: 14px;
+      cursor:pointer;
+      transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+      box-shadow: 0 14px 44px rgba(0,0,0,0.08);
+    }
 
-h3{
-  font-size:26px;
-  margin-bottom:8px;
-}
+    .pill:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.10);
+      background: rgba(255,255,255,0.76);
+    }
 
-p{
-  font-size:18px;
-  line-height:1.7;
-  color:var(--muted);
-  max-width:720px;
-}
+    .pill.primary{
+      background: rgba(15,16,18,0.92);
+      color: rgba(255,255,255,0.96);
+      border-color: rgba(15,16,18,0.12);
+    }
 
-.grid{
-  display:grid;
-  gap:20px;
-}
+    .section{
+      margin-top: 54px;
+    }
 
-.grid.three{
-  grid-template-columns:repeat(3,1fr);
-  margin-top:32px;
-}
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      padding: 0 4px 14px;
+    }
 
-.card{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:28px;
-  padding:24px;
-}
+    .sectionHead h2{
+      font-size: clamp(38px, 4.2vw, 58px);
+      line-height: 1.06;
+    }
 
-.offer{
-  cursor:pointer;
-}
+    .sectionHead .hint{
+      color: rgba(15,16,18,0.48);
+      font-size: 14px;
+      max-width: 360px;
+      text-align:right;
+    }
 
-.photoStrip{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:14px;
-  margin-top:28px;
-}
+    .panel{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(15,16,18,0.10);
+      box-shadow: 0 20px 70px rgba(0,0,0,0.08);
+      overflow:hidden;
+    }
 
-.photoStrip a{
-  border-radius:28px;
-  overflow:hidden;
-  display:block;
-}
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      padding: 18px;
+    }
 
-.photoStrip img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-}
+    .card{
+      border-radius: 34px;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(15,16,18,0.10);
+      padding: 22px;
+      position: relative;
+      overflow:hidden;
+      transition: transform 320ms ease, box-shadow 320ms ease, background 320ms ease;
+    }
 
-.voltaGrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  margin-top:20px;
-}
+    .card:hover{
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.74);
+      box-shadow: 0 22px 80px rgba(0,0,0,0.10);
+    }
 
-.voltaGrid img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  border-radius:28px;
-}
+    .card h3{
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
 
-.projects{
-  margin-top:24px;
-  display:grid;
-  gap:14px;
-}
+    .card p{
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: none;
+    }
 
-.project{
-  border-top:1px solid var(--line);
-  padding-top:14px;
-}
+    .icon{
+      width: 46px;
+      height: 46px;
+      border-radius: 18px;
+      background: rgba(15,16,18,0.06);
+      border: 1px solid rgba(15,16,18,0.10);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom: 14px;
+    }
 
-.actions{
-  display:flex;
-  gap:12px;
-  margin-top:24px;
-  flex-wrap:wrap;
-}
+    .icon svg{
+      width: 22px;
+      height: 22px;
+      opacity: 0.72;
+    }
 
-.actions a,
-.actions button{
-  padding:12px 18px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:white;
-  cursor:pointer;
-  font-size:15px;
-  text-decoration:none;
-  color:#111;
-}
+    .studio{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+      padding: 18px;
+    }
 
-.actions .primary{
-  background:#111;
-  color:white;
-  border-color:#111;
-}
+    .studioLeft{
+      padding: 28px 28px 26px;
+      border-radius: 34px;
+      background: rgba(255,255,255,0.60);
+      border: 1px solid rgba(15,16,18,0.10);
+      overflow:hidden;
+      position: relative;
+    }
 
-@media(max-width:900px){
-  h1{font-size:52px}
-  h2{font-size:40px}
-  .grid.three{grid-template-columns:1fr}
-  .photoStrip{grid-template-columns:1fr 1fr}
-  .voltaGrid{grid-template-columns:1fr}
-}
-</style>
+    .studioLeft h3{
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    .studioLeft p{
+      margin: 0;
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .studioWords{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chip{
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-size: 13px;
+      border: 1px solid rgba(15,16,18,0.10);
+      background: rgba(255,255,255,0.62);
+      color: rgba(15,16,18,0.76);
+    }
+
+    .studioRight{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .mini{
+      border-radius: 34px;
+      background: rgba(255,255,255,0.60);
+      border: 1px solid rgba(15,16,18,0.10);
+      padding: 22px;
+    }
+
+    .mini strong{
+      font-weight: 600;
+    }
+
+    .mini .meta{
+      margin-top: 6px;
+      color: rgba(15,16,18,0.55);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .mini a{
+      display:inline-block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .photoStage{
+      padding: 18px;
+    }
+
+    .photoMosaic{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+
+    .bigShot{
+      border-radius: 40px;
+      overflow:hidden;
+      border: 1px solid rgba(15,16,18,0.10);
+      background: rgba(15,16,18,0.04);
+      min-height: 520px;
+      position: relative;
+    }
+
+    .bigShot img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(0.95) contrast(0.98);
+      transform: scale(1.02);
+      animation: drift 10s ease-in-out infinite;
+    }
+
+    .stackShots{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .shot{
+      border-radius: 34px;
+      overflow:hidden;
+      border: 1px solid rgba(15,16,18,0.10);
+      background: rgba(15,16,18,0.04);
+      height: 252px;
+      position: relative;
+    }
+
+    .shot img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(0.95) contrast(0.98);
+      transform: scale(1.02);
+      animation: drift 11.5s ease-in-out infinite;
+    }
+
+    .photoRow{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .photoRow .shot{
+      height: 240px;
+    }
+
+    @keyframes drift{
+      0%{ transform: translateY(0) scale(1.02); }
+      50%{ transform: translateY(-7px) scale(1.03); }
+      100%{ transform: translateY(0) scale(1.02); }
+    }
+
+    .divider{
+      display:flex;
+      justify-content:center;
+      padding: 46px 0 10px;
+      color: rgba(15,16,18,0.55);
+    }
+
+    .burst{
+      width: 360px;
+      max-width: 70vw;
+    }
+
+    .burst svg{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .volta{
+      padding: 38px 40px;
+    }
+
+    .volta h2{
+      font-size: clamp(44px, 5vw, 64px);
+      margin-bottom: 10px;
+    }
+
+    .volta p{
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 820px;
+    }
+
+    .volta b{
+      color: rgba(15,16,18,0.86);
+    }
+
+    .voltaList{
+      margin-top: 14px;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 17px;
+      max-width: 860px;
+    }
+
+    .voltaImages{
+      margin-top: 22px;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .voltaImages a{
+      display:block;
+      border-radius: 34px;
+      overflow:hidden;
+      border: 1px solid rgba(15,16,18,0.10);
+      background: rgba(15,16,18,0.04);
+      height: 240px;
+    }
+
+    .voltaImages img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(0.96) contrast(0.98);
+      transform: scale(1.02);
+      animation: drift 12.5s ease-in-out infinite;
+    }
+
+    .footer{
+      margin-top: 54px;
+      padding: 26px 6px 0;
+      border-top: 1px solid rgba(15,16,18,0.10);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap: 12px;
+      color: rgba(15,16,18,0.55);
+      font-size: 14px;
+    }
+
+    .reveal{
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 900ms ease, transform 900ms ease;
+      will-change: opacity, transform;
+    }
+
+    .reveal.on{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px){
+      .wrap{ width: calc(100% - 28px); padding: 24px 0 90px; }
+      .hero{ padding: 40px 22px 34px; border-radius: 34px; }
+      .grid3{ grid-template-columns: 1fr; }
+      .studio{ grid-template-columns: 1fr; }
+      .photoMosaic{ grid-template-columns: 1fr; }
+      .bigShot{ min-height: 420px; }
+      .shot{ height: 240px; }
+      .photoRow{ grid-template-columns: 1fr; }
+      .volta{ padding: 32px 22px; }
+      .voltaImages{ grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .reveal{ transition:none; }
+      .bigShot img, .shot img, .voltaImages img{ animation:none; }
+      .pill, .card{ transition:none; }
+    }
+  </style>
 </head>
 
 <body>
-<div class="shell">
-<div class="stage">
+  <div class="bg"></div>
+  <div class="grain"></div>
 
-<header>
-  <div class="brand">Digital Garden</div>
-  <nav>
-    <button onclick="go('home')">Home</button>
-    <button onclick="go('media')">Media</button>
-    <button onclick="go('photo')">Photo</button>
-    <button onclick="go('experience')">Experience</button>
-    <button class="primary" onclick="go('contact')">Contact</button>
-  </nav>
-</header>
+  <main class="wrap">
 
-<section class="panel active" id="home">
-<div class="content">
-  <h1>Hi, I’m Alexis.</h1>
-  <p>
-    I work at the intersection of media strategy, photography, and experience design.
-    I help small teams shape ideas, document what matters, and create experiences that connect people.
-  </p>
-
-  <div class="grid three">
-    <div class="card offer" onclick="go('media')">
-      <h3>Media Strategy</h3>
-      <p>For teams building digital products and narratives.</p>
+    <div class="topline">
+      <div>Digital Garden</div>
+      <div class="dots" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
     </div>
-    <div class="card offer" onclick="go('photo')">
-      <h3>Photography</h3>
-      <p>Quiet documentary photography of people in action.</p>
+
+    <section class="hero reveal">
+      <div class="heroGlow"></div>
+      <h1>Hi, I’m Alexis.</h1>
+      <p class="sub">
+        I work at the intersection of media strategy, photography, and experience design.
+        I help small teams shape ideas, document what matters, and build experiences people remember.
+      </p>
+
+      <div class="ctaRow">
+        <a class="pill primary" href="#media">Enter the studio</a>
+        <a class="pill" href="#photo">See photography</a>
+        <a class="pill" href="#volta">Read Volta</a>
+        <a class="pill" href="#contact">Contact</a>
+      </div>
+    </section>
+
+    <section id="media" class="section reveal">
+      <div class="sectionHead">
+        <h2>Media Strategy</h2>
+        <div class="hint">Studio work. Clear thinking. Clean execution.</div>
+      </div>
+
+      <div class="panel">
+        <div class="studio">
+          <div class="studioLeft">
+            <h3>Make it legible.</h3>
+            <p>
+              The studio is where we turn a complicated product into a clear narrative, a coherent website, and a launch that feels inevitable.
+            </p>
+
+            <div class="studioWords" aria-label="Studio qualities">
+              <span class="chip">Positioning</span>
+              <span class="chip">Narrative</span>
+              <span class="chip">Website structure</span>
+              <span class="chip">Editorial direction</span>
+              <span class="chip">Launch assets</span>
+              <span class="chip">Team alignment</span>
+            </div>
+          </div>
+
+          <div class="studioRight">
+            <div class="mini">
+              <strong>Selected projects</strong>
+              <div class="meta">Quiet proof. No case study theater.</div>
+
+              <a class="underline" href="https://nikolaskonstantin.com" target="_blank" rel="noopener">nikolaskonstantin.com</a><br>
+              <a class="underline" href="https://holo.host" target="_blank" rel="noopener">holo.host</a><br>
+              <a class="underline" href="https://www.atchai.com" target="_blank" rel="noopener">atchai.com</a>
+            </div>
+
+            <div class="mini">
+              <strong>How it runs</strong>
+              <div class="meta">
+                We map the message, define the structure, then ship with a small team.
+                Fast, calm, and high quality.
+              </div>
+              <div style="margin-top:12px">
+                <a class="underline" href="#contact">Talk to me</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 7h16"></path><path d="M7 12h10"></path><path d="M10 17h4"></path>
+              </svg>
+            </div>
+            <h3>Product and narrative</h3>
+            <p>Clarify what it is, who it is for, and why it wins.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v20"></path><path d="M5 9l7-7 7 7"></path><path d="M5 15l7 7 7-7"></path>
+              </svg>
+            </div>
+            <h3>Go to market</h3>
+            <p>Positioning, launch sequence, and first traction assets.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M7 20h10"></path>
+              </svg>
+            </div>
+            <h3>Web and media systems</h3>
+            <p>Structure, pages, and content that can compound over time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="photo" class="section reveal">
+      <div class="sectionHead">
+        <h2>Photography</h2>
+        <div class="hint">Bigger. More air. Less explanation.</div>
+      </div>
+
+      <div class="panel photoStage">
+        <a href="https://www.ninja-photographer.com" target="_blank" rel="noopener" aria-label="Open Ninja Photographer">
+          <div class="photoMosaic">
+            <div class="bigShot">
+              <img src="images/DSC02316-2.jpg" alt="Ice bath portrait in winter light">
+            </div>
+
+            <div class="stackShots">
+              <div class="shot">
+                <img src="images/DSC06941.jpg" alt="Greenhouse still life with flowers">
+              </div>
+              <div class="shot">
+                <img src="images/DSC00173.jpg" alt="Child in dappled light outdoors">
+              </div>
+            </div>
+          </div>
+
+          <div class="photoRow">
+            <div class="shot">
+              <img src="images/DSC03329-2.jpg" alt="Abstract portrait through glass">
+            </div>
+            <div class="shot">
+              <img src="images/DSC04208.jpg" alt="Dance moment in a crowd">
+            </div>
+            <div class="shot" style="display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.62);border:1px solid rgba(15,16,18,0.10);border-radius:34px;">
+              <div style="padding:22px;text-align:left;max-width:320px;">
+                <div style="font-family:Fraunces,serif;font-size:28px;line-height:1.1;margin-bottom:10px;">Ninja Photographer</div>
+                <div style="color:rgba(15,16,18,0.62);font-size:15px;line-height:1.7;">
+                  Quiet documentary photography of people in action.
+                  <span class="underline" style="display:inline-block;margin-top:10px;">Visit the full portfolio</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <div class="ctaRow" style="padding: 18px 18px 22px;">
+          <a class="pill primary" href="https://www.ninja-photographer.com" target="_blank" rel="noopener">Open Ninja Photographer</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider reveal" aria-hidden="true">
+      <div class="burst">
+        <svg viewBox="0 0 600 400">
+          <g fill="none" stroke="rgba(15,16,18,0.55)" stroke-width="6" stroke-linecap="round">
+            <path d="M300 200 L300 70"></path>
+            <path d="M300 200 L300 330"></path>
+            <path d="M300 200 L430 200"></path>
+            <path d="M300 200 L170 200"></path>
+            <path d="M300 200 L392 108"></path>
+            <path d="M300 200 L208 292"></path>
+            <path d="M300 200 L392 292"></path>
+            <path d="M300 200 L208 108"></path>
+
+            <path d="M300 200 L354 86"></path>
+            <path d="M300 200 L246 314"></path>
+            <path d="M300 200 L486 242"></path>
+            <path d="M300 200 L114 158"></path>
+            <path d="M300 200 L470 140"></path>
+            <path d="M300 200 L130 260"></path>
+          </g>
+        </svg>
+      </div>
     </div>
-    <div class="card offer" onclick="go('experience')">
-      <h3>Experience Design</h3>
-      <p>Retreats, workshops, and embodied formats.</p>
-    </div>
-  </div>
-</div>
-</section>
 
-<section class="panel" id="media">
-<div class="content">
-  <h2>Media Strategy</h2>
-  <p>I work with small teams to develop digital products and bring them to market.</p>
+    <section id="volta" class="section reveal">
+      <div class="sectionHead">
+        <h2>Volta</h2>
+        <div class="hint">Invitation only. Peripatetic. Built to recharge.</div>
+      </div>
 
-  <div class="grid three">
-    <div class="card">
-      <h3>Product and Narrative</h3>
-      <p>Clarifying what you are building and why it matters.</p>
-    </div>
-    <div class="card">
-      <h3>Go To Market</h3>
-      <p>Positioning, launch strategy, and first traction.</p>
-    </div>
-    <div class="card">
-      <h3>Web and Media Systems</h3>
-      <p>Websites and content systems built to evolve.</p>
-    </div>
-  </div>
+      <div class="panel volta">
+        <p>
+          A volta is an invitation only peripatetic retreat organised by a small group to recharge, share knowledge, and plant seeds for good habits.
+          I started Volta in 2018 with Moritz Bierling and Alex Beltechi as a platform to experiment with experiences and community building practices.
+        </p>
 
-  <div class="projects">
-    <div class="project">
-      <strong>Nikolas Konstantin</strong><br>
-      Strategy, positioning, website<br>
-      <a href="https://nikolaskonstantin.com" target="_blank">nikolaskonstantin.com</a>
-    </div>
-    <div class="project">
-      <strong>Holo Hosting</strong><br>
-      Launch marketing, photography, events, investment support, copy<br>
-      <a href="https://holo.host" target="_blank">holo.host</a>
-    </div>
-    <div class="project">
-      <strong>Atchai</strong><br>
-      Strategy, positioning, website, branding<br>
-      <a href="https://www.atchai.com" target="_blank">atchai.com</a>
-    </div>
-  </div>
+        <p style="margin-top:14px;">
+          <b>In many years of learning through doing we explored:</b>
+        </p>
 
-  <div class="actions">
-    <button onclick="go('home')">Back</button>
-    <button class="primary" onclick="go('contact')">Talk to Alexis</button>
-  </div>
-</div>
-</section>
+        <ul class="voltaList">
+          <li>Meditating in ice</li>
+          <li>Hiking unknown paths</li>
+          <li>Photographing vulnerable moments</li>
+          <li>Sharing dreams</li>
+          <li>Learning to trust</li>
+          <li>Facing death</li>
+          <li>Making fire</li>
+          <li>Visualizing how the future can be</li>
+        </ul>
 
-<section class="panel" id="photo">
-<div class="content">
-  <h2>Photography</h2>
-  <p>Quiet documentary photography of people in action.</p>
+        <div class="ctaRow" style="margin-top:18px;">
+          <a class="pill primary" href="https://www.volta.re" target="_blank" rel="noopener">www.volta.re</a>
+        </div>
 
-  <div class="photoStrip">
-    <a href="https://www.ninja-photographer.com" target="_blank">
-      <img src="images/DSC02316-2.jpg">
-    </a>
-    <a href="https://www.ninja-photographer.com" target="_blank">
-      <img src="images/DSC06941.jpg">
-    </a>
-    <a href="https://www.ninja-photographer.com" target="_blank">
-      <img src="images/DSC00173.jpg">
-    </a>
-    <a href="https://www.ninja-photographer.com" target="_blank">
-      <img src="images/DSC03329-2.jpg">
-    </a>
-    <a href="https://www.ninja-photographer.com" target="_blank">
-      <img src="images/DSC04208.jpg">
-    </a>
-  </div>
+        <div class="voltaImages" aria-label="Volta images">
+          <a href="https://www.volta.re" target="_blank" rel="noopener">
+            <img src="images/hobbit.jpeg" alt="Hiking through a forest passage">
+          </a>
+          <a href="https://www.volta.re" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2025-12-23 at 17.11.43.png" alt="Ice bath as a ritual moment">
+          </a>
+          <a href="https://www.volta.re" target="_blank" rel="noopener">
+            <img src="images/Screenshot 2025-12-23 at 17.12.59.png" alt="Fire and warmth as a closing ritual">
+          </a>
+        </div>
+      </div>
+    </section>
 
-  <div class="actions">
-    <a class="primary" href="https://www.ninja-photographer.com" target="_blank">
-      Visit Ninja Photographer
-    </a>
-    <button onclick="go('home')">Back</button>
-  </div>
-</div>
-</section>
+    <section id="contact" class="section reveal">
+      <div class="sectionHead">
+        <h2>Contact</h2>
+        <div class="hint">Short message. Clear next step.</div>
+      </div>
 
-<section class="panel" id="experience">
-<div class="content">
-  <h2>Experience Design</h2>
-  <p>I design experiences that connect, inspire, and heal.</p>
+      <div class="panel" style="padding: 28px;">
+        <div class="studioWords" style="margin:0 0 18px 0;">
+          <span class="chip">Berlin</span>
+          <span class="chip">Media strategy</span>
+          <span class="chip">Photography</span>
+          <span class="chip">Experience design</span>
+        </div>
 
-  <div class="voltaGrid">
-    <img src="images/hobbit.jpeg">
-    <img src="images/Screenshot 2025-12-23 at 17.11.43.png">
-    <img src="images/Screenshot 2025-12-23 at 17.12.59.png">
-  </div>
+        <div class="ctaRow">
+          <a class="pill primary" href="mailto:hi.alexis@pm.me">hi.alexis@pm.me</a>
+          <a class="pill" href="https://instagram.com/faltmast" target="_blank" rel="noopener">Instagram</a>
+          <a class="pill" href="https://www.ninja-photographer.com" target="_blank" rel="noopener">Ninja Photographer</a>
+          <a class="pill" href="https://www.volta.re" target="_blank" rel="noopener">Volta</a>
+        </div>
+      </div>
 
-  <div class="actions">
-    <a class="primary" href="https://www.volta.re" target="_blank">
-      Explore Volta
-    </a>
-    <button onclick="go('home')">Back</button>
-  </div>
-</div>
-</section>
+      <div class="footer">
+        <div>Alexis</div>
+        <div>Digital Garden</div>
+      </div>
+    </section>
 
-<section class="panel" id="contact">
-<div class="content">
-  <h2>Contact</h2>
-  <p>Write a few lines about what you are working on.</p>
+  </main>
 
-  <div class="actions">
-    <a class="primary" href="mailto:hi.alexis@pm.me">Email me</a>
-    <a href="https://instagram.com/faltmast" target="_blank">Instagram</a>
-    <button onclick="go('home')">Home</button>
-  </div>
-</div>
-</section>
-
-</div>
-</div>
-
-<script>
-function go(id){
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-</script>
-
+  <script>
+    const items = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add("on");
+      });
+    }, { threshold: 0.12 });
+    items.forEach(el=>io.observe(el));
+  </script>
 </body>
 </html>
