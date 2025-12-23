@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Alexis Papageorgiou</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f7f5f0;
+  --card:#ffffffc7;
+  --text:#0f0f10;
+  --muted:#66666b;
+  --accent:#7fabc8;
+  --radius:28px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,Arial;
+  overflow:hidden;
+}
+
+.wrap{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
+}
+
+.panel{
+  width:min(980px,100%);
+  min-height:560px;
+  border-radius:40px;
+  background:linear-gradient(180deg, #ffffffb8, #ffffff6b);
+  box-shadow:0 30px 90px rgba(0,0,0,0.08);
+  padding:54px;
+  position:relative;
+  overflow:hidden;
+}
+
+.grain{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:44px;
+}
+
+.brand{
+  font-size:14px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.progress{
+  font-size:14px;
+  color:var(--muted);
+}
+
+h1{
+  font-family:Fraunces,serif;
+  font-weight:500;
+  font-size:64px;
+  line-height:1.02;
+  margin:0 0 18px 0;
+  letter-spacing:-0.02em;
+}
+
+p{
+  margin:0 0 34px 0;
+  max-width:640px;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.65;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:14px;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+  border-radius:999px;
+  padding:14px 18px;
+  font-size:16px;
+  background:#fff;
+  color:var(--text);
+  box-shadow:0 14px 40px rgba(0,0,0,0.08);
+  transition:transform 280ms ease, box-shadow 280ms ease, opacity 280ms ease;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 56px rgba(0,0,0,0.10);
+}
+
+button.primary{
+  background:var(--text);
+  color:#fff;
+}
+
+button.ghost{
+  background:transparent;
+  box-shadow:none;
+  border:1px solid rgba(0,0,0,0.12);
+  color:var(--text);
+}
+
+.fade{
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity 420ms ease, transform 420ms ease;
+}
+
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.smallNote{
+  margin-top:26px;
+  font-size:14px;
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="panel">
+    <div class="grain"></div>
+
+    <div class="top">
+      <div class="brand">Digital garden</div>
+      <div class="progress" id="progress">1 of 5</div>
+    </div>
+
+    <div id="view" class="fade"></div>
+  </div>
+</div>
+
+<script>
+const steps = [
+  {
+    progress:"1 of 5",
+    title:"Hey, I am Alexis.",
+    text:"Pick a path. I will keep this simple.",
+    buttons:[
+      {label:"Media Strategy", go:1},
+      {label:"Photography", go:2},
+      {label:"Experience Design", go:3},
+      {label:"Just browsing", go:4, style:"ghost"}
+    ]
+  },
+  {
+    progress:"2 of 5",
+    title:"Media Strategy",
+    text:"What are you trying to move forward right now",
+    buttons:[
+      {label:"Launching a product", go:4},
+      {label:"Clarifying my message", go:4},
+      {label:"Website plus strategy", go:4},
+      {label:"Back", go:0, style:"ghost"}
+    ]
+  },
+  {
+    progress:"2 of 5",
+    title:"Photography",
+    text:"What do you want captured",
+    buttons:[
+      {label:"People in action", go:4},
+      {label:"Retreat or workshop", go:4},
+      {label:"Quiet portraits", go:4},
+      {label:"Back", go:0, style:"ghost"}
+    ]
+  },
+  {
+    progress:"2 of 5",
+    title:"Experience Design",
+    text:"What are you building",
+    buttons:[
+      {label:"A retreat", go:4},
+      {label:"A workshop", go:4},
+      {label:"A community ritual", go:4},
+      {label:"Back", go:0, style:"ghost"}
+    ]
+  },
+  {
+    progress:"5 of 5",
+    title:"Let us talk.",
+    text:"If you share two lines about your project, I will reply with a clear next step.",
+    buttons:[
+      {label:"Email: hi.alexis at pm.me", go:null, style:"primary", action:"copy"},
+      {label:"Instagram", go:null, style:"ghost", action:"instagram"},
+      {label:"Start over", go:0, style:"ghost"}
+    ],
+    note:"Tip. Replace this screen with your links, your calendar, or a short form."
+  }
+];
+
+const view = document.getElementById("view");
+const progress = document.getElementById("progress");
+
+function render(i){
+  const s = steps[i];
+  progress.textContent = s.progress;
+
+  view.classList.remove("show");
+  setTimeout(() => {
+    view.innerHTML = `
+      <h1>${s.title}</h1>
+      <p>${s.text}</p>
+      <div class="actions">
+        ${s.buttons.map(b => `
+          <button class="${b.style || ""}" data-go="${b.go}" data-action="${b.action || ""}">
+            ${b.label}
+          </button>
+        `).join("")}
+      </div>
+      ${s.note ? `<div class="smallNote">${s.note}</div>` : ``}
+    `;
+
+    view.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const go = btn.getAttribute("data-go");
+        const action = btn.getAttribute("data-action");
+
+        if(action === "copy"){
+          navigator.clipboard.writeText("hi.alexis@pm.me");
+          btn.textContent = "Copied";
+          setTimeout(() => btn.textContent = "Email: hi.alexis at pm.me", 900);
+          return;
+        }
+
+        if(action === "instagram"){
+          window.open("https://instagram.com", "_blank");
+          return;
+        }
+
+        if(go !== "null"){
+          render(Number(go));
+        }
+      });
+    });
+
+    view.classList.add("show");
+  }, 220);
+}
+
+render(0);
+requestAnimationFrame(() => view.classList.add("show"));
+</script>
+</body>
+</html>
