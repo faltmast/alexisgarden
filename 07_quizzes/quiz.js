@@ -565,8 +565,10 @@ function renderResults(results, patternCounts) {
         stacks.forEach(stack => {
             stacksHTML += `
                 <div class="stack-card">
-                    <h3>${stack.name}</h3>
-                    <p class="stack-description">${stack.description}</p>
+                    <div class="stack-header">
+                        <h3>${stack.name}</h3>
+                        <p class="stack-description">${stack.description}</p>
+                    </div>
                     <ul class="stack-steps">
                         ${stack.steps.map(step => `<li>${step}</li>`).join('')}
                     </ul>
