@@ -21,6 +21,7 @@
                 <p class="quiz-subtitle">A calibration tool for conscious state change.</p>
                 <div class="quiz-intro-text">
                     <p>8 levers. 16 questions. A map of how you shift state.</p>
+                    <p class="quiz-principle"><em>Answer honestly.</em></p>
                 </div>
                 <button class="quiz-btn" onclick="startQuiz()">Begin</button>
             </div>
@@ -318,32 +319,45 @@
                     <!-- Populated by JavaScript -->
                 </div>
 
-                <!-- Integration Guidance -->
-                <div class="results-guidance">
+                <!-- Interactive Next Steps -->
+                <div class="results-guidance" id="interactive-guidance">
                     <h2>Your Next Steps</h2>
-                    <div class="guidance-grid">
-                        <div class="guidance-item">
-                            <span class="guidance-number">1</span>
-                            <div class="guidance-content">
-                                <h4>Pick One Lever</h4>
-                                <p>Choose the lever that feels most alive right now. Start there.</p>
-                            </div>
+
+                    <!-- Step 1: Choose a Lever -->
+                    <div class="guidance-step active" data-step="1">
+                        <div class="step-header">
+                            <span class="step-number">1</span>
+                            <h4>Pick One Lever</h4>
                         </div>
-                        <div class="guidance-item">
-                            <span class="guidance-number">2</span>
-                            <div class="guidance-content">
-                                <h4>Try One Practice</h4>
-                                <p>Pick a single practice from your chosen lever. Do it this week.</p>
-                            </div>
+                        <p class="step-description">Choose the lever that feels most alive right now.</p>
+                        <select id="lever-select" class="guidance-select">
+                            <option value="">Select a lever...</option>
+                        </select>
+                    </div>
+
+                    <!-- Step 2: Choose a Practice -->
+                    <div class="guidance-step" data-step="2">
+                        <div class="step-header">
+                            <span class="step-number">2</span>
+                            <h4>Try One Practice</h4>
                         </div>
-                        <div class="guidance-item">
-                            <span class="guidance-number">3</span>
-                            <div class="guidance-content">
-                                <h4>Notice What Shifts</h4>
-                                <p>Pay attention to how you feel before and after. Track what works.</p>
-                            </div>
+                        <p class="step-description">Pick a single practice to try this week.</p>
+                        <div id="practice-options" class="practice-options">
+                            <!-- Populated by JavaScript -->
                         </div>
                     </div>
+
+                    <!-- Step 3: Confirmation -->
+                    <div class="guidance-step" data-step="3">
+                        <div class="step-header">
+                            <span class="step-number">3</span>
+                            <h4>Your Commitment</h4>
+                        </div>
+                        <div id="commitment-message" class="commitment-message">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
                     <p class="guidance-principle"><em>Small, repeatable shifts work better than rare extremes.</em></p>
                 </div>
 

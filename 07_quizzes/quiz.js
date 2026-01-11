@@ -1,5 +1,56 @@
 // Hedonic Engineering Profile Quiz
 
+// SVG icons for each lever
+const leverIcons = {
+    'nitric-oxide': `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="18" stroke="#A8B5A0" stroke-width="2" fill="none"/>
+        <path d="M24 10 C24 10 32 18 32 26 C32 32 28 36 24 36 C20 36 16 32 16 26 C16 18 24 10 24 10Z" stroke="#A8B5A0" stroke-width="2" fill="none"/>
+        <circle cx="24" cy="26" r="4" fill="#A8B5A0" opacity="0.4"/>
+        <path d="M18 20 L14 16" stroke="#A8B5A0" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M30 20 L34 16" stroke="#A8B5A0" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M24 8 L24 4" stroke="#A8B5A0" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+    'vagal': `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 8 C24 8 8 20 8 28 C8 36 15 42 24 42 C33 42 40 36 40 28 C40 20 24 8 24 8Z" stroke="#A8B5A0" stroke-width="2" fill="none"/>
+        <path d="M16 28 Q24 20 32 28" stroke="#A8B5A0" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M18 34 Q24 28 30 34" stroke="#A8B5A0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="24" cy="16" r="2" fill="#A8B5A0"/>
+    </svg>`,
+    'dopamine': `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 6 L28 18 L40 18 L30 26 L34 38 L24 30 L14 38 L18 26 L8 18 L20 18 Z" stroke="#A8B5A0" stroke-width="2" fill="none" stroke-linejoin="round"/>
+        <circle cx="24" cy="24" r="5" fill="#A8B5A0" opacity="0.3"/>
+    </svg>`,
+    'oxytocin': `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 42 C24 42 6 30 6 18 C6 10 12 6 18 6 C22 6 24 10 24 10 C24 10 26 6 30 6 C36 6 42 10 42 18 C42 30 24 42 24 42Z" stroke="#A8B5A0" stroke-width="2" fill="none"/>
+        <path d="M17 20 C17 20 24 28 31 20" stroke="#A8B5A0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>`,
+    'testosterone': `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="24,4 44,40 4,40" stroke="#A8B5A0" stroke-width="2" fill="none" stroke-linejoin="round"/>
+        <line x1="24" y1="16" x2="24" y2="28" stroke="#A8B5A0" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="24" cy="34" r="2" fill="#A8B5A0"/>
+    </svg>`,
+    'psychoactives': `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="10" stroke="#A8B5A0" stroke-width="2" fill="none"/>
+        <circle cx="24" cy="24" r="18" stroke="#A8B5A0" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+        <path d="M24 6 L24 10" stroke="#A8B5A0" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M24 38 L24 42" stroke="#A8B5A0" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M6 24 L10 24" stroke="#A8B5A0" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M38 24 L42 24" stroke="#A8B5A0" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="3" fill="#A8B5A0" opacity="0.5"/>
+    </svg>`,
+    'trauma': `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="18" stroke="#A8B5A0" stroke-width="2" fill="none"/>
+        <path d="M24 14 C20 14 16 18 16 24 C16 30 20 34 24 34" stroke="#A8B5A0" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M24 18 C22 18 20 20 20 24 C20 28 22 30 24 30" stroke="#A8B5A0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="2" fill="#A8B5A0"/>
+    </svg>`,
+    'respiration': `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 24 Q16 12 24 24 Q32 36 40 24" stroke="#A8B5A0" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M8 32 Q16 20 24 32 Q32 44 40 32" stroke="#A8B5A0" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+        <path d="M8 16 Q16 4 24 16 Q32 28 40 16" stroke="#A8B5A0" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+    </svg>`
+};
+
 const quizData = {
     categories: {
         'nitric-oxide': {
@@ -454,9 +505,11 @@ function renderResults(results, patternCounts) {
         const category = quizData.categories[key];
         const level = results[key];
         const interpretation = category.interpretations[level];
+        const icon = leverIcons[key] || '';
 
         matrixHTML += `
             <div class="matrix-item" data-level="${level}">
+                <div class="matrix-icon">${icon}</div>
                 <div class="matrix-lever">
                     <span class="matrix-name">${category.name}</span>
                     <span class="matrix-subtitle">${category.subtitle}</span>
@@ -579,6 +632,9 @@ function renderResults(results, patternCounts) {
         stacksHTML += '</div>';
         stacksContainer.innerHTML = stacksHTML;
     }
+
+    // Initialize interactive guidance
+    initializeInteractiveGuidance(results);
 }
 
 function getStackingSuggestions(results, dominantPattern) {
@@ -704,6 +760,104 @@ function getStackingSuggestions(results, dominantPattern) {
     }
 
     return stacks;
+}
+
+// Store results globally for interactive guidance
+let currentResults = {};
+
+// Initialize interactive guidance
+function initializeInteractiveGuidance(results) {
+    currentResults = results;
+
+    // Populate lever dropdown
+    const leverSelect = document.getElementById('lever-select');
+    if (leverSelect) {
+        leverSelect.innerHTML = '<option value="">Select a lever...</option>';
+        Object.keys(quizData.categories).forEach(key => {
+            const category = quizData.categories[key];
+            const level = results[key];
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = `${category.name} (${level})`;
+            leverSelect.appendChild(option);
+        });
+
+        leverSelect.addEventListener('change', function() {
+            handleLeverSelection(this.value);
+        });
+    }
+}
+
+function handleLeverSelection(leverKey) {
+    const step1 = document.querySelector('[data-step="1"]');
+    const step2 = document.querySelector('[data-step="2"]');
+    const step3 = document.querySelector('[data-step="3"]');
+    const practiceOptions = document.getElementById('practice-options');
+    const commitmentMessage = document.getElementById('commitment-message');
+
+    if (!leverKey) {
+        // Reset all steps
+        step1.classList.add('active');
+        step1.classList.remove('completed');
+        step2.classList.remove('active', 'completed');
+        step3.classList.remove('active', 'completed');
+        practiceOptions.innerHTML = '';
+        commitmentMessage.innerHTML = '';
+        return;
+    }
+
+    // Mark step 1 as completed and activate step 2
+    step1.classList.remove('active');
+    step1.classList.add('completed');
+    step2.classList.add('active');
+    step2.classList.remove('completed');
+    step3.classList.remove('active', 'completed');
+    commitmentMessage.innerHTML = '';
+
+    // Get practices for selected lever
+    const category = quizData.categories[leverKey];
+    const level = currentResults[leverKey];
+    const practices = category.interpretations[level].practices;
+
+    // Render practice options
+    practiceOptions.innerHTML = '';
+    practices.forEach((practice, index) => {
+        const button = document.createElement('button');
+        button.className = 'practice-option';
+        button.textContent = practice;
+        button.addEventListener('click', function() {
+            handlePracticeSelection(leverKey, practice, this);
+        });
+        practiceOptions.appendChild(button);
+    });
+}
+
+function handlePracticeSelection(leverKey, practice, button) {
+    const step2 = document.querySelector('[data-step="2"]');
+    const step3 = document.querySelector('[data-step="3"]');
+    const commitmentMessage = document.getElementById('commitment-message');
+
+    // Update button states
+    document.querySelectorAll('.practice-option').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    button.classList.add('selected');
+
+    // Mark step 2 as completed and activate step 3
+    step2.classList.remove('active');
+    step2.classList.add('completed');
+    step3.classList.add('active');
+
+    // Get category info
+    const category = quizData.categories[leverKey];
+
+    // Render commitment message
+    commitmentMessage.innerHTML = `
+        <h5>You're ready to start!</h5>
+        <p>This week, focus on <strong>${category.name}</strong> by trying:</p>
+        <div class="chosen-practice">${practice}</div>
+        <p style="margin-top: 1rem; font-size: 0.95rem;">Notice how you feel before and after. Track what shifts.</p>
+    `;
 }
 
 // Initialize quiz
