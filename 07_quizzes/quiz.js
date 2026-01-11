@@ -3,8 +3,8 @@
 const quizData = {
     categories: {
         'nitric-oxide': {
-            name: 'Nitric Oxide',
-            subtitle: 'Physical Aliveness',
+            name: 'Physical Aliveness',
+            subtitle: 'Nitric Oxide',
             description: 'Blood flow, charge, embodied energy — how intensely you need to feel your body to feel alive.',
             answers: [],
             interpretations: {
@@ -44,8 +44,8 @@ const quizData = {
             }
         },
         'vagal': {
-            name: 'Vagal Nerve Tone',
-            subtitle: 'Calm and Safety',
+            name: 'Calm & Safety',
+            subtitle: 'Vagal Nerve Tone',
             description: 'Nervous system regulation — how deeply you need to settle to feel truly safe.',
             answers: [],
             interpretations: {
@@ -85,8 +85,8 @@ const quizData = {
             }
         },
         'dopamine': {
-            name: 'Endorphins & Dopamine',
-            subtitle: 'Pleasure and Reward',
+            name: 'Pleasure & Reward',
+            subtitle: 'Endorphins & Dopamine',
             description: 'Motivation, enjoyment, drive — how much pleasure signal you need to stay engaged.',
             answers: [],
             interpretations: {
@@ -126,8 +126,8 @@ const quizData = {
             }
         },
         'oxytocin': {
-            name: 'Oxytocin',
-            subtitle: 'Connection',
+            name: 'Connection',
+            subtitle: 'Oxytocin',
             description: 'Bonding, warmth, closeness — how much intimacy you need to feel connected.',
             answers: [],
             interpretations: {
@@ -167,8 +167,8 @@ const quizData = {
             }
         },
         'testosterone': {
-            name: 'Testosterone',
-            subtitle: 'Drive and Edge',
+            name: 'Drive & Edge',
+            subtitle: 'Testosterone',
             description: 'Assertiveness, power, intensity — how much edge you need to feel fully alive.',
             answers: [],
             interpretations: {
@@ -208,8 +208,8 @@ const quizData = {
             }
         },
         'psychoactives': {
-            name: 'Psychoactives',
-            subtitle: 'Altered States',
+            name: 'Altered States',
+            subtitle: 'Psychoactives',
             description: 'Perspective shifts, non-ordinary experience — how far you need to go to see differently.',
             answers: [],
             interpretations: {
@@ -249,8 +249,8 @@ const quizData = {
             }
         },
         'trauma': {
-            name: 'Trauma Work',
-            subtitle: 'Inner Processing',
+            name: 'Inner Processing',
+            subtitle: 'Trauma Work',
             description: 'Healing, emotional integration — how deeply you need to go to process what you carry.',
             answers: [],
             interpretations: {
@@ -290,8 +290,8 @@ const quizData = {
             }
         },
         'respiration': {
-            name: 'Respiration',
-            subtitle: 'State Control',
+            name: 'State Control',
+            subtitle: 'Respiration',
             description: 'Breath as a lever — the most accessible tool you have for changing state.',
             answers: [],
             interpretations: {
@@ -518,18 +518,18 @@ function renderResults(results, patternCounts) {
 
     // Render Detailed Results
     const detailsContainer = document.getElementById('results-details');
-    let detailsHTML = '<h2>Your Eight Levers</h2>';
+    let detailsHTML = '<h2>In-depth Analysis</h2>';
 
     Object.keys(quizData.categories).forEach(key => {
         const category = quizData.categories[key];
         const level = results[key];
         const interpretation = category.interpretations[level];
 
-        // Build practices list (show top 3)
+        // Build practices list (show all 5)
         let practicesHTML = '';
         if (interpretation.practices && interpretation.practices.length > 0) {
-            practicesHTML = '<div class="lever-practices"><h4>Try:</h4><ul>';
-            interpretation.practices.slice(0, 3).forEach(practice => {
+            practicesHTML = '<div class="lever-practices"><h4>Practices to Try</h4><ul>';
+            interpretation.practices.forEach(practice => {
                 practicesHTML += `<li>${practice}</li>`;
             });
             practicesHTML += '</ul></div>';
