@@ -323,42 +323,55 @@
                 <div class="results-guidance" id="interactive-guidance">
                     <h2>Your Next Steps</h2>
 
-                    <!-- Step 1: Choose a Lever -->
-                    <div class="guidance-step active" data-step="1">
-                        <div class="step-header">
-                            <span class="step-number">1</span>
-                            <h4>Pick One Lever</h4>
-                        </div>
-                        <p class="step-description">Choose the lever that feels most alive right now.</p>
-                        <select id="lever-select" class="guidance-select">
-                            <option value="">Select a lever...</option>
-                        </select>
-                    </div>
-
-                    <!-- Step 2: Choose a Practice -->
-                    <div class="guidance-step" data-step="2">
-                        <div class="step-header">
-                            <span class="step-number">2</span>
-                            <h4>Try One Practice</h4>
-                        </div>
-                        <p class="step-description">Pick a single practice to try this week.</p>
-                        <div id="practice-options" class="practice-options">
-                            <!-- Populated by JavaScript -->
+                    <!-- Step 1: Grow -->
+                    <div class="guidance-step-row">
+                        <div class="step-number-badge">1</div>
+                        <div class="step-content">
+                            <div class="step-title">
+                                <span class="step-icon">↑</span>
+                                <strong>Grow</strong> — pick a mild area to develop
+                            </div>
+                            <select id="grow-lever-select" class="guidance-select">
+                                <option value="">Choose an area...</option>
+                            </select>
+                            <p class="practice-prompt hidden" id="grow-practice-prompt">Choose one practice to try this week:</p>
+                            <div class="practice-options hidden" id="grow-practice-options"></div>
+                            <div class="step-chosen hidden" id="grow-chosen"></div>
                         </div>
                     </div>
 
-                    <!-- Step 3: Confirmation -->
-                    <div class="guidance-step" data-step="3">
-                        <div class="step-header">
-                            <span class="step-number">3</span>
-                            <h4>Your Commitment</h4>
-                        </div>
-                        <div id="commitment-message" class="commitment-message">
-                            <!-- Populated by JavaScript -->
+                    <!-- Step 2: Finetune -->
+                    <div class="guidance-step-row">
+                        <div class="step-number-badge">2</div>
+                        <div class="step-content">
+                            <div class="step-title">
+                                <span class="step-icon">◎</span>
+                                <strong>Finetune</strong> — pick a medium/spicy area to refine
+                            </div>
+                            <select id="finetune-lever-select" class="guidance-select">
+                                <option value="">Choose an area...</option>
+                            </select>
+                            <p class="practice-prompt hidden" id="finetune-practice-prompt">Choose one practice to refine:</p>
+                            <div class="practice-options hidden" id="finetune-practice-options"></div>
+                            <div class="step-chosen hidden" id="finetune-chosen"></div>
                         </div>
                     </div>
 
-                    <p class="guidance-principle"><em>Small, repeatable shifts work better than rare extremes.</em></p>
+                    <!-- Step 3: Save -->
+                    <div class="guidance-step-row">
+                        <div class="step-number-badge">3</div>
+                        <div class="step-content">
+                            <div class="step-title">
+                                <strong>Save Your Full Results</strong>
+                            </div>
+                            <p class="save-description">Copy your complete profile, all 8 levers with practices, and your chosen focus to paste into your notes.</p>
+                            <button class="quiz-btn copy-btn" id="copy-summary-btn">
+                                📋 Copy Full Profile to Clipboard
+                            </button>
+                            <p class="copy-feedback hidden" id="copy-feedback">Copied to clipboard!</p>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="results-actions">

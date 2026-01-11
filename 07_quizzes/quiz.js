@@ -497,27 +497,69 @@ function calculateResults() {
 }
 
 function renderResults(results, patternCounts) {
-    // Render Matrix
+    // Render Matrix - grouped by level
     const matrixContainer = document.getElementById('results-matrix');
-    let matrixHTML = '<div class="matrix-grid">';
 
+    // Group levers by level
+    const grouped = { mild: [], medium: [], spicy: [] };
     Object.keys(quizData.categories).forEach(key => {
         const category = quizData.categories[key];
         const level = results[key];
-        const interpretation = category.interpretations[level];
-        const icon = leverIcons[key] || '';
+        grouped[level].push({ key, name: category.name, subtitle: category.subtitle });
+    });
 
+    let matrixHTML = '<div class="matrix-grouped">';
+
+    // Growth Edges (Mild)
+    if (grouped.mild.length > 0) {
         matrixHTML += `
-            <div class="matrix-item" data-level="${level}">
-                <div class="matrix-icon">${icon}</div>
-                <div class="matrix-lever">
-                    <span class="matrix-name">${category.name}</span>
-                    <span class="matrix-subtitle">${category.subtitle}</span>
+            <div class="matrix-group" data-level="mild">
+                <h3 class="matrix-group-title"><span class="group-dot mild"></span>Growth Edges</h3>
+                <p class="matrix-group-desc">Areas where you prefer gentler approaches — room to expand</p>
+                <div class="matrix-group-items">
+                    ${grouped.mild.map(lever => `
+                        <div class="matrix-lever-item">
+                            <span class="lever-name">${lever.name}</span>
+                        </div>
+                    `).join('')}
                 </div>
-                <div class="matrix-level ${level}">${level}</div>
             </div>
         `;
-    });
+    }
+
+    // Balanced (Medium)
+    if (grouped.medium.length > 0) {
+        matrixHTML += `
+            <div class="matrix-group" data-level="medium">
+                <h3 class="matrix-group-title"><span class="group-dot medium"></span>Balanced</h3>
+                <p class="matrix-group-desc">Areas where you're naturally calibrated — sustainable rhythm</p>
+                <div class="matrix-group-items">
+                    ${grouped.medium.map(lever => `
+                        <div class="matrix-lever-item">
+                            <span class="lever-name">${lever.name}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    // Strengths (Spicy)
+    if (grouped.spicy.length > 0) {
+        matrixHTML += `
+            <div class="matrix-group" data-level="spicy">
+                <h3 class="matrix-group-title"><span class="group-dot spicy"></span>High Intensity</h3>
+                <p class="matrix-group-desc">Areas where you thrive on intensity — lean in with intention</p>
+                <div class="matrix-group-items">
+                    ${grouped.spicy.map(lever => `
+                        <div class="matrix-lever-item">
+                            <span class="lever-name">${lever.name}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
 
     matrixHTML += '</div>';
     matrixContainer.innerHTML = matrixHTML;
@@ -762,57 +804,118 @@ function getStackingSuggestions(results, dominantPattern) {
     return stacks;
 }
 
-// Store results globally for interactive guidance
+// Store results and selections globally
 let currentResults = {};
+let selections = {
+    grow: { lever: null, practice: null },
+    finetune: { lever: null, practice: null }
+};
 
-// Initialize interactive guidance
+// Initialize interactive guidance with two-path flow
 function initializeInteractiveGuidance(results) {
     currentResults = results;
+    selections = {
+        grow: { lever: null, practice: null },
+        finetune: { lever: null, practice: null }
+    };
 
-    // Populate lever dropdown
-    const leverSelect = document.getElementById('lever-select');
-    if (leverSelect) {
-        leverSelect.innerHTML = '<option value="">Select a lever...</option>';
-        Object.keys(quizData.categories).forEach(key => {
-            const category = quizData.categories[key];
-            const level = results[key];
-            const option = document.createElement('option');
-            option.value = key;
-            option.textContent = `${category.name} (${level})`;
-            leverSelect.appendChild(option);
-        });
+    // Separate levers by level for each path
+    const mildLevers = [];
+    const otherLevers = [];
 
-        leverSelect.addEventListener('change', function() {
-            handleLeverSelection(this.value);
+    Object.keys(quizData.categories).forEach(key => {
+        const category = quizData.categories[key];
+        const level = results[key];
+        if (level === 'mild') {
+            mildLevers.push({ key, name: category.name, level });
+        } else {
+            otherLevers.push({ key, name: category.name, level });
+        }
+    });
+
+    // Populate GROW dropdown (mild levers only)
+    const growSelect = document.getElementById('grow-lever-select');
+    if (growSelect) {
+        growSelect.innerHTML = '<option value="">Choose an area...</option>';
+        if (mildLevers.length === 0) {
+            growSelect.innerHTML = '<option value="">No mild areas — pick any below</option>';
+            // Show all levers if no mild ones
+            Object.keys(quizData.categories).forEach(key => {
+                const category = quizData.categories[key];
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = category.name;
+                growSelect.appendChild(option);
+            });
+        } else {
+            mildLevers.forEach(lever => {
+                const option = document.createElement('option');
+                option.value = lever.key;
+                option.textContent = lever.name;
+                growSelect.appendChild(option);
+            });
+        }
+        growSelect.addEventListener('change', function() {
+            handlePathLeverSelection('grow', this.value);
         });
+    }
+
+    // Populate FINETUNE dropdown (medium/spicy levers only)
+    const finetuneSelect = document.getElementById('finetune-lever-select');
+    if (finetuneSelect) {
+        finetuneSelect.innerHTML = '<option value="">Choose an area...</option>';
+        if (otherLevers.length === 0) {
+            finetuneSelect.innerHTML = '<option value="">No medium/spicy areas — pick any below</option>';
+            // Show all levers if none qualify
+            Object.keys(quizData.categories).forEach(key => {
+                const category = quizData.categories[key];
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = category.name;
+                finetuneSelect.appendChild(option);
+            });
+        } else {
+            otherLevers.forEach(lever => {
+                const option = document.createElement('option');
+                option.value = lever.key;
+                option.textContent = `${lever.name} (${lever.level})`;
+                finetuneSelect.appendChild(option);
+            });
+        }
+        finetuneSelect.addEventListener('change', function() {
+            handlePathLeverSelection('finetune', this.value);
+        });
+    }
+
+    // Setup copy button
+    const copyBtn = document.getElementById('copy-summary-btn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', copySummaryToClipboard);
     }
 }
 
-function handleLeverSelection(leverKey) {
-    const step1 = document.querySelector('[data-step="1"]');
-    const step2 = document.querySelector('[data-step="2"]');
-    const step3 = document.querySelector('[data-step="3"]');
-    const practiceOptions = document.getElementById('practice-options');
-    const commitmentMessage = document.getElementById('commitment-message');
+function handlePathLeverSelection(path, leverKey) {
+    const practicePrompt = document.getElementById(`${path}-practice-prompt`);
+    const practiceOptions = document.getElementById(`${path}-practice-options`);
+    const chosenEl = document.getElementById(`${path}-chosen`);
 
     if (!leverKey) {
-        // Reset all steps
-        step1.classList.add('active');
-        step1.classList.remove('completed');
-        step2.classList.remove('active', 'completed');
-        step3.classList.remove('active', 'completed');
+        // Reset this path
+        practicePrompt.classList.add('hidden');
+        practiceOptions.classList.add('hidden');
         practiceOptions.innerHTML = '';
-        commitmentMessage.innerHTML = '';
+        chosenEl.classList.add('hidden');
+        selections[path] = { lever: null, practice: null };
         return;
     }
 
-    // Mark step 1 as completed and activate step 2
-    step1.classList.remove('active');
-    step1.classList.add('completed');
-    step2.classList.add('active');
-    step2.classList.remove('completed');
-    step3.classList.remove('active', 'completed');
-    commitmentMessage.innerHTML = '';
+    // Store lever selection
+    selections[path].lever = leverKey;
+    selections[path].practice = null;
+
+    // Show practice prompt and options
+    chosenEl.classList.add('hidden');
+    practicePrompt.classList.remove('hidden');
 
     // Get practices for selected lever
     const category = quizData.categories[leverKey];
@@ -821,43 +924,134 @@ function handleLeverSelection(leverKey) {
 
     // Render practice options
     practiceOptions.innerHTML = '';
-    practices.forEach((practice, index) => {
+    practices.forEach((practice) => {
         const button = document.createElement('button');
         button.className = 'practice-option';
         button.textContent = practice;
         button.addEventListener('click', function() {
-            handlePracticeSelection(leverKey, practice, this);
+            handlePathPracticeSelection(path, leverKey, practice, this);
         });
         practiceOptions.appendChild(button);
     });
+    practiceOptions.classList.remove('hidden');
 }
 
-function handlePracticeSelection(leverKey, practice, button) {
-    const step2 = document.querySelector('[data-step="2"]');
-    const step3 = document.querySelector('[data-step="3"]');
-    const commitmentMessage = document.getElementById('commitment-message');
+function handlePathPracticeSelection(path, leverKey, practice, button) {
+    const practiceOptionsContainer = document.getElementById(`${path}-practice-options`);
+    const practiceButtons = practiceOptionsContainer.querySelectorAll('.practice-option');
+    const chosenEl = document.getElementById(`${path}-chosen`);
 
     // Update button states
-    document.querySelectorAll('.practice-option').forEach(btn => {
-        btn.classList.remove('selected');
-    });
+    practiceButtons.forEach(btn => btn.classList.remove('selected'));
     button.classList.add('selected');
 
-    // Mark step 2 as completed and activate step 3
-    step2.classList.remove('active');
-    step2.classList.add('completed');
-    step3.classList.add('active');
+    // Store selection
+    selections[path].practice = practice;
 
-    // Get category info
+    // Show chosen confirmation
     const category = quizData.categories[leverKey];
+    chosenEl.innerHTML = `✓ <strong>${category.name}:</strong> ${practice}`;
+    chosenEl.classList.remove('hidden');
+}
 
-    // Render commitment message
-    commitmentMessage.innerHTML = `
-        <h5>You're ready to start!</h5>
-        <p>This week, focus on <strong>${category.name}</strong> by trying:</p>
-        <div class="chosen-practice">${practice}</div>
-        <p style="margin-top: 1rem; font-size: 0.95rem;">Notice how you feel before and after. Track what shifts.</p>
-    `;
+function copySummaryToClipboard() {
+    const growComplete = selections.grow.lever && selections.grow.practice;
+    const finetuneComplete = selections.finetune.lever && selections.finetune.practice;
+
+    // Build pattern info
+    let patternCounts = { mild: 0, medium: 0, spicy: 0 };
+    Object.keys(currentResults).forEach(key => {
+        patternCounts[currentResults[key]]++;
+    });
+
+    let dominantPattern = 'medium';
+    let maxCount = 0;
+    Object.keys(patternCounts).forEach(level => {
+        if (patternCounts[level] > maxCount) {
+            maxCount = patternCounts[level];
+            dominantPattern = level;
+        }
+    });
+
+    const patternNames = {
+        mild: 'Gentle Stacker',
+        medium: 'Rhythmic Regulator',
+        spicy: 'Intensity Seeker'
+    };
+
+    const patternDescriptions = {
+        mild: 'Your system thrives on consistency, safety, and gentle stacking. Small, repeatable practices serve you better than intense experiences.',
+        medium: 'You need rhythm, contrast, and deliberate activation. You do well with variety within a stable structure.',
+        spicy: 'You\'re drawn toward intensity, depth, and transformational states. Your system runs hot — and that\'s not a problem, it\'s a feature.'
+    };
+
+    // Build the FULL summary text
+    let text = `# My Hedonic Engineering Profile\n\n`;
+
+    // Pattern summary
+    text += `## My Pattern: ${patternNames[dominantPattern]}\n\n`;
+    text += `${patternDescriptions[dominantPattern]}\n\n`;
+    text += `**Breakdown:** Mild: ${patternCounts.mild} | Medium: ${patternCounts.medium} | Spicy: ${patternCounts.spicy}\n\n`;
+
+    // My focus (if selected)
+    if (growComplete || finetuneComplete) {
+        text += `---\n\n## My Focus\n\n`;
+
+        if (growComplete) {
+            const category = quizData.categories[selections.grow.lever];
+            text += `### ↑ Grow: ${category.name}\n`;
+            text += `${selections.grow.practice}\n\n`;
+        }
+
+        if (finetuneComplete) {
+            const category = quizData.categories[selections.finetune.lever];
+            text += `### ◎ Finetune: ${category.name}\n`;
+            text += `${selections.finetune.practice}\n\n`;
+        }
+    }
+
+    // All 8 levers with full details
+    text += `---\n\n## My Eight Levers\n\n`;
+
+    Object.keys(quizData.categories).forEach(key => {
+        const category = quizData.categories[key];
+        const level = currentResults[key];
+        const interpretation = category.interpretations[level];
+
+        text += `### ${category.name} (${category.subtitle}) — ${level.toUpperCase()}\n\n`;
+        text += `**${interpretation.summary}**\n\n`;
+        text += `${interpretation.detail}\n\n`;
+        text += `**Practices:**\n`;
+        interpretation.practices.forEach(practice => {
+            text += `- ${practice}\n`;
+        });
+        text += `\n`;
+    });
+
+    text += `---\n\n_From the Homegrown Human Matrix — alexis.garden_`;
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(text).then(() => {
+        const feedback = document.getElementById('copy-feedback');
+        feedback.classList.remove('hidden');
+        setTimeout(() => {
+            feedback.classList.add('hidden');
+        }, 2000);
+    }).catch(err => {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+
+        const feedback = document.getElementById('copy-feedback');
+        feedback.classList.remove('hidden');
+        setTimeout(() => {
+            feedback.classList.add('hidden');
+        }, 2000);
+    });
 }
 
 // Initialize quiz
