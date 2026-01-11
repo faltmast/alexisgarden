@@ -1,5 +1,13 @@
 # Alexis Garden — Brand Guide
 
+## What is Alexis Garden?
+
+**alexis.garden** is the umbrella for all of Alexis's personal projects and client portfolio work. It's both a personal brand and a living portfolio — a place where strategy work, photography, writing, and experiences all grow together.
+
+Think of it as the garden where everything Alexis cultivates lives: client projects, personal experiments, writing, and creative ventures.
+
+---
+
 ## Brand Essence
 
 **Tagline concept:** *Cultivating clarity.*
@@ -127,16 +135,34 @@
 
 ## Site Structure
 
+### Content Types
+
+**Services (work I offer):**
+- Strategy
+- Photography
+- Workshops/Experiences
+
+**Resources (gimmicks for visitors):**
+- Quizzes
+- Guides
+- Tools
+
+**Writing:**
+- Essays and reflections
+
+### Page Structure
+
 ```
 alexis.garden
 ├── Hero (name, tagline, photo)
-├── What I Do (three pillars as bento cards)
+├── What grows here (services as bento cards)
 │   ├── Strategy — main focus
 │   ├── Photography — links to ninja-photographer.com
 │   └── Workshops & Retreats
-├── Selected Clients (text list, minimal)
-├── Quiz (garden-themed lead capture)
-└── Footer (contact, Instagram @faltmast)
+├── Resources (quizzes, guides, tools)
+├── Recent Writing
+├── Contact
+└── Footer (email, Instagram @faltmast)
 ```
 
 ---

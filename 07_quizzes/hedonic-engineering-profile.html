@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Homegrown Human Matrix</title>
+    <meta name="description" content="A calibration tool for conscious state change. 8 levers. 16 questions. A map of how you shift state.">
+    <link rel="icon" type="image/png" href="../05_icons/icon_45_168_181_160.png">
+    <link rel="stylesheet" href="quiz-standalone.css">
+</head>
+<body>
+
+    <!-- Quiz Container -->
+    <div class="quiz-container" id="quiz">
+
+        <!-- Intro Screen -->
+        <section class="quiz-screen quiz-intro active" data-screen="intro">
+            <div class="quiz-content">
+                <h1>The Homegrown Human Matrix</h1>
+                <p class="quiz-subtitle">A calibration tool for conscious state change.</p>
+                <div class="quiz-intro-text">
+                    <p>8 levers. 16 questions. A map of how you shift state.</p>
+                    <p class="quiz-principle"><em>Answer honestly. There is no shame in Mild.</em></p>
+                </div>
+                <button class="quiz-btn" onclick="startQuiz()">Begin</button>
+            </div>
+        </section>
+
+        <!-- Question Screens -->
+
+        <!-- Section 1: Nitric Oxide -->
+        <section class="quiz-screen" data-screen="q1" data-category="nitric-oxide">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">1</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Nitric Oxide — Physical Aliveness</p>
+                <h2 class="quiz-question">When it comes to physical activation, I feel most alive with:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Gentle warmth and subtle movement</button>
+                    <button class="quiz-option" data-value="medium">A clear sense of energy and charge in my body</button>
+                    <button class="quiz-option" data-value="spicy">Intense full-body activation that really wakes me up</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-screen" data-screen="q2" data-category="nitric-oxide">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">2</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Nitric Oxide — Physical Aliveness</p>
+                <h2 class="quiz-question">After exercise or physical exertion, I prefer to feel:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Relaxed and lightly energized</button>
+                    <button class="quiz-option" data-value="medium">Noticeably charged and alert</button>
+                    <button class="quiz-option" data-value="spicy">Deeply worked, almost buzzing</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Vagal Nerve Tone -->
+        <section class="quiz-screen" data-screen="q3" data-category="vagal">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">3</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Vagal Nerve Tone — Calm and Safety</p>
+                <h2 class="quiz-question">When I need to feel safe and grounded, I need:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">A light sense of ease</button>
+                    <button class="quiz-option" data-value="medium">Deep, full-body calm</button>
+                    <button class="quiz-option" data-value="spicy">Total nervous system drop — like melting</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-screen" data-screen="q4" data-category="vagal">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">4</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Vagal Nerve Tone — Calm and Safety</p>
+                <h2 class="quiz-question">My ideal relaxation feels like:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Taking the edge off</button>
+                    <button class="quiz-option" data-value="medium">Settling into stillness</button>
+                    <button class="quiz-option" data-value="spicy">Complete surrender</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Endorphins & Dopamine -->
+        <section class="quiz-screen" data-screen="q5" data-category="dopamine">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">5</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Endorphins & Dopamine — Pleasure and Reward</p>
+                <h2 class="quiz-question">For pleasure to feel meaningful, it needs to be:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Subtle — small joys add up</button>
+                    <button class="quiz-option" data-value="medium">Clear — I want to really feel it</button>
+                    <button class="quiz-option" data-value="spicy">Big — I crave strong waves of enjoyment</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-screen" data-screen="q6" data-category="dopamine">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">6</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Endorphins & Dopamine — Pleasure and Reward</p>
+                <h2 class="quiz-question">What keeps me motivated is:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Quiet satisfaction from progress</button>
+                    <button class="quiz-option" data-value="medium">Clear rewards and enjoyment</button>
+                    <button class="quiz-option" data-value="spicy">Intense peaks of pleasure or excitement</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Oxytocin -->
+        <section class="quiz-screen" data-screen="q7" data-category="oxytocin">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">7</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Oxytocin — Connection</p>
+                <h2 class="quiz-question">In close relationships, I feel best with:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Warm presence without too much intensity</button>
+                    <button class="quiz-option" data-value="medium">Emotional closeness and genuine intimacy</button>
+                    <button class="quiz-option" data-value="spicy">Deep merging — feeling truly intertwined</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-screen" data-screen="q8" data-category="oxytocin">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">8</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Oxytocin — Connection</p>
+                <h2 class="quiz-question">My comfort zone with emotional closeness is:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Nearby but with space</button>
+                    <button class="quiz-option" data-value="medium">Close and connected</button>
+                    <button class="quiz-option" data-value="spicy">As close as possible</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Testosterone -->
+        <section class="quiz-screen" data-screen="q9" data-category="testosterone">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">9</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Testosterone — Drive and Edge</p>
+                <h2 class="quiz-question">I feel most alive when challenge feels:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Grounded and steady</button>
+                    <button class="quiz-option" data-value="medium">Bold and energizing</button>
+                    <button class="quiz-option" data-value="spicy">Raw and intense</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-screen" data-screen="q10" data-category="testosterone">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">10</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Testosterone — Drive and Edge</p>
+                <h2 class="quiz-question">When it comes to assertiveness and power, I prefer:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Quiet confidence</button>
+                    <button class="quiz-option" data-value="medium">Clear directness</button>
+                    <button class="quiz-option" data-value="spicy">Strong, unfiltered intensity</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Psychoactives -->
+        <section class="quiz-screen" data-screen="q11" data-category="psychoactives">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">11</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Psychoactives — Altered States</p>
+                <h2 class="quiz-question">When it comes to shifting my perspective, I prefer:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Subtle reframes — small shifts in how I see things</button>
+                    <button class="quiz-option" data-value="medium">New angles — clearly different ways of seeing</button>
+                    <button class="quiz-option" data-value="spicy">Reality-bending experiences — deep shifts in perception</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-screen" data-screen="q12" data-category="psychoactives">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">12</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Psychoactives — Altered States</p>
+                <h2 class="quiz-question">Non-ordinary states of mind feel:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Interesting but I don't seek them often</button>
+                    <button class="quiz-option" data-value="medium">Valuable — I explore them deliberately</button>
+                    <button class="quiz-option" data-value="spicy">Essential — I'm drawn to go deep</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Trauma Work -->
+        <section class="quiz-screen" data-screen="q13" data-category="trauma">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">13</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Trauma Work — Inner Processing</p>
+                <h2 class="quiz-question">When processing difficult emotions or past experiences, I prefer:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Gentle reflection over time</button>
+                    <button class="quiz-option" data-value="medium">Emotional release and working through</button>
+                    <button class="quiz-option" data-value="spicy">Deep dives into core patterns</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-screen" data-screen="q14" data-category="trauma">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">14</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Trauma Work — Inner Processing</p>
+                <h2 class="quiz-question">My natural approach to inner work is:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Slow and steady</button>
+                    <button class="quiz-option" data-value="medium">Engaged and deliberate</button>
+                    <button class="quiz-option" data-value="spicy">Intensive and transformational</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Respiration -->
+        <section class="quiz-screen" data-screen="q15" data-category="respiration">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">15</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Respiration — State Control</p>
+                <h2 class="quiz-question">I use breath to shift my state:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Occasionally — slow breathing to calm down</button>
+                    <button class="quiz-option" data-value="medium">Regularly — specific patterns to energize or settle</button>
+                    <button class="quiz-option" data-value="spicy">Intensively — deep altered breathing practices</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-screen" data-screen="q16" data-category="respiration">
+            <div class="quiz-content">
+                <div class="quiz-progress">
+                    <span class="progress-current">16</span>
+                    <span class="progress-total">/ 16</span>
+                </div>
+                <p class="quiz-category">Respiration — State Control</p>
+                <h2 class="quiz-question">Breathwork that appeals to me is:</h2>
+                <div class="quiz-options">
+                    <button class="quiz-option" data-value="mild">Simple and calming</button>
+                    <button class="quiz-option" data-value="medium">Dynamic and activating</button>
+                    <button class="quiz-option" data-value="spicy">Extreme and transformative</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Screen -->
+        <section class="quiz-screen quiz-results" data-screen="results">
+            <div class="quiz-content">
+                <h1>Your Hedonic Engineering Profile</h1>
+                <p class="results-intro">Your answers show how you tend to move between calm, aliveness, connection, pleasure, and meaning.</p>
+
+                <!-- Matrix Overview -->
+                <div class="results-matrix" id="results-matrix">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <!-- Pattern Summary -->
+                <div class="results-pattern" id="results-pattern">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <!-- Individual Lever Details -->
+                <div class="results-details" id="results-details">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <!-- Stacking Suggestions -->
+                <div class="results-stacks" id="results-stacks">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <!-- Integration Guidance -->
+                <div class="results-guidance">
+                    <h2>The Scoreboard</h2>
+                    <p><strong>The only difference between an alchemist and an addict is the scoreboard.</strong></p>
+                    <p>Both use the same levers. Both seek state change. But the alchemist tracks what works, notices what costs too much, and builds a repeatable practice. The addict chases the next hit without integration.</p>
+                    <p>Your matrix is not a menu of techniques. It is a map of how you change state. Use it to ask:</p>
+                    <ul>
+                        <li>Where am I already well regulated?</li>
+                        <li>Where do I habitually overdo or avoid?</li>
+                        <li>Which levers could I engage more gently?</li>
+                        <li>Which ones deserve more respect?</li>
+                    </ul>
+                    <p class="results-insight"><em>Small, repeatable shifts reshape baseline more reliably than rare extremes.</em></p>
+                    <p>You do not need to become someone else. You only need to stack what already works for you — and track the results.</p>
+                </div>
+
+                <div class="results-actions">
+                    <button class="quiz-btn" onclick="restartQuiz()">Take Again</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="deco-circle deco-1"></div>
+    <div class="deco-circle deco-2"></div>
+    <div class="deco-stroke deco-3"></div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>

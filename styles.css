@@ -543,6 +543,75 @@ body {
     color: var(--gray);
 }
 
+/* ==================== RESOURCES ==================== */
+
+.recent-resources {
+    padding: 8rem 4rem 6rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.resources-list {
+    padding: 4rem 4rem 8rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.resources-list .resources-grid {
+    margin-bottom: 0;
+}
+
+.resource-card {
+    text-align: left;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 1.5rem;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.resource-card:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: translateY(-4px);
+}
+
+.resource-card a {
+    text-decoration: none;
+    display: block;
+}
+
+.resource-type {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.resource-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.resource-card p {
+    font-size: 1rem;
+    color: var(--gray);
+    font-style: italic;
+    line-height: 1.5;
+}
+
 /* ==================== RECENT POSTS ==================== */
 
 .recent-posts {
@@ -1820,6 +1889,27 @@ body {
 
     .client-work {
         font-size: 1rem;
+    }
+
+    /* Resources mobile */
+    .recent-resources {
+        padding: 4rem 1.5rem 3rem;
+    }
+
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resources-list {
+        padding: 2rem 1.5rem 4rem;
+    }
+
+    .resource-card {
+        padding: 1.5rem;
+    }
+
+    .resource-card h3 {
+        font-size: 1.25rem;
     }
 
     /* Recent posts mobile */

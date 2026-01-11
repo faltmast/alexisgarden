@@ -1,0 +1,788 @@
+/* Standalone Quiz Styles - The Homegrown Human Matrix */
+
+/* ==================== FONTS ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap');
+
+@font-face {
+    font-family: 'Mariposa Std';
+    src: url('../04_fonts/MariposaStd-BookItalic.woff2') format('woff2'),
+         url('../04_fonts/MariposaStd-BookItalic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Mariposa Std';
+    src: url('../04_fonts/MariposaStd-Book.woff2') format('woff2'),
+         url('../04_fonts/MariposaStd-Book.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ==================== VARIABLES ==================== */
+:root {
+    --ink: #111;
+    --cream: #FAF9F7;
+    --gray: #666;
+    --light: #aaa;
+    --subtle: #e8e8e6;
+    --sage: #A8B5A0;
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Mariposa Std', Georgia, serif;
+}
+
+/* ==================== RESET ==================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ==================== BASE ==================== */
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ==================== DECORATIVE ELEMENTS ==================== */
+
+/* Enso-inspired circle */
+.deco-circle {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.deco-1 {
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    right: -100px;
+    border: 2px solid rgba(168, 181, 160, 0.15);
+    animation: rotate-slow 60s linear infinite;
+}
+
+.deco-2 {
+    width: 300px;
+    height: 300px;
+    bottom: -80px;
+    left: -80px;
+    border: 1px solid rgba(168, 181, 160, 0.1);
+    animation: rotate-slow 90s linear infinite reverse;
+}
+
+/* Brush stroke element */
+.deco-stroke {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.deco-3 {
+    width: 200px;
+    height: 3px;
+    bottom: 20%;
+    right: 5%;
+    background: linear-gradient(90deg, transparent, rgba(168, 181, 160, 0.3), transparent);
+    transform: rotate(-5deg);
+}
+
+@keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==================== QUIZ CONTAINER ==================== */
+.quiz-container {
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+.quiz-screen {
+    display: none;
+    min-height: 100vh;
+    padding: 4rem 2rem;
+}
+
+.quiz-screen.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quiz-content {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+/* ==================== INTRO SCREEN ==================== */
+.quiz-intro h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.quiz-subtitle {
+    font-size: 1.1rem;
+    color: var(--gray);
+    font-style: italic;
+    margin-bottom: 3rem;
+}
+
+.quiz-intro-text {
+    margin-bottom: 3rem;
+}
+
+.quiz-intro-text p {
+    font-size: 1.15rem;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.quiz-principle {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--ink);
+    line-height: 1.8;
+}
+
+/* ==================== PROGRESS ==================== */
+.quiz-progress {
+    margin-bottom: 2rem;
+    font-family: var(--font-heading);
+    position: relative;
+}
+
+/* Brush stroke under progress */
+.quiz-progress::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--sage), transparent);
+}
+
+.progress-current {
+    font-size: 2.5rem;
+    color: var(--ink);
+}
+
+.progress-total {
+    font-size: 1.25rem;
+    color: var(--light);
+}
+
+/* ==================== CATEGORY LABEL ==================== */
+.quiz-category {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.5rem;
+}
+
+/* ==================== QUESTION ==================== */
+.quiz-question {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 2.5rem;
+}
+
+/* ==================== OPTIONS ==================== */
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.quiz-option {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--subtle);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: left;
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle brush stroke on hover */
+.quiz-option::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--sage);
+    transform: scaleY(0);
+    transition: transform 0.25s ease;
+    transform-origin: bottom;
+}
+
+.quiz-option:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--sage);
+    transform: translateX(4px);
+}
+
+.quiz-option:hover::before {
+    transform: scaleY(1);
+}
+
+.quiz-option.selected {
+    background: var(--sage);
+    border-color: var(--sage);
+    color: white;
+}
+
+.quiz-option.selected::before {
+    display: none;
+}
+
+/* ==================== BUTTONS ==================== */
+.quiz-btn {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    padding: 1rem 2.5rem;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+}
+
+.quiz-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(44, 44, 44, 0.15);
+}
+
+/* ==================== RESULTS SCREEN ==================== */
+.quiz-results {
+    padding: 4rem 2rem 6rem;
+}
+
+.quiz-results .quiz-content {
+    max-width: 800px;
+}
+
+.quiz-results h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+}
+
+.results-intro {
+    font-size: 1.1rem;
+    color: var(--gray);
+    font-style: italic;
+    margin-bottom: 3rem;
+}
+
+/* ==================== MATRIX GRID ==================== */
+.results-matrix {
+    margin-bottom: 3rem;
+}
+
+.matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.matrix-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 1rem;
+    text-align: left;
+    border-left: 3px solid var(--subtle);
+    transition: border-color 0.3s;
+}
+
+.matrix-item[data-level="mild"] {
+    border-left-color: #A8B5A0;
+}
+
+.matrix-item[data-level="medium"] {
+    border-left-color: #8FA3B0;
+}
+
+.matrix-item[data-level="spicy"] {
+    border-left-color: #C4917B;
+}
+
+.matrix-lever {
+    display: flex;
+    flex-direction: column;
+}
+
+.matrix-name {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.matrix-subtitle {
+    font-size: 0.8rem;
+    color: var(--gray);
+    font-style: italic;
+}
+
+.matrix-level {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.35rem 0.85rem;
+    border-radius: 2rem;
+    text-transform: capitalize;
+}
+
+.matrix-level.mild {
+    background: #E8F0E5;
+    color: #5A7A52;
+}
+
+.matrix-level.medium {
+    background: #E5EEF5;
+    color: #4A6A8A;
+}
+
+.matrix-level.spicy {
+    background: #F5EAE5;
+    color: #9A6A52;
+}
+
+/* ==================== PATTERN SUMMARY ==================== */
+.results-pattern {
+    margin-bottom: 3rem;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 1.5rem;
+    text-align: left;
+    position: relative;
+}
+
+/* Decorative corner marks - Japanese inspired */
+.results-pattern::before,
+.results-pattern::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: var(--sage);
+    border-style: solid;
+    opacity: 0.4;
+}
+
+.results-pattern::before {
+    top: 12px;
+    left: 12px;
+    border-width: 2px 0 0 2px;
+}
+
+.results-pattern::after {
+    bottom: 12px;
+    right: 12px;
+    border-width: 0 2px 2px 0;
+}
+
+.results-pattern h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.results-pattern p {
+    font-size: 1.05rem;
+    color: var(--gray);
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
+}
+
+.pattern-growth {
+    color: var(--ink);
+}
+
+.pattern-work {
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--subtle);
+}
+
+.pattern-breakdown {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--subtle);
+}
+
+.breakdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--gray);
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.mild { background: #A8B5A0; }
+.dot.medium { background: #8FA3B0; }
+.dot.spicy { background: #C4917B; }
+
+/* ==================== LEVER DETAILS ==================== */
+.results-details {
+    margin-bottom: 3rem;
+    text-align: left;
+}
+
+.results-details h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.lever-detail {
+    padding: 2rem;
+    margin-bottom: 1.25rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1rem;
+    border-left: 3px solid var(--subtle);
+}
+
+.lever-detail[data-level="mild"] { border-left-color: #A8B5A0; }
+.lever-detail[data-level="medium"] { border-left-color: #8FA3B0; }
+.lever-detail[data-level="spicy"] { border-left-color: #C4917B; }
+
+.lever-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.lever-info h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.lever-subtitle {
+    font-size: 0.85rem;
+    color: var(--gray);
+    font-style: italic;
+}
+
+.lever-level {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2rem;
+    text-transform: capitalize;
+}
+
+.lever-level.mild { background: #E8F0E5; color: #5A7A52; }
+.lever-level.medium { background: #E5EEF5; color: #4A6A8A; }
+.lever-level.spicy { background: #F5EAE5; color: #9A6A52; }
+
+.lever-description {
+    font-size: 0.9rem;
+    color: var(--light);
+    margin-bottom: 0.75rem;
+    font-style: italic;
+}
+
+.lever-summary {
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+}
+
+.lever-meaning {
+    font-size: 0.95rem;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+/* Practices */
+.lever-practices {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--subtle);
+}
+
+.lever-practices h4 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+}
+
+.lever-practices ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lever-practices li {
+    font-size: 0.9rem;
+    color: var(--gray);
+    padding: 0.4rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.5;
+}
+
+.lever-practices li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sage);
+}
+
+.lever-detail[data-level="mild"] .lever-practices li::before { background: #A8B5A0; }
+.lever-detail[data-level="medium"] .lever-practices li::before { background: #8FA3B0; }
+.lever-detail[data-level="spicy"] .lever-practices li::before { background: #C4917B; }
+
+/* ==================== STACKING SUGGESTIONS ==================== */
+.results-stacks {
+    margin-bottom: 3rem;
+    text-align: left;
+}
+
+.results-stacks h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+.stacks-intro {
+    font-size: 1rem;
+    color: var(--gray);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.stacks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+.stack-card {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1rem;
+    border-left: 3px solid var(--sage);
+}
+
+.stack-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+}
+
+.stack-description {
+    font-size: 0.9rem;
+    color: var(--gray);
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.stack-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.stack-steps li {
+    font-size: 0.9rem;
+    color: var(--ink);
+    padding: 0.35rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.5;
+}
+
+.stack-steps li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+    width: 8px;
+    height: 2px;
+    background: var(--sage);
+}
+
+/* ==================== GUIDANCE ==================== */
+.results-guidance {
+    margin-bottom: 3rem;
+    padding: 2.5rem;
+    background: rgba(168, 181, 160, 0.08);
+    border-radius: 1.5rem;
+    text-align: left;
+    position: relative;
+}
+
+.results-guidance h2 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+}
+
+.results-guidance p {
+    font-size: 1rem;
+    color: var(--gray);
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
+}
+
+.results-guidance ul {
+    list-style: none;
+    margin: 1.25rem 0;
+    padding-left: 0;
+}
+
+.results-guidance li {
+    font-size: 1rem;
+    color: var(--gray);
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.results-guidance li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    width: 8px;
+    height: 2px;
+    background: var(--sage);
+}
+
+.results-insight {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin: 1.5rem 0;
+}
+
+/* ==================== ACTIONS ==================== */
+.results-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 600px) {
+    .quiz-screen {
+        padding: 3rem 1.5rem;
+    }
+
+    .quiz-intro h1 {
+        font-size: 2.25rem;
+    }
+
+    .quiz-question {
+        font-size: 1.3rem;
+    }
+
+    .quiz-option {
+        font-size: 1rem;
+        padding: 1rem 1.25rem;
+    }
+
+    .matrix-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pattern-breakdown {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .lever-header {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .stacks-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results-actions {
+        flex-direction: column;
+    }
+
+    .results-actions .quiz-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Hide decorative elements on mobile */
+    .deco-circle,
+    .deco-stroke {
+        display: none;
+    }
+}
