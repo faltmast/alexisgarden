@@ -238,42 +238,17 @@ body {
     transition: all 0.25s ease;
     text-align: left;
     color: var(--ink);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Subtle brush stroke on hover */
-.quiz-option::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--sage);
-    transform: scaleY(0);
-    transition: transform 0.25s ease;
-    transform-origin: bottom;
 }
 
 .quiz-option:hover {
     background: rgba(255, 255, 255, 0.9);
     border-color: var(--sage);
-    transform: translateX(4px);
-}
-
-.quiz-option:hover::before {
-    transform: scaleY(1);
 }
 
 .quiz-option.selected {
     background: var(--sage);
     border-color: var(--sage);
     color: white;
-}
-
-.quiz-option.selected::before {
-    display: none;
 }
 
 /* ==================== BUTTONS ==================== */
@@ -322,61 +297,49 @@ body {
 
 /* ==================== MATRIX GRID ==================== */
 .results-matrix {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .matrix-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
 }
 
 .matrix-item {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 0.75rem;
     background: rgba(255, 255, 255, 0.6);
-    border-radius: 1rem;
-    text-align: left;
-    border-left: 3px solid var(--subtle);
-    transition: border-color 0.3s;
-}
-
-.matrix-item[data-level="mild"] {
-    border-left-color: #A8B5A0;
-}
-
-.matrix-item[data-level="medium"] {
-    border-left-color: #8FA3B0;
-}
-
-.matrix-item[data-level="spicy"] {
-    border-left-color: #C4917B;
+    border-radius: 0.75rem;
+    text-align: center;
 }
 
 .matrix-lever {
     display: flex;
     flex-direction: column;
+    margin-bottom: 0.5rem;
 }
 
 .matrix-name {
     font-family: var(--font-heading);
-    font-size: 1.05rem;
+    font-size: 0.9rem;
     font-weight: 500;
+    line-height: 1.2;
 }
 
 .matrix-subtitle {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: var(--gray);
     font-style: italic;
 }
 
 .matrix-level {
     font-family: var(--font-heading);
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    padding: 0.35rem 0.85rem;
+    padding: 0.25rem 0.6rem;
     border-radius: 2rem;
     text-transform: capitalize;
 }
@@ -399,77 +362,67 @@ body {
 /* ==================== PATTERN SUMMARY ==================== */
 .results-pattern {
     margin-bottom: 3rem;
-    padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.7);
+    padding: 2.5rem 2rem;
+    background: var(--ink);
+    color: var(--cream);
     border-radius: 1.5rem;
-    text-align: left;
+    text-align: center;
     position: relative;
-}
-
-/* Decorative corner marks - Japanese inspired */
-.results-pattern::before,
-.results-pattern::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-color: var(--sage);
-    border-style: solid;
-    opacity: 0.4;
-}
-
-.results-pattern::before {
-    top: 12px;
-    left: 12px;
-    border-width: 2px 0 0 2px;
-}
-
-.results-pattern::after {
-    bottom: 12px;
-    right: 12px;
-    border-width: 0 2px 2px 0;
 }
 
 .results-pattern h2 {
     font-family: var(--font-heading);
-    font-size: 1.6rem;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
     font-weight: 400;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    color: var(--cream);
 }
 
 .results-pattern p {
-    font-size: 1.05rem;
-    color: var(--gray);
+    font-size: 1rem;
+    color: rgba(250, 249, 247, 0.8);
     line-height: 1.65;
     margin-bottom: 0.75rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .pattern-growth {
-    color: var(--ink);
+    color: var(--cream);
+}
+
+.pattern-growth strong {
+    color: var(--sage);
 }
 
 .pattern-work {
-    font-size: 1.05rem;
-    color: var(--ink);
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--subtle);
+    font-size: 1rem;
+    color: var(--cream);
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(250, 249, 247, 0.2);
+}
+
+.pattern-work strong {
+    color: var(--sage);
 }
 
 .pattern-breakdown {
     display: flex;
-    gap: 1.5rem;
+    justify-content: center;
+    gap: 2rem;
     margin-top: 1.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid var(--subtle);
+    border-top: 1px solid rgba(250, 249, 247, 0.2);
 }
 
 .breakdown-item {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.95rem;
-    color: var(--gray);
+    font-size: 0.9rem;
+    color: rgba(250, 249, 247, 0.7);
 }
 
 .dot {
@@ -490,49 +443,50 @@ body {
 
 .results-details h2 {
     font-family: var(--font-heading);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 400;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     text-align: center;
 }
 
 .lever-detail {
-    padding: 2rem;
-    margin-bottom: 1.25rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 1rem;
-    border-left: 3px solid var(--subtle);
 }
-
-.lever-detail[data-level="mild"] { border-left-color: #A8B5A0; }
-.lever-detail[data-level="medium"] { border-left-color: #8FA3B0; }
-.lever-detail[data-level="spicy"] { border-left-color: #C4917B; }
 
 .lever-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.lever-info {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
 }
 
 .lever-info h3 {
     font-family: var(--font-heading);
-    font-size: 1.3rem;
-    font-weight: 400;
-    margin-bottom: 0.25rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin: 0;
 }
 
 .lever-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--gray);
     font-style: italic;
 }
 
 .lever-level {
     font-family: var(--font-heading);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    padding: 0.3rem 0.75rem;
+    padding: 0.25rem 0.6rem;
     border-radius: 2rem;
     text-transform: capitalize;
 }
@@ -542,68 +496,51 @@ body {
 .lever-level.spicy { background: #F5EAE5; color: #9A6A52; }
 
 .lever-description {
-    font-size: 0.9rem;
-    color: var(--light);
-    margin-bottom: 0.75rem;
-    font-style: italic;
+    display: none;
 }
 
 .lever-summary {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--ink);
     margin-bottom: 0.5rem;
 }
 
 .lever-meaning {
-    font-size: 0.95rem;
-    color: var(--gray);
-    line-height: 1.6;
+    display: none;
 }
 
 /* Practices */
 .lever-practices {
-    margin-top: 1.25rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--subtle);
+    margin-top: 0.75rem;
 }
 
 .lever-practices h4 {
     font-family: var(--font-heading);
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    margin-bottom: 0.75rem;
-    color: var(--ink);
+    margin-bottom: 0.5rem;
+    color: var(--sage);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .lever-practices ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .lever-practices li {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--gray);
-    padding: 0.4rem 0;
-    padding-left: 1.25rem;
-    position: relative;
-    line-height: 1.5;
+    padding: 0.35rem 0.75rem;
+    background: rgba(168, 181, 160, 0.15);
+    border-radius: 2rem;
+    line-height: 1.4;
 }
-
-.lever-practices li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.75rem;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--sage);
-}
-
-.lever-detail[data-level="mild"] .lever-practices li::before { background: #A8B5A0; }
-.lever-detail[data-level="medium"] .lever-practices li::before { background: #8FA3B0; }
-.lever-detail[data-level="spicy"] .lever-practices li::before { background: #C4917B; }
 
 /* ==================== STACKING SUGGESTIONS ==================== */
 .results-stacks {
@@ -613,70 +550,71 @@ body {
 
 .results-stacks h2 {
     font-family: var(--font-heading);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 400;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     text-align: center;
 }
 
 .stacks-intro {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--gray);
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .stacks-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
 }
 
 .stack-card {
-    padding: 1.5rem;
+    padding: 1.25rem;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 1rem;
-    border-left: 3px solid var(--sage);
 }
 
 .stack-card h3 {
     font-family: var(--font-heading);
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 500;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.25rem;
     color: var(--ink);
 }
 
 .stack-description {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--gray);
     font-style: italic;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 .stack-steps {
     list-style: none;
     padding: 0;
     margin: 0;
+    counter-reset: step;
 }
 
 .stack-steps li {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--ink);
-    padding: 0.35rem 0;
-    padding-left: 1.25rem;
+    padding: 0.3rem 0;
+    padding-left: 1.5rem;
     position: relative;
-    line-height: 1.5;
+    line-height: 1.4;
+    counter-increment: step;
 }
 
 .stack-steps li::before {
-    content: '';
+    content: counter(step);
     position: absolute;
     left: 0;
-    top: 0.65rem;
-    width: 8px;
-    height: 2px;
-    background: var(--sage);
+    top: 0.3rem;
+    font-size: 0.75rem;
+    color: var(--sage);
+    font-weight: 500;
 }
 
 /* ==================== GUIDANCE ==================== */
@@ -762,17 +700,35 @@ body {
     }
 
     .matrix-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .matrix-name {
+        font-size: 0.8rem;
+    }
+
+    .matrix-subtitle {
+        font-size: 0.65rem;
     }
 
     .pattern-breakdown {
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.5rem;
+        align-items: center;
     }
 
-    .lever-header {
+    .lever-info {
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0;
+    }
+
+    .lever-practices ul {
+        gap: 0.4rem;
+    }
+
+    .lever-practices li {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
     }
 
     .stacks-grid {

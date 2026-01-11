@@ -525,11 +525,11 @@ function renderResults(results, patternCounts) {
         const level = results[key];
         const interpretation = category.interpretations[level];
 
-        // Build practices list
+        // Build practices list (show top 3)
         let practicesHTML = '';
         if (interpretation.practices && interpretation.practices.length > 0) {
-            practicesHTML = '<div class="lever-practices"><h4>Try this:</h4><ul>';
-            interpretation.practices.forEach(practice => {
+            practicesHTML = '<div class="lever-practices"><h4>Try:</h4><ul>';
+            interpretation.practices.slice(0, 3).forEach(practice => {
                 practicesHTML += `<li>${practice}</li>`;
             });
             practicesHTML += '</ul></div>';
