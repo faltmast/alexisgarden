@@ -807,16 +807,16 @@ function getStackingSuggestions(results, dominantPattern) {
 // Store results and selections globally
 let currentResults = {};
 let selections = {
-    grow: { lever: null, practice: null },
-    finetune: { lever: null, practice: null }
+    grow: { lever: null, practices: [] },
+    finetune: { lever: null, practices: [] }
 };
 
 // Initialize interactive guidance with two-path flow
 function initializeInteractiveGuidance(results) {
     currentResults = results;
     selections = {
-        grow: { lever: null, practice: null },
-        finetune: { lever: null, practice: null }
+        grow: { lever: null, practices: [] },
+        finetune: { lever: null, practices: [] }
     };
 
     // Separate levers by level for each path
@@ -905,13 +905,13 @@ function handlePathLeverSelection(path, leverKey) {
         practiceOptions.classList.add('hidden');
         practiceOptions.innerHTML = '';
         chosenEl.classList.add('hidden');
-        selections[path] = { lever: null, practice: null };
+        selections[path] = { lever: null, practices: [] };
         return;
     }
 
     // Store lever selection
     selections[path].lever = leverKey;
-    selections[path].practice = null;
+    selections[path].practices = [];
 
     // Show practice prompt and options
     chosenEl.classList.add('hidden');
@@ -937,26 +937,34 @@ function handlePathLeverSelection(path, leverKey) {
 }
 
 function handlePathPracticeSelection(path, leverKey, practice, button) {
-    const practiceOptionsContainer = document.getElementById(`${path}-practice-options`);
-    const practiceButtons = practiceOptionsContainer.querySelectorAll('.practice-option');
     const chosenEl = document.getElementById(`${path}-chosen`);
 
-    // Update button states
-    practiceButtons.forEach(btn => btn.classList.remove('selected'));
-    button.classList.add('selected');
-
-    // Store selection
-    selections[path].practice = practice;
+    // Toggle selection (multi-select)
+    const practiceIndex = selections[path].practices.indexOf(practice);
+    if (practiceIndex > -1) {
+        // Remove if already selected
+        selections[path].practices.splice(practiceIndex, 1);
+        button.classList.remove('selected');
+    } else {
+        // Add to selections
+        selections[path].practices.push(practice);
+        button.classList.add('selected');
+    }
 
     // Show chosen confirmation
     const category = quizData.categories[leverKey];
-    chosenEl.innerHTML = `✓ <strong>${category.name}:</strong> ${practice}`;
-    chosenEl.classList.remove('hidden');
+    if (selections[path].practices.length > 0) {
+        const practiceList = selections[path].practices.map(p => `• ${p}`).join('<br>');
+        chosenEl.innerHTML = `✓ <strong>${category.name}:</strong><br>${practiceList}`;
+        chosenEl.classList.remove('hidden');
+    } else {
+        chosenEl.classList.add('hidden');
+    }
 }
 
 function copySummaryToClipboard() {
-    const growComplete = selections.grow.lever && selections.grow.practice;
-    const finetuneComplete = selections.finetune.lever && selections.finetune.practice;
+    const growComplete = selections.grow.lever && selections.grow.practices.length > 0;
+    const finetuneComplete = selections.finetune.lever && selections.finetune.practices.length > 0;
 
     // Build pattern info
     let patternCounts = { mild: 0, medium: 0, spicy: 0 };
@@ -1000,13 +1008,19 @@ function copySummaryToClipboard() {
         if (growComplete) {
             const category = quizData.categories[selections.grow.lever];
             text += `### ↑ Grow: ${category.name}\n`;
-            text += `${selections.grow.practice}\n\n`;
+            selections.grow.practices.forEach(practice => {
+                text += `- ${practice}\n`;
+            });
+            text += `\n`;
         }
 
         if (finetuneComplete) {
             const category = quizData.categories[selections.finetune.lever];
             text += `### ◎ Finetune: ${category.name}\n`;
-            text += `${selections.finetune.practice}\n\n`;
+            selections.finetune.practices.forEach(practice => {
+                text += `- ${practice}\n`;
+            });
+            text += `\n`;
         }
     }
 

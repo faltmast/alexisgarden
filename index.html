@@ -10,9 +10,21 @@
 </head>
 <body>
 
+    <!-- Intro Screen -->
+    <div class="intro-screen" id="introScreen">
+        <div class="intro-content">
+            <h1 class="intro-title intro-chunk" data-chunk="1">Welcome to<br>Alexis Garden</h1>
+            <p class="intro-tagline intro-chunk" data-chunk="2">Life happens slow.<br>So why not plant a seed?</p>
+            <button class="intro-plant-btn intro-chunk" data-chunk="3" id="introPlantBtn">
+                <span class="intro-seed">🌱</span>
+                <span>Plant a seed</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="nav">
-        <a href="index.html" class="nav-logo">alexis.garden</a>
+        <a href="index.html" class="nav-logo"><img src="05_icons/icon_23_168_181_160.png" alt="alexis.garden"></a>
         <button class="nav-toggle" aria-label="Menu">
             <span></span>
             <span></span>
@@ -22,9 +34,10 @@
             <a href="strategy.html">Strategy</a>
             <a href="photography.html">Photography</a>
             <a href="experiences.html">Experiences</a>
+            <span class="nav-divider"></span>
             <a href="writing.html">Writing</a>
             <a href="resources.html">Resources</a>
-            <a href="#contact" class="nav-cta">Get in touch</a>
+            <a href="#contact" class="nav-cta">Say Hi</a>
         </div>
     </nav>
 
@@ -49,98 +62,84 @@
         </div>
     </section>
 
-    <!-- What grows here -->
-    <section class="garden-areas">
-        <h2 class="garden-title">What grows here</h2>
-        <div class="area">
-            <a href="strategy.html">
-                <img src="06_images/product_01_strategy.png" alt="Strategy">
-                <h3>Strategy</h3>
-                <p>Brand, positioning, go-to-market</p>
-            </a>
-        </div>
-        <div class="area">
-            <a href="photography.html">
-                <img src="06_images/product_02_photography.png" alt="Photography">
-                <h3>Photography</h3>
-                <p>Quiet documentary work</p>
-            </a>
-        </div>
-        <div class="area">
-            <a href="experiences.html">
-                <img src="06_images/product_03_experiences.png" alt="Experiences">
-                <h3>Experiences</h3>
-                <p>Workshops, retreats, breathwork</p>
-            </a>
-        </div>
-        <div class="area">
-            <a href="writing.html">
-                <img src="06_images/product_04_writing.png" alt="Writing">
-                <h3>Writing</h3>
-                <p>Essays and reflections</p>
-            </a>
-        </div>
-    </section>
-
-    <!-- Statement -->
-    <section class="statement">
-        <h2>I help founders find what's true — and give it form.</h2>
-    </section>
-
-    <!-- Resources -->
-    <section class="recent-resources">
-        <h2 class="section-title">Resources</h2>
-        <div class="resources-grid">
-            <article class="resource-card">
-                <a href="07_quizzes/hedonic-engineering-profile.html" target="_blank">
-                    <span class="resource-type">Quiz</span>
-                    <h3>Hedonic Engineering Profile</h3>
-                    <p>A personal map of how you shift state, regulate, connect, and grow.</p>
-                </a>
-            </article>
-        </div>
-        <a href="resources.html" class="posts-link">All resources</a>
-    </section>
-
-    <!-- Recent Writing -->
-    <section class="recent-posts">
-        <h2 class="section-title">Recent writing</h2>
-        <div class="posts-grid">
-            <article class="post-card">
-                <a href="03_blog/the-world-is-shifting.html">
-                    <time datetime="2025-03-05">March 5, 2025</time>
-                    <h3>The World Is Shifting</h3>
-                    <p>Every system has a lifespan. The old one is in decline. The new one is rising fast.</p>
-                </a>
-            </article>
-            <article class="post-card">
-                <a href="03_blog/stop-what-youre-doing-go-outside.html">
-                    <time datetime="2024-09-30">September 30, 2024</time>
-                    <h3>Stop What You're Doing. Go Outside.</h3>
-                    <p>Your life isn't going to change with another hour of work.</p>
-                </a>
-            </article>
-        </div>
-        <a href="writing.html" class="posts-link">All writing</a>
-    </section>
-
-    <!-- Contact -->
-    <section class="contact" id="contact">
-        <h2>Let's talk</h2>
-        <p class="contact-intro">Tell me what you're building.</p>
-
-        <form class="contact-form" id="contact-form">
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <textarea name="message" placeholder="What are you working on?" required></textarea>
-            <button type="submit" class="form-submit">Send</button>
-        </form>
+    <!-- What I Do -->
+    <section class="intro-sentences">
+        <h2>I create <a href="strategy.html" class="accent-sage">media strategies</a> <img src="05_icons/icon_45_168_181_160.png" alt="" class="intro-icon"></h2>
+        <h2>I capture <a href="photography.html" class="accent-terracotta">authentic moments</a> <img src="05_icons/icon_31_196_145_123.png" alt="" class="intro-icon"></h2>
+        <h2>I lead <a href="experiences.html" class="accent-dusty-blue">transformative experiences</a> <img src="05_icons/icon_34_143_163_176.png" alt="" class="intro-icon"></h2>
+        <h2>I share <a href="writing.html" class="accent-sage">reflections on growth</a> <img src="05_icons/icon_65_168_181_160.png" alt="" class="intro-icon"></h2>
+        <h2>I build <a href="resources.html" class="accent-terracotta">tools for clarity</a> <img src="05_icons/icon_50_196_145_123.png" alt="" class="intro-icon"></h2>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <a href="mailto:hello@alexis.garden">hello@alexis.garden</a>
-        <a href="https://www.instagram.com/faltmast" target="_blank">Instagram</a>
+    <footer class="footer-dark">
+        <div class="footer-content">
+            <!-- Left: Brand -->
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo">alexis.garden</a>
+                <p class="footer-tagline">Cultivating clarity.</p>
+            </div>
+
+            <!-- Center: Navigation -->
+            <div class="footer-nav">
+                <div class="footer-nav-column">
+                    <h4>Work</h4>
+                    <a href="strategy.html">Strategy</a>
+                    <a href="photography.html">Photography</a>
+                    <a href="experiences.html">Experiences</a>
+                </div>
+                <div class="footer-nav-column">
+                    <h4>Explore</h4>
+                    <a href="writing.html">Writing</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+
+            <!-- Right: Connect -->
+            <div class="footer-connect">
+                <h4>Connect</h4>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/faltmast" target="_blank" aria-label="Instagram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="2" width="20" height="20" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:hello@alexis.garden" aria-label="Email">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="M2 6l10 7 10-7"/>
+                        </svg>
+                    </a>
+                </div>
+                <a href="mailto:hello@alexis.garden" class="footer-email">hello@alexis.garden</a>
+            </div>
+        </div>
+
+        <!-- Plant a seed -->
+        <div class="seed-garden">
+            <div class="garden-ground">
+                <div class="plant-container" id="plantContainer">
+                    <!-- Plant grows here -->
+                </div>
+                <div class="soil"></div>
+            </div>
+            <button class="plant-seed-btn" id="plantSeedBtn">
+                <span class="seed-icon">🌱</span>
+                <span class="btn-text">Plant a seed</span>
+            </button>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 Alexis Papageorgiou</p>
+            <p class="footer-made">Made with presence</p>
+        </div>
+
+        <!-- Decorative brush stroke -->
+        <div class="footer-brush" aria-hidden="true"></div>
     </footer>
 
     <script src="script.js"></script>
