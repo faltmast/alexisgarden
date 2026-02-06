@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dive Deeper Section — alexis.garden</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Dive Deeper Section */
+        .dive-deeper {
+            background: var(--sage);
+            padding: 120px 60px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .dive-left {
+            max-width: 500px;
+        }
+
+        .dive-left h2 {
+            font-family: var(--font-heading);
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .dive-left p {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--ink);
+            opacity: 0.85;
+        }
+
+        .dive-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .dive-card {
+            background: white;
+            border: 2px solid var(--subtle);
+            border-radius: 12px;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 240px;
+            justify-content: space-between;
+        }
+
+        .dive-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--dusty-blue);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .dive-card.highlight {
+            background: var(--terracotta);
+            border-color: var(--terracotta);
+        }
+
+        .dive-card.highlight:hover {
+            background: #b88169;
+            border-color: #b88169;
+        }
+
+        .dive-card-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .dive-card-label {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dive-card-label::after {
+            content: '→';
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 1200px) {
+            .dive-deeper {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                padding: 80px 40px;
+            }
+
+            .dive-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dive-left h2 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dive-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .dive-left h2 {
+                font-size: 2.5rem;
+            }
+
+            .dive-deeper {
+                padding: 60px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="dive-deeper">
+        <div class="dive-left">
+            <h2>Dive deeper into my work</h2>
+            <p>Explore every section and find what you're looking for. Strategy, photography, experiences, and writing.</p>
+        </div>
+
+        <div class="dive-cards">
+            <a href="strategy.html" class="dive-card highlight">
+                <div class="dive-card-icon">📊</div>
+                <div class="dive-card-label">Strategy</div>
+            </a>
+
+            <a href="photography.html" class="dive-card">
+                <div class="dive-card-icon">📸</div>
+                <div class="dive-card-label">Photography</div>
+            </a>
+
+            <a href="experiences.html" class="dive-card">
+                <div class="dive-card-icon">🌱</div>
+                <div class="dive-card-label">Experiences</div>
+            </a>
+
+            <a href="writing.html" class="dive-card">
+                <div class="dive-card-icon">✍️</div>
+                <div class="dive-card-label">Writing</div>
+            </a>
+        </div>
+    </section>
+
+</body>
+</html>

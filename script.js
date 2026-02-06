@@ -141,6 +141,41 @@ if (navLinks) {
     });
 }
 
+// Dropdown navigation handling
+const dropdowns = document.querySelectorAll('.nav-dropdown');
+
+dropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+    const menu = dropdown.querySelector('.nav-dropdown-menu');
+
+    if (toggle && menu) {
+        // Click handling for mobile (toggle on click)
+        toggle.addEventListener('click', (e) => {
+            // On mobile, toggle the dropdown
+            if (window.innerWidth <= 900) {
+                e.preventDefault();
+                dropdown.classList.toggle('open');
+            }
+        });
+
+        // Close dropdown when clicking a menu item
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                dropdown.classList.remove('open');
+            });
+        });
+    }
+});
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+        dropdowns.forEach(dropdown => {
+            dropdown.classList.remove('open');
+        });
+    }
+});
+
 // Nav shadow on scroll
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
@@ -149,55 +184,6 @@ window.addEventListener('scroll', () => {
         nav.classList.remove('scrolled');
     }
 });
-
-// Contact Form
-const contactForm = document.getElementById('contact-form');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-        const data = {
-            name: formData.get('name'),
-            email: formData.get('email'),
-            interest: formData.get('interest'),
-            message: formData.get('message')
-        };
-
-        const submitBtn = this.querySelector('.form-submit');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-
-        try {
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                submitBtn.textContent = 'Sent!';
-                this.reset();
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }, 3000);
-            } else {
-                throw new Error('Failed');
-            }
-        } catch (error) {
-            console.log('Form data:', data);
-            submitBtn.textContent = 'Sent!';
-            this.reset();
-            setTimeout(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 3000);
-        }
-    });
-}
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -215,6 +201,49 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// Photography Slideshow
+const slideshow = document.getElementById('photoSlideshow');
+if (slideshow) {
+    const images = slideshow.querySelectorAll('.slideshow-viewport img');
+    const caption = slideshow.querySelector('.slideshow-caption');
+    const counter = slideshow.querySelector('.slideshow-counter');
+    const prevBtn = slideshow.querySelector('.slideshow-nav.prev');
+    const nextBtn = slideshow.querySelector('.slideshow-nav.next');
+    let current = 0;
+    const total = images.length;
+
+    function showSlide(index) {
+        images[current].classList.remove('active');
+        current = (index + total) % total;
+        images[current].classList.add('active');
+        caption.textContent = images[current].dataset.caption;
+        counter.textContent = (current + 1) + ' / ' + total;
+    }
+
+    prevBtn.addEventListener('click', () => showSlide(current - 1));
+    nextBtn.addEventListener('click', () => showSlide(current + 1));
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') showSlide(current - 1);
+        if (e.key === 'ArrowRight') showSlide(current + 1);
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    slideshow.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    slideshow.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) showSlide(current + 1);
+            else showSlide(current - 1);
+        }
+    }, { passive: true });
+}
 
 // Plant a Seed - Interactive Footer Garden
 const plantSeedBtn = document.getElementById('plantSeedBtn');

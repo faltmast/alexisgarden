@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module Workbench — alexis.garden</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Workbench specific styles */
+        .workbench-header {
+            background: var(--ink);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 4px solid var(--sage);
+        }
+
+        .workbench-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .workbench-header p {
+            color: var(--light);
+            font-size: 1rem;
+        }
+
+        .module-section {
+            margin: 80px auto;
+            max-width: 1400px;
+            padding: 0 40px;
+        }
+
+        .module-label-header {
+            background: var(--terracotta);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
+        }
+
+        .module-label-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .module-label-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .module-content {
+            background: white;
+            border: 2px solid var(--subtle);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 60px;
+            margin-bottom: 60px;
+        }
+
+        .module-notes {
+            background: var(--cream);
+            padding: 20px;
+            border-left: 4px solid var(--dusty-blue);
+            margin-top: 40px;
+            font-size: 0.95rem;
+            color: var(--gray);
+        }
+
+        .module-notes strong {
+            color: var(--ink);
+        }
+
+        /* Override some sections to show in workbench */
+        .hero {
+            margin: 0;
+        }
+
+        .intro-sentences {
+            padding: 60px 40px;
+        }
+
+        .footer-dark {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="workbench-header">
+        <h1>alexis.garden Module Workbench</h1>
+        <p>Review and refine each module template • Fraunces + Inter typography</p>
+    </div>
+
+    <!-- MODULE 1: Navigation -->
+    <div class="module-section">
+        <div class="module-label-header">
+            <h2>Module 1: Navigation</h2>
+            <p>Top navigation bar with logo, links, and dropdowns</p>
+        </div>
+        <div class="module-content">
+            <nav class="nav">
+                <a href="index.html" class="nav-logo"><img src="05_icons/icon_23_168_181_160.png" alt="alexis.garden"></a>
+                <button class="nav-toggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="nav-links">
+                    <a href="now.html">Now</a>
+                    <div class="nav-dropdown">
+                        <button class="nav-dropdown-toggle">Services</button>
+                        <div class="nav-dropdown-menu">
+                            <a href="strategy.html">Strategy</a>
+                            <a href="photography.html">Photography</a>
+                            <a href="experiences.html">Experiences</a>
+                        </div>
+                    </div>
+                    <a href="writing.html">Writing</a>
+                    <a href="#contact" class="nav-cta">Say Hi</a>
+                </div>
+            </nav>
+            <div class="module-notes">
+                <strong>Issues to address:</strong> Font size, spacing, dropdown styling, mobile behavior
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULE 2: Hero Section (Homepage style) -->
+    <div class="module-section">
+        <div class="module-label-header">
+            <h2>Module 2: Hero Section (Homepage)</h2>
+            <p>Large headline + subtitle + tagline + image</p>
+        </div>
+        <div class="module-content">
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-left">
+                        <div class="hero-intro">
+                            <h1>Alexis<br>Digital<br>Garden</h1>
+                            <p class="hero-subtitle">(noun)&nbsp;&nbsp;&nbsp;Media Strategist</p>
+                            <p class="hero-tagline"><span class="highlight">I help founders grow.</span><br>Mapping complexity, launching fast, and building strategy that lasts.</p>
+                        </div>
+                    </div>
+                    <div class="folder-logo">
+                        <img src="06_images/laptop_growing_3.png" alt="Laptop with plants growing">
+                    </div>
+                </div>
+            </section>
+            <div class="module-notes">
+                <strong>Issues to address:</strong> H1 size/weight, subtitle styling, tagline readability, image size/position, spacing
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULE 3: Hero Section (Inner page style) -->
+    <div class="module-section">
+        <div class="module-label-header">
+            <h2>Module 3: Hero Section (Inner Pages)</h2>
+            <p>Simpler hero for Strategy/Photography/Experiences pages</p>
+        </div>
+        <div class="module-content">
+            <section class="hero writing-hero">
+                <div class="hero-content">
+                    <div class="hero-left">
+                        <div class="hero-intro">
+                            <h1>Strategy</h1>
+                            <p class="hero-subtitle">(noun)&nbsp;&nbsp;&nbsp;Brand & Positioning</p>
+                            <p class="hero-tagline"><span class="highlight">Finding what's true,</span><br>and giving it form.</p>
+                        </div>
+                    </div>
+                    <div class="folder-logo">
+                        <img src="06_images/product_01_strategy.png" alt="Strategy illustration">
+                    </div>
+                </div>
+            </section>
+            <div class="module-notes">
+                <strong>Issues to address:</strong> Single-word title sizing, balance with image
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULE 4: Intro Sentences (Icon + Links) -->
+    <div class="module-section">
+        <div class="module-label-header">
+            <h2>Module 4: Intro Sentences</h2>
+            <p>Stacked sentences with colored links and icons</p>
+        </div>
+        <div class="module-content">
+            <section class="intro-sentences">
+                <h2>I create <a href="strategy.html" class="accent-sage">media strategies</a> <img src="05_icons/icon_45_168_181_160.png" alt="" class="intro-icon"></h2>
+                <h2>I capture <a href="photography.html" class="accent-terracotta">authentic moments</a> <img src="05_icons/icon_31_196_145_123.png" alt="" class="intro-icon"></h2>
+                <h2>I lead <a href="experiences.html" class="accent-dusty-blue">transformative experiences</a> <img src="05_icons/icon_34_143_163_176.png" alt="" class="intro-icon"></h2>
+                <h2>I share <a href="writing.html" class="accent-sage">reflections on growth</a> <img src="05_icons/icon_65_168_181_160.png" alt="" class="intro-icon"></h2>
+                <h2>I build <a href="resources.html" class="accent-terracotta">tools for clarity</a> <img src="05_icons/icon_50_196_145_123.png" alt="" class="intro-icon"></h2>
+            </section>
+            <div class="module-notes">
+                <strong>Issues to address:</strong> H2 size, line height, icon alignment, link color/underline, spacing between lines
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULE 5: Content Section (H2 + Paragraph) -->
+    <div class="module-section">
+        <div class="module-label-header">
+            <h2>Module 5: Content Section</h2>
+            <p>Standard heading + body text block</p>
+        </div>
+        <div class="module-content">
+            <div class="photo-intro">
+                <h2>I map the whole picture first</h2>
+                <p>Before tactics, before campaigns — I start by understanding your entire product, market, and story. Then I craft strategy uniquely tailored to you: memorable, impactful, and built around your vision. Not another formula. Something that's actually yours.</p>
+            </div>
+            <div class="module-notes">
+                <strong>Issues to address:</strong> H2 size, paragraph size/line-height, spacing, max-width
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULE 6: Card Grid (3 columns) -->
+    <div class="module-section">
+        <div class="module-label-header">
+            <h2>Module 6: Card Grid</h2>
+            <p>3-column grid with heading + description</p>
+        </div>
+        <div class="module-content">
+            <div class="photo-approach">
+                <h3>What I do</h3>
+                <div class="approach-grid">
+                    <div class="approach-item">
+                        <h3>Brand Strategy</h3>
+                        <p>Defining who you are, what you stand for, and why it matters. The foundation everything else builds on.</p>
+                    </div>
+                    <div class="approach-item">
+                        <h3>Positioning</h3>
+                        <p>Finding your place in the market. The space only you can occupy — and making sure everyone knows it.</p>
+                    </div>
+                    <div class="approach-item">
+                        <h3>Go-to-Market</h3>
+                        <p>From strategy to launch. The plan that turns clarity into momentum.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="module-notes">
+                <strong>Issues to address:</strong> Section H3 size, card H3 size, paragraph size, card spacing/padding, grid gap
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULE 7: Footer -->
+    <div class="module-section">
+        <div class="module-label-header">
+            <h2>Module 7: Footer</h2>
+            <p>Dark footer with navigation columns and "plant a seed"</p>
+        </div>
+        <div class="module-content" style="padding: 0;">
+            <footer class="footer-dark">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <a href="index.html" class="footer-logo">alexis.garden</a>
+                        <p class="footer-tagline">Cultivating clarity.</p>
+                    </div>
+                    <div class="footer-nav">
+                        <div class="footer-nav-column">
+                            <h4>Work</h4>
+                            <a href="strategy.html">Strategy</a>
+                            <a href="photography.html">Photography</a>
+                            <a href="experiences.html">Experiences</a>
+                        </div>
+                        <div class="footer-nav-column">
+                            <h4>Explore</h4>
+                            <a href="writing.html">Writing</a>
+                            <a href="resources.html">Resources</a>
+                            <a href="#contact">Contact</a>
+                        </div>
+                    </div>
+                    <div class="footer-connect">
+                        <h4>Connect</h4>
+                        <a href="mailto:hello@alexis.garden" class="footer-email">hello@alexis.garden</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Alexis Papageorgiou</p>
+                    <p class="footer-made">Made with presence</p>
+                </div>
+            </footer>
+            <div class="module-notes" style="border-radius: 0 0 8px 8px;">
+                <strong>Issues to address:</strong> Background color, H4 size, link size, logo size, spacing, bottom text size
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

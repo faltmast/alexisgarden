@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Systems Test - alexis.garden</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FAF9F7;
+            --ink: #111;
+            --gray: #666;
+            --light: #aaa;
+            --subtle: #e8e8e6;
+            --sage: #A8B5A0;
+            --terracotta: #C4917B;
+            --dusty-blue: #8FA3B0;
+            --sand: #D4C9B8;
+            --font-heading: 'Fraunces', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.6;
+            padding: 60px 20px;
+        }
+
+        .section-spacer {
+            height: 100px;
+            border-bottom: 2px solid var(--subtle);
+            margin: 0 auto 80px;
+            max-width: 1400px;
+        }
+
+        /* Module Header */
+        .module-header {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 20px 32px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .module-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2.25rem;
+            font-weight: 300;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .module-label {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--light);
+            margin-bottom: 8px;
+        }
+
+        /* Container Variations */
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+
+        .container-medium {
+            max-width: 1000px;
+            margin: 0 auto 80px;
+        }
+
+        .container-wide {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+        }
+
+        .container-extra-wide {
+            max-width: 1400px;
+            margin: 0 auto 80px;
+        }
+
+        .container-full {
+            max-width: 100%;
+            padding: 0 40px;
+            margin: 0 auto 80px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 32px;
+            color: var(--ink);
+        }
+
+        /* Grid Systems */
+        .grid-1col {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .grid-4col {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .grid-5col {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 24px;
+        }
+
+        /* Asymmetric Grids */
+        .grid-60-40 {
+            display: grid;
+            grid-template-columns: 60% 40%;
+            gap: 32px;
+        }
+
+        .grid-40-60 {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            gap: 32px;
+        }
+
+        .grid-sidebar {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: #F0EDE8;
+            border-radius: 12px;
+            padding: 32px;
+            min-height: 200px;
+        }
+
+        .card-tall {
+            min-height: 300px;
+        }
+
+        .card-compact {
+            padding: 24px;
+            min-height: 160px;
+        }
+
+        .card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.375rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            margin-bottom: 12px;
+        }
+
+        .card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.125rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            color: var(--gray);
+        }
+
+        /* White Card Variant */
+        .card-white {
+            background: #FEFEFE;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .card-white:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        /* Card with Image */
+        .card-image {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-image-top {
+            width: 100%;
+            height: 160px;
+            background: var(--sage);
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            color: white;
+        }
+
+        /* Compact Grid Spacing */
+        .grid-compact {
+            gap: 16px;
+        }
+
+        .grid-spacious {
+            gap: 40px;
+        }
+
+        /* Blog Card Styles */
+        .blog-card-accent {
+            padding: 40px;
+            background: var(--cream);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card-accent:hover {
+            background: #F5F3F0;
+            transform: translateX(4px);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .grid-3col,
+            .grid-4col,
+            .grid-5col,
+            .grid-60-40,
+            .grid-40-60,
+            .grid-sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- 1 COLUMN - NARROW WIDTH (800px)           -->
+    <!-- ========================================== -->
+    <div class="container-narrow">
+        <p class="module-label">Container: Narrow (800px)</p>
+        <div class="module-header">
+            <h2>Single Column - Narrow</h2>
+        </div>
+
+        <h3 class="section-title">Perfect for long-form content</h3>
+
+        <div class="grid-1col">
+            <div class="card card-tall">
+                <h3>Main Content</h3>
+                <p>This narrow width (800px) is ideal for long-form reading. The single column keeps focus on the content without distractions. Great for blog posts, essays, or detailed explanations.</p>
+            </div>
+            <div class="card">
+                <h3>Secondary Block</h3>
+                <p>Each card has breathing room in this layout.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- 2 COLUMNS - MEDIUM WIDTH (1000px)         -->
+    <!-- ========================================== -->
+    <div class="container-medium">
+        <p class="module-label">Container: Medium (1000px)</p>
+        <div class="module-header">
+            <h2>Two Columns - Medium</h2>
+        </div>
+
+        <h3 class="section-title">Balanced content display</h3>
+
+        <div class="grid-2col">
+            <div class="card">
+                <h3>Feature One</h3>
+                <p>Two columns at medium width work well for features, services, or comparison layouts.</p>
+            </div>
+            <div class="card">
+                <h3>Feature Two</h3>
+                <p>The spacing feels comfortable without being too cramped or too spacious.</p>
+            </div>
+            <div class="card">
+                <h3>Feature Three</h3>
+                <p>Content flows naturally down the page in pairs.</p>
+            </div>
+            <div class="card">
+                <h3>Feature Four</h3>
+                <p>This is the sweet spot for many layouts.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- 3 COLUMNS - WIDE (1200px)                 -->
+    <!-- ========================================== -->
+    <div class="container-wide">
+        <p class="module-label">Container: Wide (1200px)</p>
+        <div class="module-header">
+            <h2>Three Columns - Wide</h2>
+        </div>
+
+        <h3 class="section-title">Classic grid for services/features</h3>
+
+        <div class="grid-3col">
+            <div class="card">
+                <h3>Service A</h3>
+                <p>Three columns is the most versatile grid system for showcasing services, features, or portfolio items.</p>
+            </div>
+            <div class="card">
+                <h3>Service B</h3>
+                <p>Each card gets adequate space without feeling cramped.</p>
+            </div>
+            <div class="card">
+                <h3>Service C</h3>
+                <p>At 1200px width, this feels spacious and organized.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- 3 COLUMNS WITH IMAGES - WIDE              -->
+    <!-- ========================================== -->
+    <div class="container-wide">
+        <p class="module-label">Container: Wide (1200px) + Images</p>
+        <div class="module-header">
+            <h2>Three Columns with Images</h2>
+        </div>
+
+        <h3 class="section-title">Visual content cards</h3>
+
+        <div class="grid-3col">
+            <div class="card card-image">
+                <div class="card-image-top">Image</div>
+                <h3>Product One</h3>
+                <p>Cards with images work great in three-column layouts.</p>
+            </div>
+            <div class="card card-image">
+                <div class="card-image-top" style="background: var(--terracotta);">Image</div>
+                <h3>Product Two</h3>
+                <p>Visual hierarchy is clear and engaging.</p>
+            </div>
+            <div class="card card-image">
+                <div class="card-image-top" style="background: var(--dusty-blue);">Image</div>
+                <h3>Product Three</h3>
+                <p>Images add context and break up text-heavy sections.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- 4 COLUMNS - EXTRA WIDE (1400px)           -->
+    <!-- ========================================== -->
+    <div class="container-extra-wide">
+        <p class="module-label">Container: Extra Wide (1400px)</p>
+        <div class="module-header">
+            <h2>Four Columns - Extra Wide</h2>
+        </div>
+
+        <h3 class="section-title">Grid for clients, logos, or stats</h3>
+
+        <div class="grid-4col">
+            <div class="card card-compact">
+                <h4>Client A</h4>
+                <p>Four columns work well for client logos or company names.</p>
+            </div>
+            <div class="card card-compact">
+                <h4>Client B</h4>
+                <p>Compact cards keep things organized.</p>
+            </div>
+            <div class="card card-compact">
+                <h4>Client C</h4>
+                <p>Great for showcasing portfolios.</p>
+            </div>
+            <div class="card card-compact">
+                <h4>Client D</h4>
+                <p>Each gets equal attention.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- 5 COLUMNS - EXTRA WIDE                    -->
+    <!-- ========================================== -->
+    <div class="container-extra-wide">
+        <p class="module-label">Container: Extra Wide (1400px)</p>
+        <div class="module-header">
+            <h2>Five Columns - Extra Wide</h2>
+        </div>
+
+        <h3 class="section-title">Dense information display</h3>
+
+        <div class="grid-5col">
+            <div class="card card-compact">
+                <h4>Stat 1</h4>
+                <p>500+<br>Projects</p>
+            </div>
+            <div class="card card-compact">
+                <h4>Stat 2</h4>
+                <p>50+<br>Clients</p>
+            </div>
+            <div class="card card-compact">
+                <h4>Stat 3</h4>
+                <p>10<br>Years</p>
+            </div>
+            <div class="card card-compact">
+                <h4>Stat 4</h4>
+                <p>95%<br>Satisfaction</p>
+            </div>
+            <div class="card card-compact">
+                <h4>Stat 5</h4>
+                <p>24/7<br>Support</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- 60/40 SPLIT - WIDE                        -->
+    <!-- ========================================== -->
+    <div class="container-wide">
+        <p class="module-label">Container: Wide (1200px)</p>
+        <div class="module-header">
+            <h2>60/40 Asymmetric Split</h2>
+        </div>
+
+        <h3 class="section-title">Primary content + sidebar</h3>
+
+        <div class="grid-60-40">
+            <div class="card card-tall">
+                <h3>Main Content (60%)</h3>
+                <p>The larger column holds primary content, giving it visual prominence. This works great for featured content, main product info, or key messaging.</p>
+                <p style="margin-top: 16px;">The 60/40 split creates natural hierarchy without feeling unbalanced.</p>
+            </div>
+            <div class="card card-tall">
+                <h3>Supporting (40%)</h3>
+                <p>The smaller column holds supporting information, CTAs, or related content.</p>
+                <p style="margin-top: 16px;">Perfect for sidebars or complementary info.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- 40/60 SPLIT - WIDE                        -->
+    <!-- ========================================== -->
+    <div class="container-wide">
+        <p class="module-label">Container: Wide (1200px)</p>
+        <div class="module-header">
+            <h2>40/60 Asymmetric Split</h2>
+        </div>
+
+        <h3 class="section-title">Sidebar + primary content</h3>
+
+        <div class="grid-40-60">
+            <div class="card card-tall">
+                <h3>Navigation (40%)</h3>
+                <p>The smaller left column can serve as navigation or index.</p>
+                <p style="margin-top: 16px;">Draws the eye left-to-right naturally.</p>
+            </div>
+            <div class="card card-tall">
+                <h3>Main Content (60%)</h3>
+                <p>The larger right column holds the main content. This feels natural for Western reading patterns.</p>
+                <p style="margin-top: 16px;">Works well for documentation or article layouts with table of contents.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- COMPACT SPACING - WIDE                    -->
+    <!-- ========================================== -->
+    <div class="container-wide">
+        <p class="module-label">Container: Wide (1200px) - Compact Spacing</p>
+        <div class="module-header">
+            <h2>Compact Grid Spacing</h2>
+        </div>
+
+        <h3 class="section-title">Tighter layout for dense information</h3>
+
+        <div class="grid-3col grid-compact">
+            <div class="card card-compact">
+                <h4>Compact One</h4>
+                <p>16px gaps create a tighter, more unified feel.</p>
+            </div>
+            <div class="card card-compact">
+                <h4>Compact Two</h4>
+                <p>Great for dashboards or data displays.</p>
+            </div>
+            <div class="card card-compact">
+                <h4>Compact Three</h4>
+                <p>Cards feel more connected as a group.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- SPACIOUS LAYOUT - WIDE                    -->
+    <!-- ========================================== -->
+    <div class="container-wide">
+        <p class="module-label">Container: Wide (1200px) - Spacious Layout</p>
+        <div class="module-header">
+            <h2>Spacious Grid Layout</h2>
+        </div>
+
+        <h3 class="section-title">Generous spacing for premium feel</h3>
+
+        <div class="grid-3col grid-spacious">
+            <div class="card">
+                <h3>Spacious One</h3>
+                <p>40px gaps create breathing room between cards.</p>
+            </div>
+            <div class="card">
+                <h3>Spacious Two</h3>
+                <p>This feels more premium and thoughtful.</p>
+            </div>
+            <div class="card">
+                <h3>Spacious Three</h3>
+                <p>Each card stands on its own.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- WHITE CARDS - WIDE                        -->
+    <!-- ========================================== -->
+    <div class="container-wide">
+        <p class="module-label">Container: Wide (1200px) - White Cards</p>
+        <div class="module-header">
+            <h2>White Card Variant</h2>
+        </div>
+
+        <h3 class="section-title">Lighter background alternative</h3>
+
+        <div class="grid-3col">
+            <div class="card card-white">
+                <h3>White Card One</h3>
+                <p>White cards with subtle borders create a cleaner, more minimal look.</p>
+            </div>
+            <div class="card card-white">
+                <h3>White Card Two</h3>
+                <p>Works well for blog posts or article cards.</p>
+            </div>
+            <div class="card card-white">
+                <h3>White Card Three</h3>
+                <p>Feels lighter and more modern.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- MIXED HEIGHTS - WIDE                      -->
+    <!-- ========================================== -->
+    <div class="container-wide">
+        <p class="module-label">Container: Wide (1200px)</p>
+        <div class="module-header">
+            <h2>Mixed Card Heights</h2>
+        </div>
+
+        <h3 class="section-title">Organic layout with varied content</h3>
+
+        <div class="grid-3col">
+            <div class="card">
+                <h3>Standard Height</h3>
+                <p>This card has a standard amount of content.</p>
+            </div>
+            <div class="card card-tall">
+                <h3>Tall Card</h3>
+                <p>This card has more content, making it taller than its siblings.</p>
+                <p style="margin-top: 16px;">Cards can naturally vary in height based on content needs.</p>
+            </div>
+            <div class="card card-compact">
+                <h4>Compact</h4>
+                <p>Brief content.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- BLOG LISTING - NARROW (800px)             -->
+    <!-- ========================================== -->
+    <div class="container-narrow">
+        <p class="module-label">Container: Narrow (800px) - Blog Listing</p>
+        <div class="module-header">
+            <h2>Blog Listing - Single Column</h2>
+        </div>
+
+        <h3 class="section-title">Focused, elegant blog index</h3>
+
+        <div class="grid-1col">
+            <!-- Blog Card 1 -->
+            <div class="blog-card-accent" style="border-left: 4px solid var(--dusty-blue);">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                    <img src="../05_icons/icon_34_143_163_176.png" alt="" style="width: 40px; height: 40px;">
+                    <span style="font-family: var(--font-heading); font-size: 1.125rem; font-weight: 400; font-style: italic; color: var(--gray);">Strategy</span>
+                </div>
+                <p style="font-size: 0.9375rem; color: var(--light); margin-bottom: 16px;">March 5, 2025</p>
+                <h3 style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;">The World Is Shifting</h3>
+                <p style="font-size: 1.125rem; font-style: italic; line-height: 1.6; color: var(--gray);">Every system has a lifespan. The old one is in decline. The new one is rising fast. Here's how to position yourself for what comes next.</p>
+            </div>
+
+            <!-- Blog Card 2 -->
+            <div class="blog-card-accent" style="border-left: 4px solid var(--sage);">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                    <img src="../05_icons/icon_65_168_181_160.png" alt="" style="width: 40px; height: 40px;">
+                    <span style="font-family: var(--font-heading); font-size: 1.125rem; font-weight: 400; font-style: italic; color: var(--gray);">Philosophy</span>
+                </div>
+                <p style="font-size: 0.9375rem; color: var(--light); margin-bottom: 16px;">September 30, 2024</p>
+                <h3 style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;">Stop What You're Doing. Go Outside.</h3>
+                <p style="font-size: 1.125rem; font-style: italic; line-height: 1.6; color: var(--gray);">Your life isn't going to change with another hour of work. If anything, it might change with a few days away from it all.</p>
+            </div>
+
+            <!-- Blog Card 3 -->
+            <div class="blog-card-accent" style="border-left: 4px solid var(--terracotta);">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                    <img src="../05_icons/icon_50_196_145_123.png" alt="" style="width: 40px; height: 40px;">
+                    <span style="font-family: var(--font-heading); font-size: 1.125rem; font-weight: 400; font-style: italic; color: var(--gray);">Growth</span>
+                </div>
+                <p style="font-size: 0.9375rem; color: var(--light); margin-bottom: 16px;">August 12, 2024</p>
+                <h3 style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;">On Slow Growth</h3>
+                <p style="font-size: 1.125rem; font-style: italic; line-height: 1.6; color: var(--gray);">The best things take time. Gardens, relationships, mastery. Here's why slowing down might be the fastest path forward.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 32px; padding: 20px; background: rgba(168, 181, 160, 0.1); border-radius: 12px; border-left: 4px solid var(--sage);">
+            <p style="font-size: 0.875rem; color: var(--gray); line-height: 1.6;">
+                <strong style="color: var(--ink);">Why single column?</strong><br>
+                At 800px, a single column keeps the focus on reading. Each post gets full attention without competing for visual space. This creates a calm, literary feel that matches the thoughtful tone of blog content.
+            </p>
+        </div>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- BLOG POST - NARROW (800px)                -->
+    <!-- ========================================== -->
+    <div class="container-narrow">
+        <p class="module-label">Container: Narrow (800px) - Blog Post</p>
+        <div class="module-header">
+            <h2>Individual Blog Post</h2>
+        </div>
+
+        <div style="border-left: 4px solid var(--dusty-blue); padding-left: 40px; margin-bottom: 40px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <img src="../05_icons/icon_34_143_163_176.png" alt="" style="width: 48px; height: 48px;">
+                <span style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 400; font-style: italic; color: var(--gray);">Strategy</span>
+            </div>
+            <p style="font-size: 0.9375rem; color: var(--light); margin-bottom: 20px;">March 5, 2025</p>
+            <h1 style="font-family: var(--font-heading); font-size: 3.5rem; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px;">The World Is Shifting</h1>
+            <p style="font-size: 1.25rem; font-style: italic; color: var(--gray); line-height: 1.6;">Every system has a lifespan. The old one is in decline. The new one is rising fast. Here's how to position yourself for what comes next.</p>
+        </div>
+
+        <div style="height: 400px; background: linear-gradient(135deg, var(--sage) 0%, var(--dusty-blue) 100%); border-radius: 12px; margin-bottom: 40px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.875rem;">
+            Hero Image (800px width)
+        </div>
+
+        <div style="margin-bottom: 40px;">
+            <p style="font-size: 1.125rem; line-height: 1.8; color: var(--ink); margin-bottom: 24px;">
+                This is the optimal reading width for blog content. At 800px (about 65-75 characters per line), text is comfortable to read without excessive eye movement.
+            </p>
+            <p style="font-size: 1.125rem; line-height: 1.8; color: var(--ink); margin-bottom: 24px;">
+                Paragraphs flow naturally. The reader can focus on ideas without fighting the layout. This width has been proven by centuries of book design and decades of web typography research.
+            </p>
+            <p style="font-size: 1.125rem; line-height: 1.8; color: var(--ink);">
+                Everything stays within the same width: titles, body text, images, pull quotes. This creates a consistent, calm reading experience.
+            </p>
+        </div>
+
+        <div style="border-left: 4px solid var(--ink); padding-left: 32px; margin: 40px 0;">
+            <p style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 400; line-height: 1.5; letter-spacing: -0.01em; font-style: italic;">
+                "The best reading experiences don't call attention to themselves. The layout gets out of the way and lets the words do their work."
+            </p>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+            <p style="font-size: 1.125rem; line-height: 1.8; color: var(--ink);">
+                More body text continues here. The consistent width creates rhythm and predictability, which helps readers settle into longer pieces.
+            </p>
+        </div>
+
+        <div style="height: 300px; background: linear-gradient(135deg, var(--terracotta) 0%, var(--sand) 100%); border-radius: 12px; margin-bottom: 40px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.875rem;">
+            Inline Image (800px width)
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid var(--subtle);">
+            <h3 style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 24px;">Related Posts</h3>
+            <div class="grid-1col">
+                <div class="card card-white card-compact" style="cursor: pointer;">
+                    <h4>Stop What You're Doing. Go Outside.</h4>
+                    <p>Your life isn't going to change with another hour of work.</p>
+                </div>
+                <div class="card card-white card-compact" style="cursor: pointer;">
+                    <h4>On Slow Growth</h4>
+                    <p>The best things take time. Gardens, relationships, mastery.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 32px; padding: 20px; background: rgba(168, 181, 160, 0.1); border-radius: 12px; border-left: 4px solid var(--sage);">
+            <p style="font-size: 0.875rem; color: var(--gray); line-height: 1.6;">
+                <strong style="color: var(--ink);">Why 800px for blog posts?</strong><br>
+                This width provides optimal readability for long-form content. Every element—title, text, images—stays within the same comfortable reading width. No jarring width changes, no distractions. Just content and focus.
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,25 +1,7 @@
 /* Standalone Quiz Styles - The Homegrown Human Matrix */
 
 /* ==================== FONTS ==================== */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap');
-
-@font-face {
-    font-family: 'Mariposa Std';
-    src: url('../04_fonts/MariposaStd-BookItalic.woff2') format('woff2'),
-         url('../04_fonts/MariposaStd-BookItalic.woff') format('woff');
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Mariposa Std';
-    src: url('../04_fonts/MariposaStd-Book.woff2') format('woff2'),
-         url('../04_fonts/MariposaStd-Book.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ==================== VARIABLES ==================== */
 :root {
@@ -29,8 +11,8 @@
     --light: #aaa;
     --subtle: #e8e8e6;
     --sage: #A8B5A0;
-    --font-heading: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'Mariposa Std', Georgia, serif;
+    --font-heading: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* ==================== RESET ==================== */

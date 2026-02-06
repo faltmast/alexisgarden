@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>alexis.garden - Module Templates Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== GLOBAL VARIABLES ==================== */
+
+        :root {
+            --cream: #FAF9F7;
+            --ink: #111;
+            --gray: #666;
+            --light: #aaa;
+            --subtle: #e8e8e6;
+            --sage: #A8B5A0;
+            --terracotta: #C4917B;
+            --dusty-blue: #8FA3B0;
+            --sand: #D4C9B8;
+            --font-heading: 'Fraunces', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--ink);
+        }
+
+        /* Module spacer */
+        .module-spacer {
+            height: 120px;
+            border-bottom: 2px solid var(--subtle);
+            margin: 0 40px;
+        }
+
+        /* ==================== MODULE 1: PRODUCT SPECS ==================== */
+        /* Compact design with rounded header, 3-column cards, and specs grid */
+
+        .product-specs-module {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .specs-header {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 20px 32px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .specs-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2.25rem;
+            font-weight: 300;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .specs-content {
+            padding: 0;
+        }
+
+        .specs-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .spec-card {
+            background: #F0EDE8;
+            border-radius: 12px;
+            padding: 40px 28px 28px 28px;
+            text-align: left;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spec-card-image {
+            width: 100%;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .spec-card-image img {
+            max-width: 80%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .spec-card-text {
+            flex-grow: 1;
+        }
+
+        .spec-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.375rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+
+        .spec-card p {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            color: var(--gray);
+        }
+
+        .specs-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+        }
+
+        .spec-category h3 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        .spec-list {
+            list-style: none;
+        }
+
+        .spec-list li {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            line-height: 1.4;
+            color: var(--gray);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .spec-list li:first-child {
+            padding-top: 0;
+        }
+
+        .spec-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        /* ==================== MODULE 2: TEXT + VISUAL SPLIT ==================== */
+        /* Large headline + description top, rounded container with text/visual split below */
+
+        .text-visual-split-module {
+            max-width: 1400px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .module-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 120px;
+            margin-bottom: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--subtle);
+        }
+
+        .module-header h1 {
+            font-family: var(--font-body);
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+        }
+
+        .module-header-description {
+            display: flex;
+            align-items: center;
+        }
+
+        .module-header-description p {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--ink);
+        }
+
+        .module-container {
+            background: #F0EDE8;
+            border-radius: 32px;
+            padding: 80px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .module-text {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .module-label {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--gray);
+            letter-spacing: 0.02em;
+        }
+
+        .module-text h2 {
+            font-family: var(--font-body);
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .module-text-body {
+            font-family: var(--font-body);
+            font-size: 1.0625rem;
+            line-height: 1.65;
+            color: var(--gray);
+            margin-bottom: 16px;
+        }
+
+        .module-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--ink);
+            text-decoration: none;
+            padding: 12px 0;
+            transition: gap 0.2s ease;
+        }
+
+        .module-link:hover {
+            gap: 12px;
+        }
+
+        .module-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .module-visual {
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .module-visual img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .visual-placeholder {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--light);
+            text-align: center;
+        }
+
+        /* ==================== MODULE 3: CARD GRID ==================== */
+        /* Hero section + clean text-only cards with label/icon headers */
+
+        .card-grid-module {
+            max-width: 1400px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .card-module-header {
+            margin-bottom: 60px;
+        }
+
+        .module-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 32px;
+        }
+
+        .module-icon svg {
+            stroke: var(--ink);
+        }
+
+        .card-module-header h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
+
+        .card-module-header p {
+            font-family: var(--font-body);
+            font-size: 1.0625rem;
+            line-height: 1.6;
+            color: var(--gray);
+            max-width: 600px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .card {
+            background: #FEFEFE;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 12px;
+            padding: 40px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .card-label {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--light);
+        }
+
+        .card-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+        }
+
+        .card-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--ink);
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .card p {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--gray);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+
+        @media (max-width: 1024px) {
+            .module-header {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-bottom: 40px;
+                padding-bottom: 40px;
+            }
+
+            .module-header h1 {
+                font-size: 3rem;
+            }
+
+            .module-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                padding: 60px 40px;
+            }
+
+            .module-text h2 {
+                font-size: 2.5rem;
+            }
+
+            .specs-cards,
+            .card-grid {
+                gap: 24px;
+            }
+
+            .card-module-header h1 {
+                font-size: 2.75rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .product-specs-module,
+            .text-visual-split-module,
+            .card-grid-module {
+                padding: 0 20px;
+            }
+
+            .module-spacer {
+                margin: 0 20px;
+            }
+
+            .specs-cards,
+            .specs-details,
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .spec-card {
+                min-height: 280px;
+                padding: 32px 24px 24px 24px;
+            }
+
+            .spec-card h3 {
+                font-size: 1.125rem;
+            }
+
+            .module-header h1 {
+                font-size: 2.25rem;
+            }
+
+            .module-container {
+                padding: 40px 32px;
+                border-radius: 24px;
+            }
+
+            .module-text h2 {
+                font-size: 2rem;
+            }
+
+            .card-module-header h1 {
+                font-size: 2.25rem;
+            }
+
+            .card {
+                padding: 28px;
+                min-height: 220px;
+            }
+
+            .card h3 {
+                font-size: 1.375rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- MODULE 1: PRODUCT SPECS                   -->
+    <!-- ========================================== -->
+    <!--
+    USAGE:
+    - Copy entire <div class="product-specs-module"> section
+    - Replace header title
+    - Replace 3 card images, titles, and descriptions
+    - Replace 3 spec categories with your content
+
+    CUSTOMIZATION:
+    - Header color: .specs-header { background: var(--sage); }
+    - Card background: .spec-card { background: #F0EDE8; }
+    - Add/remove spec items in each category
+    -->
+
+    <div class="product-specs-module">
+        <div class="specs-header">
+            <h2>Product Specs</h2>
+        </div>
+
+        <div class="specs-content">
+            <div class="specs-cards">
+                <div class="spec-card">
+                    <div class="spec-card-image">
+                        <img src="https://via.placeholder.com/180x160/A8B5A0/FFFFFF?text=Image+1" alt="Feature 1">
+                    </div>
+                    <div class="spec-card-text">
+                        <h3>Action buttons</h3>
+                        <p>Action buttons for quick access and page turns. Customizable.</p>
+                    </div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-card-image">
+                        <img src="https://via.placeholder.com/180x160/C4917B/FFFFFF?text=Image+2" alt="Feature 2">
+                    </div>
+                    <div class="spec-card-text">
+                        <h3>Extended battery life</h3>
+                        <p>Enough battery to last you days on a single charge.</p>
+                    </div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-card-image">
+                        <img src="https://via.placeholder.com/180x160/8FA3B0/FFFFFF?text=Image+3" alt="Feature 3">
+                    </div>
+                    <div class="spec-card-text">
+                        <h3>Stylus compatibility</h3>
+                        <p>Wide compatibility across a broad range of Wacom EMR pens.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="specs-details">
+                <div class="spec-category">
+                    <h3>Display</h3>
+                    <ul class="spec-list">
+                        <li>10.5in Live Paper™ Display</li>
+                        <li>1600 x 1200 • 190dpi</li>
+                        <li>Optional Pure Amber Backlight</li>
+                    </ul>
+                </div>
+
+                <div class="spec-category">
+                    <h3>Performance</h3>
+                    <ul class="spec-list">
+                        <li><span class="spec-label">RAM:</span> 8GB</li>
+                        <li><span class="spec-label">Storage:</span> 128GB</li>
+                        <li><span class="spec-label">CPU:</span> MediaTek Helio G99</li>
+                    </ul>
+                </div>
+
+                <div class="spec-category">
+                    <h3>Connectivity</h3>
+                    <ul class="spec-list">
+                        <li>Wi-Fi 6</li>
+                        <li>Bluetooth 5.0</li>
+                        <li>USB Type-C with PD</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Module Spacer -->
+    <div class="module-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- MODULE 2: TEXT + VISUAL SPLIT             -->
+    <!-- ========================================== -->
+    <!--
+    USAGE:
+    - Copy entire <div class="text-visual-split-module"> section
+    - Replace top headline and description
+    - Replace label, headline, body text in container
+    - Add your visual (image, diagram, illustration) in .module-visual
+
+    CUSTOMIZATION:
+    - Container background: .module-container { background: #F0EDE8; }
+    - Visual side width: grid-template-columns: 1fr 1.5fr;
+    - Remove top section: delete .module-header
+    -->
+
+    <div class="text-visual-split-module">
+        <div class="module-header">
+            <h1>Economic Futures</h1>
+            <div class="module-header-description">
+                <p>The Anthropic Economic Futures program aims to support research and policy development for addressing the economic impacts of AI. It provides research grants, forums for policy discussion, and evidence on real-world AI use.</p>
+            </div>
+        </div>
+
+        <div class="module-container">
+            <div class="module-text">
+                <div class="module-label">Economic Index</div>
+                <h2>Analyzing how Claude is used across the economy.</h2>
+                <p class="module-text-body">The Anthropic Economic Index reveals the shape of AI adoption across the world. Here, you can explore the data behind our research to understand how people are using Claude across every US state and hundreds of occupations.</p>
+                <a href="#" class="module-link">
+                    Read more
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8.5 2.5l5 5-5 5M13 7.5H3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="module-visual">
+                <div class="visual-placeholder">
+                    [Visual placeholder - Add your image, map, diagram, or illustration here]
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Module Spacer -->
+    <div class="module-spacer"></div>
+
+    <!-- ========================================== -->
+    <!-- MODULE 3: CARD GRID                       -->
+    <!-- ========================================== -->
+    <!--
+    USAGE:
+    - Copy entire <div class="card-grid-module"> section
+    - Replace hero icon, headline, description
+    - Add/remove cards (duplicate .card divs)
+    - Replace card labels, icons, headings, descriptions
+
+    CUSTOMIZATION:
+    - Columns: .card-grid { grid-template-columns: repeat(3, 1fr); }
+    - Card background: .card { background: #FEFEFE; }
+    - Shadow intensity: adjust box-shadow in .card:hover
+    - Remove icons: delete .card-icon divs
+    -->
+
+    <div class="card-grid-module">
+        <div class="card-module-header">
+            <div class="module-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <rect x="26" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <rect x="4" y="26" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <rect x="26" y="26" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </div>
+
+            <h1>Get inspired by what you can do with Claude</h1>
+
+            <p>Browse practical examples across research, writing, coding, analysis, and everyday tasks, whether you're working solo or with a team.</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-label">PODCAST</span>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                </div>
+                <h3>Amazing Effects of Non-Visible Light on Health and Melatonin</h3>
+                <p>Optics engineer Scott Zimmerman explains the crucial role of non-visible light wavelengths in human health and melatonin production.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-label">PODCAST</span>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                </div>
+                <h3>Indoor Lighting is Killing Us & Why we Need Infrared Light</h3>
+                <p>Scott Zimmerman discusses the importance of infrared light and the potential dangers of modern indoor lighting.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-label">ARTICLE</span>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="6" y="6" width="20" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            <line x1="10" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.5"/>
+                            <line x1="10" y1="16" x2="22" y2="16" stroke="currentColor" stroke-width="1.5"/>
+                            <line x1="10" y1="20" x2="18" y2="20" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                </div>
+                <h3>Light-Life Interactions & The Plea For Safe Lighting</h3>
+                <p>Scott Zimmerman and Bob Fosbury explore the relationship between light and biological systems, advocating for safer lighting practices.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-label">PODCAST</span>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                </div>
+                <h3>Using Light to Optimize Health | Huberman Lab Podcast</h3>
+                <p>Dr. Andrew Huberman breaks down the science of how different types of light affect our biology and health.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

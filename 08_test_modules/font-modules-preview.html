@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Pairing Module Preview — alexis.garden</title>
+
+    <!-- Load all font options -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Lora:wght@400;500;600&family=Inter:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Open+Sans:wght@400;600&family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #FAF9F7;
+            --ink: #111;
+            --gray: #666;
+            --sage: #A8B5A0;
+            --terracotta: #C4917B;
+            --dusty-blue: #8FA3B0;
+            --subtle: #e8e8e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f5f5;
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Selector */
+        .font-selector {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid var(--subtle);
+            padding: 20px;
+            text-align: center;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .font-selector h2 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .font-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .font-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--subtle);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .font-btn:hover {
+            border-color: var(--sage);
+            background: var(--cream);
+        }
+
+        .font-btn.active {
+            border-color: var(--sage);
+            background: var(--sage);
+            color: white;
+        }
+
+        /* Container */
+        .preview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-divider {
+            height: 60px;
+        }
+
+        /* Module Cards */
+        .module-card {
+            background: white;
+            border-radius: 12px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .module-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: white;
+            background: var(--terracotta);
+            padding: 6px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        /* Hero Module */
+        .hero-module {
+            text-align: center;
+            padding: 80px 40px;
+        }
+
+        .hero-module h1 {
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-module .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+
+        .hero-module .tagline {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-module .cta-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--sage);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Section Module */
+        .section-module {
+            padding: 60px 40px;
+        }
+
+        .section-module h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .section-module p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 700px;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .card {
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--gray);
+        }
+
+        /* Blog Preview */
+        .blog-preview {
+            padding: 40px;
+        }
+
+        .blog-preview h2 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .blog-preview .meta {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .blog-preview .excerpt {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .blog-preview .read-more {
+            font-size: 1.1rem;
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        /* Navigation */
+        .nav-module {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 40px;
+            background: var(--cream);
+        }
+
+        .nav-module .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .nav-module .nav-links {
+            display: flex;
+            gap: 30px;
+            font-size: 1.1rem;
+        }
+
+        .nav-module a {
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        /* Font Pairing Classes */
+        /* Current */
+        .pairing-current h1, .pairing-current h2, .pairing-current h3, .pairing-current h4,
+        .pairing-current .logo {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .pairing-current p, .pairing-current .nav-links, .pairing-current .subtitle,
+        .pairing-current .tagline, .pairing-current .excerpt, .pairing-current .meta,
+        .pairing-current .cta-btn {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Option 1: Cormorant + Lora */
+        .pairing-1 h1, .pairing-1 h2, .pairing-1 h3, .pairing-1 h4,
+        .pairing-1 .logo {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .pairing-1 p, .pairing-1 .nav-links, .pairing-1 .subtitle,
+        .pairing-1 .tagline, .pairing-1 .excerpt, .pairing-1 .meta,
+        .pairing-1 .cta-btn {
+            font-family: 'Lora', serif;
+        }
+
+        /* Option 2: Cormorant + Inter */
+        .pairing-2 h1, .pairing-2 h2, .pairing-2 h3, .pairing-2 h4,
+        .pairing-2 .logo {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .pairing-2 p, .pairing-2 .nav-links, .pairing-2 .subtitle,
+        .pairing-2 .tagline, .pairing-2 .excerpt, .pairing-2 .meta,
+        .pairing-2 .cta-btn {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Option 3: Libre + Open Sans */
+        .pairing-3 h1, .pairing-3 h2, .pairing-3 h3, .pairing-3 h4,
+        .pairing-3 .logo {
+            font-family: 'Libre Baskerville', serif;
+        }
+
+        .pairing-3 p, .pairing-3 .nav-links, .pairing-3 .subtitle,
+        .pairing-3 .tagline, .pairing-3 .excerpt, .pairing-3 .meta,
+        .pairing-3 .cta-btn {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        /* Option 4: Playfair + Source Sans */
+        .pairing-4 h1, .pairing-4 h2, .pairing-4 h3, .pairing-4 h4,
+        .pairing-4 .logo {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .pairing-4 p, .pairing-4 .nav-links, .pairing-4 .subtitle,
+        .pairing-4 .tagline, .pairing-4 .excerpt, .pairing-4 .meta,
+        .pairing-4 .cta-btn {
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        /* Option 5: Cormorant + Crimson */
+        .pairing-5 h1, .pairing-5 h2, .pairing-5 h3, .pairing-5 h4,
+        .pairing-5 .logo {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .pairing-5 p, .pairing-5 .nav-links, .pairing-5 .subtitle,
+        .pairing-5 .tagline, .pairing-5 .excerpt, .pairing-5 .meta,
+        .pairing-5 .cta-btn {
+            font-family: 'Crimson Text', serif;
+        }
+
+        @media (max-width: 768px) {
+            .hero-module h1 {
+                font-size: 3rem;
+            }
+
+            .section-module h2,
+            .blog-preview h2 {
+                font-size: 2rem;
+            }
+
+            .nav-module {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="font-selector">
+        <h2>Choose Font Pairing</h2>
+        <div class="font-buttons">
+            <button class="font-btn" data-pairing="current">Current</button>
+            <button class="font-btn active" data-pairing="1">Option 1: Cormorant + Lora</button>
+            <button class="font-btn" data-pairing="2">Option 2: Cormorant + Inter</button>
+            <button class="font-btn" data-pairing="3">Option 3: Libre + Open Sans</button>
+            <button class="font-btn" data-pairing="4">Option 4: Playfair + Source Sans</button>
+            <button class="font-btn" data-pairing="5">Option 5: Cormorant + Crimson</button>
+        </div>
+    </div>
+
+    <div class="preview-container pairing-1" id="previewContainer">
+
+        <!-- Navigation Module -->
+        <div class="module-card">
+            <span class="module-label">Navigation</span>
+            <div class="nav-module">
+                <div class="logo">alexis.garden</div>
+                <div class="nav-links">
+                    <a href="#">Strategy</a>
+                    <a href="#">Photography</a>
+                    <a href="#">Experiences</a>
+                    <a href="#">Writing</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Module -->
+        <div class="module-card">
+            <span class="module-label">Hero Section</span>
+            <div class="hero-module">
+                <h1>Alexis<br>Digital Garden</h1>
+                <p class="subtitle">(noun) Media Strategist</p>
+                <p class="tagline"><strong>I help founders grow.</strong> Mapping complexity, launching fast, and building strategy that lasts.</p>
+                <a href="#" class="cta-btn">Let's Talk</a>
+            </div>
+        </div>
+
+        <!-- Section Module -->
+        <div class="module-card">
+            <span class="module-label">Section Heading + Body</span>
+            <div class="section-module">
+                <h2>Strategy That Lasts</h2>
+                <p>Life happens slow. So why not plant a seed? I create media strategies that help your brand grow organically, capture authentic moments that tell your story, and lead transformative experiences that shift perspectives.</p>
+            </div>
+        </div>
+
+        <!-- Card Grid -->
+        <div class="module-card">
+            <span class="module-label">Card Grid</span>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Media Strategy</h3>
+                    <p>Mapping complexity and building systems that scale. From content planning to distribution strategy.</p>
+                </div>
+                <div class="card">
+                    <h3>Photography</h3>
+                    <p>Capturing authentic moments that tell your story. Editorial, event, and portrait photography.</p>
+                </div>
+                <div class="card">
+                    <h3>Experiences</h3>
+                    <p>Leading workshops and retreats that shift perspectives. Cultivating clarity through practice.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Preview -->
+        <div class="module-card">
+            <span class="module-label">Blog Post Preview</span>
+            <div class="blog-preview">
+                <h2>The World Is Shifting</h2>
+                <p class="meta">Published January 15, 2026 · 8 min read</p>
+                <p class="excerpt">We're at an inflection point. The old playbooks don't work anymore. But that's not cause for panic—it's an invitation to build something better. Here's what I'm seeing and where we go from here.</p>
+                <a href="#" class="read-more">Read More →</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="section-divider"></div>
+
+    <script>
+        const buttons = document.querySelectorAll('.font-btn');
+        const container = document.getElementById('previewContainer');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                buttons.forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+
+                // Update pairing class
+                const pairing = button.getAttribute('data-pairing');
+                container.className = 'preview-container pairing-' + pairing;
+            });
+        });
+    </script>
+
+</body>
+</html>

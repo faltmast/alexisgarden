@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direction Preview — Editorial vs Studio</title>
+    <link rel="icon" type="image/png" href="../05_icons/icon_45_168_181_160.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --cream: #FAF9F7;
+            --ink: #111;
+            --gray: #666;
+            --light: #aaa;
+            --subtle: #e8e8e6;
+            --sage: #A8B5A0;
+            --terracotta: #C4917B;
+            --dusty-blue: #8FA3B0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #eee;
+            color: var(--ink);
+            font-size: 16px;
+        }
+
+        .direction-toggle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            background: var(--ink);
+            padding: 1rem 2rem;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .direction-toggle span {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .direction-toggle a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.5rem 1.25rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .direction-toggle a:hover,
+        .direction-toggle a.active {
+            background: white;
+            color: var(--ink);
+        }
+
+        .direction {
+            padding-top: 5rem;
+        }
+
+        /* ============================================= */
+        /* DIRECTION 1: EDITORIAL / MAGAZINE             */
+        /* ============================================= */
+
+        .editorial {
+            background: var(--cream);
+        }
+
+        .ed-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 3rem;
+        }
+
+        .ed-section + .ed-section {
+            border-top: 1px solid var(--subtle);
+        }
+
+        /* Editorial Hero */
+        .ed-hero {
+            padding: 8rem 3rem 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ed-hero .ed-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+        }
+
+        .ed-hero h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(4rem, 10vw, 7.5rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 0.92;
+            margin-bottom: 2rem;
+        }
+
+        .ed-hero .ed-tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--gray);
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        /* Editorial Services (stacked) */
+        .ed-service-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--subtle);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transition: padding-left 0.3s ease;
+        }
+
+        .ed-service-row:first-child {
+            border-top: 1px solid var(--subtle);
+        }
+
+        .ed-service-row:hover {
+            padding-left: 1rem;
+        }
+
+        .ed-service-row h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .ed-service-row p {
+            font-size: 1rem;
+            color: var(--light);
+            max-width: 300px;
+            text-align: right;
+        }
+
+        .ed-service-row .arrow {
+            font-size: 1.5rem;
+            color: var(--light);
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .ed-service-row:hover .arrow {
+            transform: translateX(8px);
+            color: var(--ink);
+        }
+
+        /* Editorial Card (floating) */
+        .ed-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .ed-card {
+            background: #F5F3F0;
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ed-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+        }
+
+        .ed-card .badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--terracotta);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .ed-card h4 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .ed-card p {
+            font-size: 0.9375rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* Editorial CTA */
+        .ed-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--ink);
+            text-decoration: none;
+            transition: gap 0.3s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+        }
+
+        .ed-cta:hover { gap: 1rem; }
+        .ed-cta .arrow { font-size: 1.25rem; transition: transform 0.3s; }
+        .ed-cta:hover .arrow { transform: translateX(4px); }
+
+        /* Editorial Quote */
+        .ed-quote {
+            background: #F5F3F0;
+            border-radius: 8px;
+            padding: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ed-quote blockquote {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.5rem;
+        }
+
+        .ed-quote .author {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .ed-quote .author strong {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        /* Editorial Section Headers */
+        .ed-section-head {
+            margin-bottom: 3rem;
+        }
+
+        .ed-section-head .ed-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--light);
+            margin-bottom: 0.75rem;
+        }
+
+        .ed-section-head h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+        }
+
+        /* ============================================= */
+        /* DIRECTION 2: STUDIO / TECHNICAL               */
+        /* ============================================= */
+
+        .studio {
+            background: var(--cream);
+            border-top: 4px solid var(--ink);
+        }
+
+        .st-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .st-section + .st-section {
+            border-top: 1px solid var(--subtle);
+        }
+
+        /* Studio Hero */
+        .st-hero {
+            padding: 7rem 2rem 5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .st-hero .st-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sage);
+            margin-bottom: 1.25rem;
+        }
+
+        .st-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3.5rem, 9vw, 6rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .st-hero .st-tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--gray);
+            max-width: 480px;
+            line-height: 1.6;
+        }
+
+        /* Studio Services (stacked) */
+        .st-service-row {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--subtle);
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.2s;
+        }
+
+        .st-service-row:first-child {
+            border-top: 1px solid var(--subtle);
+        }
+
+        .st-service-row:hover {
+            background: rgba(0,0,0,0.015);
+        }
+
+        .st-service-row .st-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--light);
+            min-width: 2rem;
+        }
+
+        .st-service-row h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .st-service-row h3 span {
+            font-weight: 400;
+            color: var(--gray);
+            font-size: 1rem;
+            margin-left: 1rem;
+        }
+
+        .st-service-row .arrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--light);
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .st-service-row:hover .arrow {
+            color: var(--ink);
+            transform: translateX(4px);
+        }
+
+        /* Studio Card */
+        .st-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--subtle);
+            border: 1px solid var(--subtle);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .st-card {
+            background: var(--cream);
+            padding: 2rem;
+            transition: background 0.2s;
+        }
+
+        .st-card:hover {
+            background: white;
+        }
+
+        .st-card .badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--dusty-blue);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .st-card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+        }
+
+        .st-card p {
+            font-size: 0.9375rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .st-card .status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6875rem;
+            color: var(--sage);
+            margin-top: 1rem;
+            display: block;
+        }
+
+        /* Studio CTA */
+        .st-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--ink);
+            text-decoration: none;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--ink);
+            transition: gap 0.2s, border-color 0.2s;
+            cursor: pointer;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+
+        .st-cta:hover { gap: 0.75rem; }
+
+        /* Studio Quote */
+        .st-quotes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--subtle);
+            border: 1px solid var(--subtle);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .st-quote {
+            background: var(--cream);
+            padding: 2.5rem;
+        }
+
+        .st-quote:hover {
+            background: white;
+        }
+
+        .st-quote .open-mark {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--subtle);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .st-quote blockquote {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .st-quote .author {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .st-quote .author strong {
+            color: var(--ink);
+        }
+
+        /* Studio Section Headers */
+        .st-section-head {
+            margin-bottom: 2.5rem;
+        }
+
+        .st-section-head .st-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sage);
+            margin-bottom: 0.5rem;
+        }
+
+        .st-section-head h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        /* Direction Labels */
+        .direction-label {
+            text-align: center;
+            padding: 3rem 2rem 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .direction-label h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .direction-label p {
+            font-size: 0.9375rem;
+            color: var(--gray);
+        }
+
+        .direction-label .fonts {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--light);
+            margin-top: 0.5rem;
+        }
+
+        .divider {
+            height: 6rem;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divider span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #999;
+            background: #ddd;
+            padding: 0.5rem 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .ed-cards, .st-cards { grid-template-columns: 1fr; }
+            .st-quotes { grid-template-columns: 1fr; }
+            .ed-service-row { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+            .ed-service-row p { text-align: left; }
+            .st-service-row { grid-template-columns: auto 1fr auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================= -->
+    <!-- DIRECTION 1: EDITORIAL                        -->
+    <!-- ============================================= -->
+
+    <div class="direction editorial" id="editorial">
+        <div class="direction-label">
+            <h2>Direction 1</h2>
+            <p>Editorial / Magazine</p>
+            <p class="fonts">Sora 800 + Inter 400</p>
+        </div>
+
+        <div class="ed-hero">
+            <p class="ed-label">Media Strategist</p>
+            <h1>Alexis<br>Digital<br>Garden</h1>
+            <p class="ed-tagline">I help founders grow. Mapping complexity, launching fast, and building strategy that lasts.</p>
+        </div>
+
+        <div class="ed-section">
+            <div class="ed-section-head">
+                <p class="ed-label">Services</p>
+                <h2>What I do</h2>
+            </div>
+            <div>
+                <a href="#" class="ed-service-row">
+                    <h3>Strategy</h3>
+                    <p>Brand positioning and go-to-market for founders who want clarity.</p>
+                    <span class="arrow">&rarr;</span>
+                </a>
+                <a href="#" class="ed-service-row">
+                    <h3>Photography</h3>
+                    <p>Quiet documentary. People in action, captured without disruption.</p>
+                    <span class="arrow">&rarr;</span>
+                </a>
+                <a href="#" class="ed-service-row">
+                    <h3>Experiences</h3>
+                    <p>Workshops, retreats, breathwork, and shared silence.</p>
+                    <span class="arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="ed-section">
+            <div class="ed-section-head">
+                <p class="ed-label">Resources</p>
+                <h2>Tools for clarity</h2>
+            </div>
+            <div class="ed-cards">
+                <div class="ed-card">
+                    <span class="badge">Quiz</span>
+                    <h4>Hedonic Engineering Profile</h4>
+                    <p>A personal map of how you shift state, regulate, connect, and grow.</p>
+                </div>
+                <div class="ed-card">
+                    <span class="badge">Tool</span>
+                    <h4>Decision Journal</h4>
+                    <p>A structured approach to documenting and learning from strategic decisions.</p>
+                </div>
+                <div class="ed-card">
+                    <span class="badge">Guide</span>
+                    <h4>Founder Toolkit</h4>
+                    <p>Templates, frameworks, and resources for early-stage founders.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="ed-section">
+            <div class="ed-section-head">
+                <p class="ed-label">Testimonials</p>
+                <h2>What others say</h2>
+            </div>
+            <div class="ed-quote">
+                <blockquote>"There's a certain quality of attention Alexis brings that goes beyond a typical client-service provider relationship. It's in his photography, his dancing, in everything he does."</blockquote>
+                <p class="author"><strong>Moritz Bierling</strong> &mdash; Principal, Statecraft Systems</p>
+            </div>
+            <div class="ed-quote">
+                <blockquote>"His guidance and keen sense of the market helped my team increase our sales by over ten times in just a couple of weeks."</blockquote>
+                <p class="author"><strong>Matt Schutte</strong> &mdash; Holo</p>
+            </div>
+        </div>
+
+        <div class="ed-section" style="text-align: center;">
+            <button class="ed-cta">Get in touch <span class="arrow">&rarr;</span></button>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- DIVIDER                                       -->
+    <!-- ============================================= -->
+
+    <div class="divider">
+        <span>Direction 2 below</span>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- DIRECTION 2: STUDIO / TECHNICAL               -->
+    <!-- ============================================= -->
+
+    <div class="direction studio" id="studio">
+        <div class="direction-label">
+            <h2>Direction 2</h2>
+            <p>Studio / Technical</p>
+            <p class="fonts">Space Grotesk 700 + Inter 400 + JetBrains Mono (labels)</p>
+        </div>
+
+        <div class="st-hero">
+            <p class="st-label">// media strategist</p>
+            <h1>Alexis<br>Digital<br>Garden</h1>
+            <p class="st-tagline">I help founders grow. Mapping complexity, launching fast, and building strategy that lasts.</p>
+        </div>
+
+        <div class="st-section">
+            <div class="st-section-head">
+                <p class="st-label">services</p>
+                <h2>What I do</h2>
+            </div>
+            <div>
+                <a href="#" class="st-service-row">
+                    <span class="st-num">01</span>
+                    <h3>Strategy <span>Brand positioning and go-to-market</span></h3>
+                    <span class="arrow">-&gt;</span>
+                </a>
+                <a href="#" class="st-service-row">
+                    <span class="st-num">02</span>
+                    <h3>Photography <span>Quiet documentary</span></h3>
+                    <span class="arrow">-&gt;</span>
+                </a>
+                <a href="#" class="st-service-row">
+                    <span class="st-num">03</span>
+                    <h3>Experiences <span>Workshops & retreats</span></h3>
+                    <span class="arrow">-&gt;</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="st-section">
+            <div class="st-section-head">
+                <p class="st-label">resources</p>
+                <h2>Tools for clarity</h2>
+            </div>
+            <div class="st-cards">
+                <div class="st-card">
+                    <span class="badge">quiz</span>
+                    <h4>Hedonic Engineering Profile</h4>
+                    <p>A personal map of how you shift state, regulate, connect, and grow.</p>
+                    <span class="status">&#9679; live</span>
+                </div>
+                <div class="st-card">
+                    <span class="badge">tool</span>
+                    <h4>Decision Journal</h4>
+                    <p>A structured approach to documenting and learning from strategic decisions.</p>
+                    <span class="status">&#9675; coming soon</span>
+                </div>
+                <div class="st-card">
+                    <span class="badge">guide</span>
+                    <h4>Founder Toolkit</h4>
+                    <p>Templates, frameworks, and resources for early-stage founders.</p>
+                    <span class="status">&#9675; coming soon</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="st-section">
+            <div class="st-section-head">
+                <p class="st-label">testimonials</p>
+                <h2>What others say</h2>
+            </div>
+            <div class="st-quotes">
+                <div class="st-quote">
+                    <div class="open-mark">&ldquo;</div>
+                    <blockquote>There's a certain quality of attention Alexis brings that goes beyond a typical client-service provider relationship. It's in his photography, his dancing, in everything he does.</blockquote>
+                    <p class="author"><strong>Moritz Bierling</strong> / Statecraft Systems</p>
+                </div>
+                <div class="st-quote">
+                    <div class="open-mark">&ldquo;</div>
+                    <blockquote>His guidance and keen sense of the market helped my team increase our sales by over ten times in just a couple of weeks.</blockquote>
+                    <p class="author"><strong>Matt Schutte</strong> / Holo</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="st-section" style="text-align: center;">
+            <button class="st-cta">Get in touch -&gt;</button>
+        </div>
+    </div>
+
+</body>
+</html>

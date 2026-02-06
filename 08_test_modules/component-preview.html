@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Preview — alexis.garden Design Overhaul</title>
+    <link rel="icon" type="image/png" href="../05_icons/icon_45_168_181_160.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --cream: #FAF9F7;
+            --ink: #111;
+            --ink-light: #333;
+            --gray: #666;
+            --light: #aaa;
+            --subtle: #e8e8e6;
+            --sage: #A8B5A0;
+            --terracotta: #C4917B;
+            --dusty-blue: #8FA3B0;
+            --sand: #D4C9B8;
+            --font-heading: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 18px;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .preview-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--subtle);
+        }
+
+        .preview-header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-header p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Section titles */
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-desc {
+            color: var(--gray);
+            font-size: 0.9375rem;
+            margin-bottom: 2rem;
+        }
+
+        .component-section {
+            margin-bottom: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--subtle);
+        }
+
+        /* Option grid */
+        .options-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .options-row-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-label {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--terracotta);
+            margin-bottom: 0.75rem;
+        }
+
+        /* ========== CARD OPTIONS ========== */
+
+        /* Option A: Bordered */
+        .card-bordered {
+            background: white;
+            border: 1px solid var(--subtle);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .card-bordered:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border-color: var(--sage);
+        }
+
+        /* Option B: Borderless/floating */
+        .card-floating {
+            background: #F5F4F1;
+            border: none;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .card-floating:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+
+        /* Option C: Accent left-border */
+        .card-accent {
+            background: white;
+            border: none;
+            border-left: 3px solid var(--sage);
+            border-radius: 0;
+            padding: 2rem;
+            transition: border-color 0.3s ease;
+        }
+        .card-accent:hover {
+            border-left-color: var(--terracotta);
+        }
+        .card-accent.blue { border-left-color: var(--dusty-blue); }
+        .card-accent.terra { border-left-color: var(--terracotta); }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.9375rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .card-badge {
+            font-family: var(--font-body);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+        .card-badge.quiz { background: rgba(194,110,75,0.12); color: var(--terracotta); }
+        .card-badge.tool { background: rgba(91,117,83,0.12); color: var(--sage); }
+        .card-badge.guide { background: rgba(74,109,131,0.12); color: var(--dusty-blue); }
+
+        .card-status {
+            font-family: var(--font-body);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 0.75rem;
+        }
+        .card-status.live { background: rgba(91,117,83,0.12); color: var(--sage); }
+        .card-status.new { background: rgba(194,110,75,0.12); color: var(--terracotta); }
+        .card-status.soon { background: rgba(74,109,131,0.12); color: var(--dusty-blue); }
+
+        /* ========== BUTTON OPTIONS ========== */
+
+        .btn-row {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Option A: Solid dark */
+        .btn-solid {
+            display: inline-block;
+            background: var(--ink);
+            color: var(--cream);
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-solid:hover { opacity: 0.85; }
+
+        /* Option B: Outlined/ghost */
+        .btn-ghost {
+            display: inline-block;
+            background: transparent;
+            color: var(--ink);
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            border: 1.5px solid var(--ink);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s ease, color 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-ghost:hover {
+            background: var(--ink);
+            color: var(--cream);
+        }
+
+        /* Option C: Text with arrow */
+        .btn-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ink);
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: gap 0.2s ease;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+        }
+        .btn-text:hover { gap: 0.75rem; }
+        .btn-text .arrow {
+            transition: transform 0.2s ease;
+        }
+        .btn-text:hover .arrow { transform: translateX(2px); }
+
+        /* ========== SERVICES SECTION OPTIONS ========== */
+
+        /* Option A: 3-column cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .service-card {
+            padding: 2rem;
+            background: white;
+            border: 1px solid var(--subtle);
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+        .service-card:hover { border-color: var(--sage); }
+        .service-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .service-card p {
+            font-size: 0.9375rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        .service-card a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--ink);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Option B: Stacked list with arrows */
+        .services-stack {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.75rem 0;
+            border-bottom: 1px solid var(--subtle);
+            text-decoration: none;
+            color: inherit;
+            transition: padding-left 0.2s ease;
+        }
+        .service-row:first-child { border-top: 1px solid var(--subtle); }
+        .service-row:hover { padding-left: 0.5rem; }
+
+        .service-row-left h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .service-row-left p {
+            font-size: 0.9375rem;
+            color: var(--gray);
+        }
+        .service-row-arrow {
+            font-size: 1.5rem;
+            color: var(--light);
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .service-row:hover .service-row-arrow {
+            color: var(--ink);
+            transform: translateX(4px);
+        }
+
+        /* ========== EXPERIENCE CARD OPTIONS ========== */
+
+        .exp-option-card {
+            padding: 2rem;
+        }
+
+        .exp-accent-mark {
+            width: 24px;
+            height: 3px;
+            background: var(--sage);
+            border-radius: 2px;
+            margin-bottom: 1rem;
+            opacity: 0.6;
+        }
+
+        .exp-option-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .exp-option-card .exp-sub {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray);
+            margin-bottom: 0.75rem;
+        }
+
+        .exp-option-card p {
+            font-size: 0.9375rem;
+            color: var(--gray);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        .exp-option-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .exp-option-card ul li {
+            font-size: 0.875rem;
+            color: var(--gray);
+            padding: 0.375rem 0;
+            border-bottom: 1px solid var(--subtle);
+        }
+        .exp-option-card ul li:last-child { border-bottom: none; }
+
+        /* ========== NOW PAGE CARD OPTIONS ========== */
+
+        .now-option-card {
+            padding: 1.75rem;
+        }
+
+        .now-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .now-card-header h4 {
+            font-family: var(--font-heading);
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .now-badge {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 3px;
+        }
+        .now-badge.active { background: rgba(91,117,83,0.12); color: var(--sage); }
+        .now-badge.dev { background: rgba(74,109,131,0.12); color: var(--dusty-blue); }
+
+        .now-card-desc {
+            font-size: 0.9375rem;
+            color: var(--gray);
+        }
+
+        /* Now 2-column grid */
+        .now-grid-2col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        /* Now stacked full-width */
+        .now-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .options-row { grid-template-columns: 1fr; }
+            .options-row-2 { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .now-grid-2col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <div class="preview-header">
+            <h1>Component Preview</h1>
+            <p>Pick one option per section. These will be applied across the site.</p>
+        </div>
+
+        <!-- ========== CARDS ========== -->
+        <div class="component-section">
+            <p class="section-label">Cards</p>
+            <h2 class="section-title">Card Style Options</h2>
+            <p class="section-desc">Used for resource cards, project cards, and any content tile.</p>
+
+            <div class="options-row">
+                <div>
+                    <p class="option-label">Option A — Bordered</p>
+                    <div class="card-bordered">
+                        <span class="card-badge quiz">Quiz</span>
+                        <h3 class="card-title">Hedonic Engineering Profile</h3>
+                        <p class="card-desc">A personal map of how you shift state, regulate, connect, and grow.</p>
+                        <span class="card-status live">Live</span>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="option-label">Option B — Floating</p>
+                    <div class="card-floating">
+                        <span class="card-badge tool">Tool</span>
+                        <h3 class="card-title">Decision Journal</h3>
+                        <p class="card-desc">A structured approach to documenting and learning from your strategic decisions.</p>
+                        <span class="card-status new">New</span>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="option-label">Option C — Accent Border</p>
+                    <div class="card-accent">
+                        <span class="card-badge guide">Guide</span>
+                        <h3 class="card-title">Founder Toolkit</h3>
+                        <p class="card-desc">Templates, frameworks, and resources for early-stage founders.</p>
+                        <span class="card-status soon">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== BUTTONS ========== -->
+        <div class="component-section">
+            <p class="section-label">Buttons / CTAs</p>
+            <h2 class="section-title">Button Style Options</h2>
+            <p class="section-desc">Primary call-to-action style used across all pages.</p>
+
+            <div class="options-row">
+                <div>
+                    <p class="option-label">Option A — Solid Dark</p>
+                    <div style="padding: 2rem; background: white; border-radius: 8px; text-align: center;">
+                        <button class="btn-solid">Get in touch</button>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="option-label">Option B — Ghost / Outlined</p>
+                    <div style="padding: 2rem; background: white; border-radius: 8px; text-align: center;">
+                        <button class="btn-ghost">Get in touch</button>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="option-label">Option C — Text with Arrow</p>
+                    <div style="padding: 2rem; background: white; border-radius: 8px; text-align: center;">
+                        <button class="btn-text">Get in touch <span class="arrow">&rarr;</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== SERVICES ========== -->
+        <div class="component-section">
+            <p class="section-label">Services Section</p>
+            <h2 class="section-title">Services Layout Options</h2>
+            <p class="section-desc">How the three main services (Strategy, Photography, Experiences) are displayed.</p>
+
+            <div class="options-row-2">
+                <div>
+                    <p class="option-label">Option A — 3-Column Cards</p>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <h3>Strategy</h3>
+                            <p>Brand positioning and go-to-market for founders.</p>
+                            <a href="#">Learn more &rarr;</a>
+                        </div>
+                        <div class="service-card">
+                            <h3>Photography</h3>
+                            <p>Quiet documentary. People in action.</p>
+                            <a href="#">Learn more &rarr;</a>
+                        </div>
+                        <div class="service-card">
+                            <h3>Experiences</h3>
+                            <p>Workshops, retreats, and shared practices.</p>
+                            <a href="#">Learn more &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="option-label">Option B — Stacked List with Arrows</p>
+                    <div class="services-stack">
+                        <a href="#" class="service-row">
+                            <div class="service-row-left">
+                                <h3>Strategy</h3>
+                                <p>Brand positioning and go-to-market for founders.</p>
+                            </div>
+                            <span class="service-row-arrow">&rarr;</span>
+                        </a>
+                        <a href="#" class="service-row">
+                            <div class="service-row-left">
+                                <h3>Photography</h3>
+                                <p>Quiet documentary. People in action.</p>
+                            </div>
+                            <span class="service-row-arrow">&rarr;</span>
+                        </a>
+                        <a href="#" class="service-row">
+                            <div class="service-row-left">
+                                <h3>Experiences</h3>
+                                <p>Workshops, retreats, and shared practices.</p>
+                            </div>
+                            <span class="service-row-arrow">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== EXPERIENCE CARDS ========== -->
+        <div class="component-section">
+            <p class="section-label">Experience Cards</p>
+            <h2 class="section-title">Experience Card Options</h2>
+            <p class="section-desc">Used on the Experiences page for Workshops, Retreats, Volta.</p>
+
+            <div class="options-row-2">
+                <div>
+                    <p class="option-label">Option A — With Sumi Accent Mark</p>
+                    <div class="card-bordered exp-option-card">
+                        <div class="exp-accent-mark"></div>
+                        <h3>Workshops</h3>
+                        <p class="exp-sub">For teams and groups</p>
+                        <p>Breathwork and ice bath workshops focused on regulation, trust, and direct experience.</p>
+                        <ul>
+                            <li>Breathwork sessions</li>
+                            <li>Ice bath experiences</li>
+                            <li>Team regulation practices</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="option-label">Option B — Clean Text Only</p>
+                    <div class="card-bordered exp-option-card">
+                        <h3>Workshops</h3>
+                        <p class="exp-sub">For teams and groups</p>
+                        <p>Breathwork and ice bath workshops focused on regulation, trust, and direct experience.</p>
+                        <ul>
+                            <li>Breathwork sessions</li>
+                            <li>Ice bath experiences</li>
+                            <li>Team regulation practices</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== NOW PAGE CARDS ========== -->
+        <div class="component-section">
+            <p class="section-label">Now Page</p>
+            <h2 class="section-title">Now Page Card Layout</h2>
+            <p class="section-desc">How active projects are displayed on the /now page.</p>
+
+            <div class="options-row-2">
+                <div>
+                    <p class="option-label">Option A — Stacked Full-Width</p>
+                    <div class="now-stack">
+                        <div class="card-bordered now-option-card">
+                            <div class="now-card-header">
+                                <h4>Wise Leaders Fellowship</h4>
+                                <span class="now-badge active">Active</span>
+                            </div>
+                            <p class="now-card-desc">A 6-month intensive for Series A CEOs combining silent retreats, expert sessions, and biofeedback training.</p>
+                        </div>
+                        <div class="card-bordered now-option-card">
+                            <div class="now-card-header">
+                                <h4>CEO Lab</h4>
+                                <span class="now-badge dev">In Development</span>
+                            </div>
+                            <p class="now-card-desc">A new initiative for executive development. Details coming soon.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="option-label">Option B — 2-Column Grid</p>
+                    <div class="now-grid-2col">
+                        <div class="card-bordered now-option-card">
+                            <div class="now-card-header">
+                                <h4>Wise Leaders Fellowship</h4>
+                                <span class="now-badge active">Active</span>
+                            </div>
+                            <p class="now-card-desc">A 6-month intensive for Series A CEOs.</p>
+                        </div>
+                        <div class="card-bordered now-option-card">
+                            <div class="now-card-header">
+                                <h4>CEO Lab</h4>
+                                <span class="now-badge dev">In Development</span>
+                            </div>
+                            <p class="now-card-desc">Executive development initiative.</p>
+                        </div>
+                        <div class="card-bordered now-option-card">
+                            <div class="now-card-header">
+                                <h4>Volta</h4>
+                                <span class="now-badge active">Active</span>
+                            </div>
+                            <p class="now-card-desc">Tools and resources for founders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== COLOR REFERENCE ========== -->
+        <div class="component-section" style="border-bottom: none;">
+            <p class="section-label">Reference</p>
+            <h2 class="section-title">Updated Color Palette</h2>
+            <p class="section-desc">New deepened accent colors for better contrast on cream background.</p>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; border-radius: 8px; background: var(--ink);"></div>
+                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--gray);">Ink #111</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; border-radius: 8px; background: var(--ink-light);"></div>
+                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--gray);">Ink Light #333</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; border-radius: 8px; background: var(--gray);"></div>
+                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--gray);">Gray #555</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; border-radius: 8px; background: var(--sage);"></div>
+                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--gray);">Sage #5B7553</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; border-radius: 8px; background: var(--terracotta);"></div>
+                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--gray);">Terracotta #C26E4B</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; border-radius: 8px; background: var(--dusty-blue);"></div>
+                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--gray);">Dusty Blue #4A6D83</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; border-radius: 8px; background: var(--subtle);"></div>
+                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--gray);">Subtle #E5E3DE</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; border-radius: 8px; background: var(--cream); border: 1px solid var(--subtle);"></div>
+                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--gray);">Cream #FAF9F7</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

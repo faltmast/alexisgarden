@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Preview — alexis.garden</title>
+
+    <!-- Load fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&family=Fraunces:wght@400;500;600;700&family=Crimson+Pro:wght@400;500;600;700&family=Libre+Caslon+Text:wght@400;700&family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #FAF9F7;
+            --ink: #111;
+            --gray: #666;
+            --light-gray: #aaa;
+            --sage: #A8B5A0;
+            --terracotta: #C4917B;
+            --dusty-blue: #8FA3B0;
+            --sand: #D4C9B8;
+            --subtle: #e8e8e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--cream);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Selector */
+        .font-selector {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid var(--subtle);
+            padding: 30px 20px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        .font-selector h2 {
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .font-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .font-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--subtle);
+            background: white;
+            color: var(--ink);
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .font-btn:hover {
+            background: var(--cream);
+            border-color: var(--sage);
+        }
+
+        .font-btn.active {
+            background: var(--sage);
+            color: white;
+            border-color: var(--sage);
+        }
+
+        /* Container */
+        .preview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Module 1: Hero with description (like "Goodbye, blue light") */
+        .module-1 {
+            background: var(--sage);
+            color: var(--ink);
+            padding: 120px 60px;
+        }
+
+        .module-1 h1 {
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            font-weight: 400;
+            color: var(--ink);
+        }
+
+        .module-1 .description {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            max-width: 700px;
+            color: var(--ink);
+            opacity: 0.85;
+        }
+
+        /* Card Grid (like the 3-column layout) */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            padding: 80px 60px;
+            background: white;
+        }
+
+        .card-item {
+            text-align: left;
+        }
+
+        .card-item .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .card-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .card-item p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--gray);
+        }
+
+        /* Module 2: Light section with cards (like "Dive deeper") */
+        .module-2 {
+            background: var(--cream);
+            padding: 100px 60px;
+        }
+
+        .module-2 h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .module-2 .subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .button-card {
+            background: white;
+            border: 2px solid var(--subtle);
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .button-card:hover {
+            border-color: var(--dusty-blue);
+            transform: translateY(-2px);
+            background: var(--cream);
+        }
+
+        .button-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .button-card .label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+        }
+
+        /* Module 3: CTA/Newsletter (dark with border) */
+        .module-3 {
+            background: var(--terracotta);
+            margin: 80px 60px;
+            padding: 80px 60px;
+            border: 3px solid var(--terracotta);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .module-3 h2 {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .module-3 .subtext {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--ink);
+            opacity: 0.8;
+        }
+
+        /* Font Pairings */
+
+        /* Option 1: Newsreader + Inter */
+        .pairing-1 h1, .pairing-1 h2, .pairing-1 h3 {
+            font-family: 'Newsreader', serif;
+        }
+
+        .pairing-1 p, .pairing-1 .label, .pairing-1 .description,
+        .pairing-1 .subtitle, .pairing-1 .subtext {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Option 2: Fraunces + Inter */
+        .pairing-2 h1, .pairing-2 h2, .pairing-2 h3 {
+            font-family: 'Fraunces', serif;
+        }
+
+        .pairing-2 p, .pairing-2 .label, .pairing-2 .description,
+        .pairing-2 .subtitle, .pairing-2 .subtext {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Option 3: Crimson Pro + DM Sans */
+        .pairing-3 h1, .pairing-3 h2, .pairing-3 h3 {
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .pairing-3 p, .pairing-3 .label, .pairing-3 .description,
+        .pairing-3 .subtitle, .pairing-3 .subtext {
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        /* Option 4: Libre Caslon + Plus Jakarta Sans */
+        .pairing-4 h1, .pairing-4 h2, .pairing-4 h3 {
+            font-family: 'Libre Caslon Text', serif;
+        }
+
+        .pairing-4 p, .pairing-4 .label, .pairing-4 .description,
+        .pairing-4 .subtitle, .pairing-4 .subtext {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Option 5: Inter Only */
+        .pairing-5 h1, .pairing-5 h2, .pairing-5 h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .pairing-5 p, .pairing-5 .label, .pairing-5 .description,
+        .pairing-5 .subtitle, .pairing-5 .subtext {
+            font-family: 'Inter', sans-serif;
+        }
+
+        @media (max-width: 1024px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .module-1 h1 {
+                font-size: 3.5rem;
+            }
+
+            .module-2 h2 {
+                font-size: 2.5rem;
+            }
+
+            .module-3 h2 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .module-1, .card-grid, .module-2, .module-3 {
+                padding: 60px 30px;
+            }
+
+            .module-1 h1 {
+                font-size: 2.5rem;
+            }
+
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="font-selector">
+        <h2>Select Font Pairing</h2>
+        <div class="font-buttons">
+            <button class="font-btn active" data-pairing="1">Newsreader + Inter</button>
+            <button class="font-btn" data-pairing="2">Fraunces + Inter</button>
+            <button class="font-btn" data-pairing="3">Crimson Pro + DM Sans</button>
+            <button class="font-btn" data-pairing="4">Libre Caslon + Plus Jakarta</button>
+            <button class="font-btn" data-pairing="5">Inter Only</button>
+        </div>
+    </div>
+
+    <div class="preview-container pairing-1" id="previewContainer">
+
+        <!-- Module 1: Hero with description -->
+        <div class="module-1">
+            <h1>Goodbye, complexity</h1>
+            <p class="description">Most strategies fail because they're too complicated. I help founders build systems that actually work—mapping the mess, launching fast, and creating clarity that lasts.</p>
+        </div>
+
+        <!-- Card Grid (3 columns) -->
+        <div class="card-grid">
+            <div class="card-item">
+                <div class="icon">💡</div>
+                <h3>Better clarity</h3>
+                <p>In sync with your vision and values, not against them</p>
+            </div>
+            <div class="card-item">
+                <div class="icon">⚡</div>
+                <h3>Faster execution</h3>
+                <p>Systems that ship results, not endless planning meetings</p>
+            </div>
+            <div class="card-item">
+                <div class="icon">🌱</div>
+                <h3>Organic growth</h3>
+                <p>Strategy that compounds over time instead of burning you out</p>
+            </div>
+        </div>
+
+        <!-- Module 2: Section with button grid -->
+        <div class="module-2">
+            <h2>Dive deeper<br>into strategy</h2>
+            <p class="subtitle">Dive deeper into every section on this site and find what you are looking for.</p>
+
+            <div class="button-grid">
+                <div class="button-card">
+                    <div class="icon">📊</div>
+                    <div class="label">Strategy</div>
+                </div>
+                <div class="button-card">
+                    <div class="icon">📸</div>
+                    <div class="label">Photography</div>
+                </div>
+                <div class="button-card">
+                    <div class="icon">🌱</div>
+                    <div class="label">Experiences</div>
+                </div>
+                <div class="button-card">
+                    <div class="icon">✍️</div>
+                    <div class="label">Writing</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module 3: Newsletter CTA -->
+        <div class="module-3">
+            <h2>Newsletter</h2>
+            <p class="subtext">Get Updates · No Spam</p>
+        </div>
+
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll('.font-btn');
+        const container = document.getElementById('previewContainer');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+
+                const pairing = button.getAttribute('data-pairing');
+                container.className = 'preview-container pairing-' + pairing;
+            });
+        });
+    </script>
+
+</body>
+</html>

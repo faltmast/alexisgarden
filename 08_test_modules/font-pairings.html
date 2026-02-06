@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Pairing Options — alexis.garden</title>
+
+    <!-- Load all font options -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Lora:wght@400;500;600&family=Inter:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Open+Sans:wght@400;600&family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #FAF9F7;
+            --ink: #111;
+            --gray: #666;
+            --sage: #A8B5A0;
+            --terracotta: #C4917B;
+            --subtle: #e8e8e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--cream);
+            color: var(--ink);
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--subtle);
+        }
+
+        .page-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-family: 'Inter', sans-serif;
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .pairing-section {
+            margin-bottom: 80px;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid var(--subtle);
+        }
+
+        .pairing-label {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+            background: var(--sage);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .pairing-title {
+            font-size: 1.25rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--ink);
+        }
+
+        .pairing-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .sample-content {
+            border-top: 1px solid var(--subtle);
+            padding-top: 30px;
+        }
+
+        .type-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+            margin-bottom: 8px;
+            margin-top: 30px;
+        }
+
+        .type-label:first-of-type {
+            margin-top: 0;
+        }
+
+        .sample-display {
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .sample-h1 {
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .sample-h2 {
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .sample-h3 {
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .sample-h4 {
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .sample-body {
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .sample-small {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        /* Option 1: Current (Cormorant + Mariposa) */
+        .option-current .sample-display {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+        }
+
+        .option-current .sample-h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 500;
+        }
+
+        .option-current .sample-h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.25rem;
+            font-weight: 500;
+        }
+
+        .option-current .sample-h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+        }
+
+        .option-current .sample-h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .option-current .sample-body {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .option-current .sample-small {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* Option 2: Cormorant + Lora */
+        .option-2 .sample-display {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+        }
+
+        .option-2 .sample-h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 500;
+        }
+
+        .option-2 .sample-h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.25rem;
+            font-weight: 500;
+        }
+
+        .option-2 .sample-h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+        }
+
+        .option-2 .sample-h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .option-2 .sample-body {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .option-2 .sample-small {
+            font-family: 'Lora', serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* Option 3: Cormorant + Inter */
+        .option-3 .sample-display {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+        }
+
+        .option-3 .sample-h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 500;
+        }
+
+        .option-3 .sample-h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.25rem;
+            font-weight: 500;
+        }
+
+        .option-3 .sample-h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+        }
+
+        .option-3 .sample-h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .option-3 .sample-body {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .option-3 .sample-small {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* Option 4: Libre Baskerville + Open Sans */
+        .option-4 .sample-display {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+        }
+
+        .option-4 .sample-h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 3rem;
+            font-weight: 400;
+        }
+
+        .option-4 .sample-h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.25rem;
+            font-weight: 400;
+        }
+
+        .option-4 .sample-h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.75rem;
+            font-weight: 400;
+        }
+
+        .option-4 .sample-h4 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .option-4 .sample-body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .option-4 .sample-small {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* Option 5: Playfair + Source Sans Pro */
+        .option-5 .sample-display {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+        }
+
+        .option-5 .sample-h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 500;
+        }
+
+        .option-5 .sample-h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.25rem;
+            font-weight: 500;
+        }
+
+        .option-5 .sample-h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+        }
+
+        .option-5 .sample-h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .option-5 .sample-body {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .option-5 .sample-small {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* Option 6: Cormorant + Crimson Text */
+        .option-6 .sample-display {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+        }
+
+        .option-6 .sample-h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 500;
+        }
+
+        .option-6 .sample-h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.25rem;
+            font-weight: 500;
+        }
+
+        .option-6 .sample-h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+        }
+
+        .option-6 .sample-h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .option-6 .sample-body {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .option-6 .sample-small {
+            font-family: 'Crimson Text', serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .highlight {
+            color: var(--sage);
+        }
+
+        a {
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .sample-display {
+                font-size: 2.5rem !important;
+            }
+
+            .sample-h1 {
+                font-size: 2rem !important;
+            }
+
+            .sample-h2 {
+                font-size: 1.5rem !important;
+            }
+
+            .pairing-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>Font Pairing Options</h1>
+        <p>Compare different typography combinations for alexis.garden</p>
+    </div>
+
+    <!-- Current -->
+    <div class="pairing-section option-current">
+        <span class="pairing-label">Current</span>
+        <div class="pairing-title">Cormorant Garamond + Mariposa Std (Current)</div>
+        <div class="pairing-description">
+            Your current setup: elegant serif for headings with custom serif body text. Very literary and editorial, but body text readability could be improved for web.
+        </div>
+        <div class="sample-content">
+            <div class="type-label">Display / Hero (4.5rem)</div>
+            <div class="sample-display">Alexis Digital Garden</div>
+
+            <div class="type-label">H1 — Page Title (3rem)</div>
+            <div class="sample-h1">I help founders grow</div>
+
+            <div class="type-label">H2 — Section Heading (2.25rem)</div>
+            <div class="sample-h2">Mapping complexity, launching fast</div>
+
+            <div class="type-label">H3 — Subsection (1.75rem)</div>
+            <div class="sample-h3">Strategy and building systems</div>
+
+            <div class="type-label">H4 — Card Title (1.25rem)</div>
+            <div class="sample-h4">Photography & Experiences</div>
+
+            <div class="type-label">Body Text (1.1rem)</div>
+            <div class="sample-body">Life happens slow. So why not plant a seed? I create media strategies, capture authentic moments, lead transformative experiences, share reflections on growth, and build tools for clarity.</div>
+
+            <div class="type-label">Small / Caption (0.9rem)</div>
+            <div class="sample-small">Media Strategist · Photographer · Workshop Leader</div>
+        </div>
+    </div>
+
+    <!-- Option 1: Cormorant + Lora -->
+    <div class="pairing-section option-2">
+        <span class="pairing-label">Option 1</span>
+        <div class="pairing-title">Cormorant Garamond + Lora</div>
+        <div class="pairing-description">
+            Keep the literary feel, improve contrast. Maintains sophistication with better web readability. Both serifs but different personalities create subtle hierarchy.
+        </div>
+        <div class="sample-content">
+            <div class="type-label">Display / Hero (4.5rem)</div>
+            <div class="sample-display">Alexis Digital Garden</div>
+
+            <div class="type-label">H1 — Page Title (3rem)</div>
+            <div class="sample-h1">I help founders grow</div>
+
+            <div class="type-label">H2 — Section Heading (2.25rem)</div>
+            <div class="sample-h2">Mapping complexity, launching fast</div>
+
+            <div class="type-label">H3 — Subsection (1.75rem)</div>
+            <div class="sample-h3">Strategy and building systems</div>
+
+            <div class="type-label">H4 — Card Title (1.25rem)</div>
+            <div class="sample-h4">Photography & Experiences</div>
+
+            <div class="type-label">Body Text (1.1rem)</div>
+            <div class="sample-body">Life happens slow. So why not plant a seed? I create media strategies, capture authentic moments, lead transformative experiences, share reflections on growth, and build tools for clarity.</div>
+
+            <div class="type-label">Small / Caption (0.9rem)</div>
+            <div class="sample-small">Media Strategist · Photographer · Workshop Leader</div>
+        </div>
+    </div>
+
+    <!-- Option 2: Cormorant + Inter -->
+    <div class="pairing-section option-3">
+        <span class="pairing-label">Option 2 — Recommended</span>
+        <div class="pairing-title">Cormorant Garamond + Inter</div>
+        <div class="pairing-description">
+            Add modern contrast (most versatile). Classic serif/sans pairing with excellent readability. Modern but timeless. Matches "digital garden" concept — rooted in tradition, growing into clarity.
+        </div>
+        <div class="sample-content">
+            <div class="type-label">Display / Hero (4.5rem)</div>
+            <div class="sample-display">Alexis Digital Garden</div>
+
+            <div class="type-label">H1 — Page Title (3rem)</div>
+            <div class="sample-h1">I help founders grow</div>
+
+            <div class="type-label">H2 — Section Heading (2.25rem)</div>
+            <div class="sample-h2">Mapping complexity, launching fast</div>
+
+            <div class="type-label">H3 — Subsection (1.75rem)</div>
+            <div class="sample-h3">Strategy and building systems</div>
+
+            <div class="type-label">H4 — Card Title (1.25rem)</div>
+            <div class="sample-h4">Photography & Experiences</div>
+
+            <div class="type-label">Body Text (1.1rem)</div>
+            <div class="sample-body">Life happens slow. So why not plant a seed? I create media strategies, capture authentic moments, lead transformative experiences, share reflections on growth, and build tools for clarity.</div>
+
+            <div class="type-label">Small / Caption (0.9rem)</div>
+            <div class="sample-small">Media Strategist · Photographer · Workshop Leader</div>
+        </div>
+    </div>
+
+    <!-- Option 3: Libre Baskerville + Open Sans -->
+    <div class="pairing-section option-4">
+        <span class="pairing-label">Option 3</span>
+        <div class="pairing-title">Libre Baskerville + Open Sans</div>
+        <div class="pairing-description">
+            Organic & warm (matches "garden" aesthetic). Classic, grounded serif with friendly, approachable sans. Warmer than current options, very readable, has a "growth" feeling.
+        </div>
+        <div class="sample-content">
+            <div class="type-label">Display / Hero (4.5rem)</div>
+            <div class="sample-display">Alexis Digital Garden</div>
+
+            <div class="type-label">H1 — Page Title (3rem)</div>
+            <div class="sample-h1">I help founders grow</div>
+
+            <div class="type-label">H2 — Section Heading (2.25rem)</div>
+            <div class="sample-h2">Mapping complexity, launching fast</div>
+
+            <div class="type-label">H3 — Subsection (1.75rem)</div>
+            <div class="sample-h3">Strategy and building systems</div>
+
+            <div class="type-label">H4 — Card Title (1.25rem)</div>
+            <div class="sample-h4">Photography & Experiences</div>
+
+            <div class="type-label">Body Text (1.1rem)</div>
+            <div class="sample-body">Life happens slow. So why not plant a seed? I create media strategies, capture authentic moments, lead transformative experiences, share reflections on growth, and build tools for clarity.</div>
+
+            <div class="type-label">Small / Caption (0.9rem)</div>
+            <div class="sample-small">Media Strategist · Photographer · Workshop Leader</div>
+        </div>
+    </div>
+
+    <!-- Option 4: Playfair + Source Sans Pro -->
+    <div class="pairing-section option-5">
+        <span class="pairing-label">Option 4</span>
+        <div class="pairing-title">Playfair Display + Source Sans Pro</div>
+        <div class="pairing-description">
+            Japanese-inspired minimalism. Elegant, high-contrast serif with clean, professional sans. Refined contrast that works with Japanese aesthetic. Authoritative but approachable.
+        </div>
+        <div class="sample-content">
+            <div class="type-label">Display / Hero (4.5rem)</div>
+            <div class="sample-display">Alexis Digital Garden</div>
+
+            <div class="type-label">H1 — Page Title (3rem)</div>
+            <div class="sample-h1">I help founders grow</div>
+
+            <div class="type-label">H2 — Section Heading (2.25rem)</div>
+            <div class="sample-h2">Mapping complexity, launching fast</div>
+
+            <div class="type-label">H3 — Subsection (1.75rem)</div>
+            <div class="sample-h3">Strategy and building systems</div>
+
+            <div class="type-label">H4 — Card Title (1.25rem)</div>
+            <div class="sample-h4">Photography & Experiences</div>
+
+            <div class="type-label">Body Text (1.1rem)</div>
+            <div class="sample-body">Life happens slow. So why not plant a seed? I create media strategies, capture authentic moments, lead transformative experiences, share reflections on growth, and build tools for clarity.</div>
+
+            <div class="type-label">Small / Caption (0.9rem)</div>
+            <div class="sample-small">Media Strategist · Photographer · Workshop Leader</div>
+        </div>
+    </div>
+
+    <!-- Option 5: Cormorant + Crimson Text -->
+    <div class="pairing-section option-6">
+        <span class="pairing-label">Option 5</span>
+        <div class="pairing-title">Cormorant Garamond + Crimson Text</div>
+        <div class="pairing-description">
+            Keep unique two-serif approach (refinement). Maintains editorial feel with better hierarchy through weight contrast. More readable serif body than current Mariposa.
+        </div>
+        <div class="sample-content">
+            <div class="type-label">Display / Hero (4.5rem)</div>
+            <div class="sample-display">Alexis Digital Garden</div>
+
+            <div class="type-label">H1 — Page Title (3rem)</div>
+            <div class="sample-h1">I help founders grow</div>
+
+            <div class="type-label">H2 — Section Heading (2.25rem)</div>
+            <div class="sample-h2">Mapping complexity, launching fast</div>
+
+            <div class="type-label">H3 — Subsection (1.75rem)</div>
+            <div class="sample-h3">Strategy and building systems</div>
+
+            <div class="type-label">H4 — Card Title (1.25rem)</div>
+            <div class="sample-h4">Photography & Experiences</div>
+
+            <div class="type-label">Body Text (1.1rem)</div>
+            <div class="sample-body">Life happens slow. So why not plant a seed? I create media strategies, capture authentic moments, lead transformative experiences, share reflections on growth, and build tools for clarity.</div>
+
+            <div class="type-label">Small / Caption (0.9rem)</div>
+            <div class="sample-small">Media Strategist · Photographer · Workshop Leader</div>
+        </div>
+    </div>
+
+</body>
+</html>
