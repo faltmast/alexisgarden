@@ -19,13 +19,30 @@
             <span></span>
         </button>
         <div class="nav-links">
-            <a href="strategy.html">Strategy</a>
-            <a href="photography.html">Photography</a>
-            <a href="experiences.html">Experiences</a>
-            <span class="nav-divider"></span>
-            <a href="writing.html" class="nav-active">Writing</a>
+            <a href="now.html">Now</a>
+
+            <div class="nav-dropdown">
+                <button class="nav-dropdown-toggle">Services</button>
+                <div class="nav-dropdown-menu">
+                    <a href="strategy.html">Strategy</a>
+                    <a href="photography.html">Photography</a>
+                    <a href="experiences.html">Experiences</a>
+                </div>
+            </div>
+
+            <div class="nav-dropdown">
+                <button class="nav-dropdown-toggle">Projects</button>
+                <div class="nav-dropdown-menu">
+                    <a href="https://wiseleadersfellowship.com" target="_blank" rel="noopener noreferrer">Wise Leaders Fellowship</a>
+                    <a href="volta.html">Volta</a>
+                    <a href="#" class="nav-coming-soon">CEO Lab<span class="soon-badge">Coming Soon</span></a>
+                </div>
+            </div>
+
             <a href="resources.html">Resources</a>
-            <a href="index.html#contact" class="nav-cta">Say Hi</a>
+
+            <a href="writing.html" class="nav-active">Writing</a>
+            <a href="mailto:hello@alexis.garden" class="nav-cta">Say Hi</a>
         </div>
     </nav>
 
@@ -34,8 +51,8 @@
         <div class="hero-content">
             <div class="hero-left">
                 <div class="hero-intro">
+                    <p class="hero-subtitle">Essays & Reflections</p>
                     <h1>Writing</h1>
-                    <p class="hero-subtitle">(noun)&nbsp;&nbsp;&nbsp;Essays & Reflections</p>
                     <p class="hero-tagline"><span class="highlight">Thoughts on strategy, growth,</span><br>and finding what's true.</p>
                 </div>
             </div>
@@ -46,12 +63,24 @@
     </section>
 
     <!-- Blog Posts -->
-    <section class="blog-list">
-        <article class="blog-post option-a strategy">
+    <section class="blog-list-new">
+        <article class="blog-card-new strategy">
+            <a href="03_blog/the-future-belongs-to-systems.html">
+                <div class="blog-card-header">
+                    <img src="05_icons/icon_34_143_163_176.png" alt="" class="blog-card-icon">
+                    <span class="blog-card-category">Strategy</span>
+                </div>
+                <time datetime="2026-02-06">February 6, 2026</time>
+                <h2>The Future Belongs To Systems That Cannot Change Their Mind</h2>
+                <p>Which systems stay reliable when millions of people use them? Why big systems stop depending on human judgment and start depending on automatic execution.</p>
+            </a>
+        </article>
+
+        <article class="blog-card-new strategy">
             <a href="03_blog/the-world-is-shifting.html">
-                <div class="option-a-category">
-                    <img src="05_icons/icon_34_143_163_176.png" alt="" class="option-a-icon">
-                    <span>Strategy</span>
+                <div class="blog-card-header">
+                    <img src="05_icons/icon_34_143_163_176.png" alt="" class="blog-card-icon">
+                    <span class="blog-card-category">Strategy</span>
                 </div>
                 <time datetime="2025-03-05">March 5, 2025</time>
                 <h2>The World Is Shifting</h2>
@@ -59,11 +88,11 @@
             </a>
         </article>
 
-        <article class="blog-post option-a philosophy">
+        <article class="blog-card-new philosophy">
             <a href="03_blog/stop-what-youre-doing-go-outside.html">
-                <div class="option-a-category">
-                    <img src="05_icons/icon_65_168_181_160.png" alt="" class="option-a-icon">
-                    <span>Philosophy</span>
+                <div class="blog-card-header">
+                    <img src="05_icons/icon_65_168_181_160.png" alt="" class="blog-card-icon">
+                    <span class="blog-card-category">Philosophy</span>
                 </div>
                 <time datetime="2024-09-30">September 30, 2024</time>
                 <h2>Stop What You're Doing. Go Outside.</h2>
@@ -71,79 +100,6 @@
             </a>
         </article>
     </section>
-
-
-    <!-- ========== DESIGN OPTIONS - CHOOSE ONE ========== -->
-    <section class="design-options">
-        <h2 style="text-align: center; font-family: var(--font-heading); font-size: 2rem; margin: 4rem 0 2rem; color: var(--ink);">Design Options - Pick Your Favorite</h2>
-
-        <!-- OPTION A: Card with left border -->
-        <div class="option-preview">
-            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--gray); margin-bottom: 1rem;">Option A: Card with colored left border</h3>
-            <article class="blog-post option-a">
-                <a href="#">
-                    <div class="option-a-category">
-                        <img src="05_icons/icon_65_168_181_160.png" alt="" class="option-a-icon">
-                        <span>Philosophy</span>
-                    </div>
-                    <time datetime="2024-09-30">September 30, 2024</time>
-                    <h2>Stop What You're Doing. Go Outside.</h2>
-                    <p>Your life isn't going to change with another hour of work. If anything, it might change with a few days away from it all.</p>
-                </a>
-            </article>
-        </div>
-
-        <!-- OPTION D: Inline pill badge -->
-        <div class="option-preview">
-            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--gray); margin-bottom: 1rem;">Option D: Inline pill with date</h3>
-            <article class="blog-post option-d">
-                <a href="#">
-                    <div class="option-d-meta">
-                        <img src="05_icons/icon_65_168_181_160.png" alt="" class="option-d-icon">
-                        <span class="option-d-label">Philosophy</span>
-                        <span class="option-d-dot">·</span>
-                        <time datetime="2024-09-30">September 30, 2024</time>
-                    </div>
-                    <h2>Stop What You're Doing. Go Outside.</h2>
-                    <p>Your life isn't going to change with another hour of work. If anything, it might change with a few days away from it all.</p>
-                </a>
-            </article>
-        </div>
-
-        <!-- OPTION F: Bottom tag row -->
-        <div class="option-preview">
-            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--gray); margin-bottom: 1rem;">Option F: Category tag at bottom</h3>
-            <article class="blog-post option-f">
-                <a href="#">
-                    <time datetime="2024-09-30">September 30, 2024</time>
-                    <h2>Stop What You're Doing. Go Outside.</h2>
-                    <p>Your life isn't going to change with another hour of work. If anything, it might change with a few days away from it all.</p>
-                    <div class="option-f-tag">
-                        <img src="05_icons/icon_65_168_181_160.png" alt="">
-                        <span>Philosophy</span>
-                    </div>
-                </a>
-            </article>
-        </div>
-
-        <!-- OPTION G: Large icon left, stacked content -->
-        <div class="option-preview">
-            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--gray); margin-bottom: 1rem;">Option G: Large icon left with stacked content</h3>
-            <article class="blog-post option-g">
-                <a href="#">
-                    <img src="05_icons/icon_65_168_181_160.png" alt="Philosophy" class="option-g-icon">
-                    <div class="option-g-content">
-                        <span class="option-g-label">Philosophy</span>
-                        <h2>Stop What You're Doing. Go Outside.</h2>
-                        <p>Your life isn't going to change with another hour of work. If anything, it might change with a few days away from it all.</p>
-                        <time datetime="2024-09-30">September 30, 2024</time>
-                    </div>
-                </a>
-            </article>
-        </div>
-
-    </section>
-    <!-- ========== END DESIGN OPTIONS ========== -->
 
     <!-- Footer -->
     <footer class="footer-dark">
@@ -163,7 +119,7 @@
                     <h4>Explore</h4>
                     <a href="writing.html">Writing</a>
                     <a href="resources.html">Resources</a>
-                    <a href="index.html#contact">Contact</a>
+                    <a href="mailto:hello@alexis.garden">Contact</a>
                 </div>
             </div>
             <div class="footer-connect">
