@@ -424,6 +424,374 @@
     return { draw, resize };
   }
 
+  // Page 4: Erosion — particles drifting upward, dissolving (impermanence)
+  function createErosion(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+    const count = reducedMotion ? 600 : 2000;
+    const particles = [];
+
+    function seed() {
+      particles.length = 0;
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: height * 0.5 + (Math.random() - 0.5) * height * 0.6,
+          vy: -(0.15 + Math.random() * 0.35),
+          vx: (Math.random() - 0.5) * 0.3,
+          life: Math.random(),
+          decay: 0.0008 + Math.random() * 0.0012,
+          size: 0.6 + Math.random() * 1.2,
+        });
+      }
+    }
+    seed();
+
+    function draw(time) {
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.08)';
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#2f2f2f';
+      for (const p of particles) {
+        p.x += p.vx + Math.sin(time * 0.001 + p.x * 0.01) * 0.15;
+        p.y += p.vy;
+        p.life -= p.decay;
+        if (p.life <= 0) {
+          p.x = Math.random() * width;
+          p.y = height * 0.8 + Math.random() * height * 0.2;
+          p.life = 0.8 + Math.random() * 0.2;
+        }
+        ctx.globalAlpha = p.life * 0.5;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function resize() {
+      ({ ctx, width, height } = fitCanvas(canvas));
+      seed();
+    }
+    return { draw, resize };
+  }
+
+  // Page 5: Reset — pendulum bob swinging, always returning to center
+  function createReset(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+
+    function draw(time) {
+      const t = time * 0.001;
+      const cx = width * 0.5;
+      const cy = height * 0.35;
+      const len = Math.min(width, height) * 0.35;
+
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.12)';
+      ctx.fillRect(0, 0, width, height);
+
+      const angle = Math.sin(t * 0.7) * 0.6 * Math.exp(-((t % 12) * 0.08));
+      const bx = cx + Math.sin(angle) * len;
+      const by = cy + Math.cos(angle) * len;
+
+      ctx.strokeStyle = 'rgba(52, 52, 52, 0.3)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(bx, by);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(bx, by, 6, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(34, 34, 34, 0.85)';
+      ctx.fill();
+
+      // Trail arcs
+      ctx.strokeStyle = 'rgba(52, 52, 52, 0.08)';
+      for (let i = 1; i <= 5; i++) {
+        const r = len * (0.3 + i * 0.14);
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0.4, Math.PI - 0.4);
+        ctx.stroke();
+      }
+    }
+
+    function resize() {
+      ({ ctx, width, height } = fitCanvas(canvas));
+    }
+    return { draw, resize };
+  }
+
+  // Page 6: Dawn — expanding light rays from a horizon line
+  function createDawn(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+
+    function draw(time) {
+      const t = time * 0.0006;
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.15)';
+      ctx.fillRect(0, 0, width, height);
+
+      const horizon = height * 0.65;
+      const cx = width * 0.5;
+
+      // Rays
+      const rayCount = 24;
+      for (let i = 0; i < rayCount; i++) {
+        const baseAngle = -Math.PI * (i / (rayCount - 1));
+        const angle = baseAngle + Math.sin(t + i * 0.4) * 0.02;
+        const rayLen = Math.min(width, height) * (0.5 + Math.sin(t * 0.8 + i) * 0.08);
+
+        ctx.strokeStyle = `rgba(52, 52, 52, ${0.06 + Math.sin(t + i * 0.7) * 0.03})`;
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(cx, horizon);
+        ctx.lineTo(cx + Math.cos(angle) * rayLen, horizon + Math.sin(angle) * rayLen);
+        ctx.stroke();
+      }
+
+      // Horizon line
+      ctx.strokeStyle = 'rgba(40, 40, 40, 0.25)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(0, horizon);
+      ctx.lineTo(width, horizon);
+      ctx.stroke();
+
+      // Sun dot
+      const sunR = 4 + Math.sin(t * 1.2) * 1;
+      ctx.beginPath();
+      ctx.arc(cx, horizon, sunR, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(34, 34, 34, 0.7)';
+      ctx.fill();
+    }
+
+    function resize() {
+      ({ ctx, width, height } = fitCanvas(canvas));
+    }
+    return { draw, resize };
+  }
+
+  // Page 7: Truth — rotating geometric facets that shift perspective
+  function createTruth(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+
+    function draw(time) {
+      const t = time * 0.0008;
+      const cx = width * 0.5;
+      const cy = height * 0.5;
+      const r = Math.min(width, height) * 0.28;
+
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.14)';
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.strokeStyle = 'rgba(52, 52, 52, 0.22)';
+      ctx.lineWidth = 1;
+
+      const sides = 7;
+      for (let layer = 0; layer < 4; layer++) {
+        const lr = r * (0.4 + layer * 0.2);
+        const rot = t * (0.3 + layer * 0.15) * (layer % 2 === 0 ? 1 : -1);
+        ctx.beginPath();
+        for (let i = 0; i <= sides; i++) {
+          const a = (i / sides) * Math.PI * 2 + rot;
+          const x = cx + Math.cos(a) * lr;
+          const y = cy + Math.sin(a) * lr;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+
+      // Cross lines connecting layers
+      for (let i = 0; i < sides; i++) {
+        const a1 = (i / sides) * Math.PI * 2 + t * 0.3;
+        const a2 = (i / sides) * Math.PI * 2 + t * -0.15;
+        ctx.globalAlpha = 0.1;
+        ctx.beginPath();
+        ctx.moveTo(cx + Math.cos(a1) * r * 0.4, cy + Math.sin(a1) * r * 0.4);
+        ctx.lineTo(cx + Math.cos(a2) * r, cy + Math.sin(a2) * r);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function resize() {
+      ({ ctx, width, height } = fitCanvas(canvas));
+    }
+    return { draw, resize };
+  }
+
+  // Page 8: Dye — ink diffusing through a medium (thoughts coloring the mind)
+  function createDye(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+    const count = reducedMotion ? 400 : 1200;
+    const dots = [];
+
+    function seed() {
+      dots.length = 0;
+      const cx = width * 0.5;
+      const cy = height * 0.5;
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.random() * Math.min(width, height) * 0.02;
+        dots.push({
+          x: cx + Math.cos(angle) * dist,
+          y: cy + Math.sin(angle) * dist,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          phase: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+    seed();
+
+    function draw(time) {
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.03)';
+      ctx.fillRect(0, 0, width, height);
+
+      const t = time * 0.001;
+      const maxR = Math.min(width, height) * 0.42;
+      const cx = width * 0.5;
+      const cy = height * 0.5;
+
+      ctx.fillStyle = '#2f2f2f';
+      for (const d of dots) {
+        const dx = d.x - cx;
+        const dy = d.y - cy;
+        const dist = Math.hypot(dx, dy);
+
+        d.vx += (Math.random() - 0.5) * 0.08 + Math.sin(t + d.phase) * 0.02;
+        d.vy += (Math.random() - 0.5) * 0.08 + Math.cos(t + d.phase) * 0.02;
+        d.vx *= 0.98;
+        d.vy *= 0.98;
+        d.x += d.vx;
+        d.y += d.vy;
+
+        if (dist > maxR) {
+          d.x = cx + (Math.random() - 0.5) * 4;
+          d.y = cy + (Math.random() - 0.5) * 4;
+        }
+
+        const alpha = 0.08 + (1 - dist / maxR) * 0.35;
+        ctx.globalAlpha = Math.max(0, alpha);
+        ctx.fillRect(d.x, d.y, 1, 1);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function resize() {
+      ({ ctx, width, height } = fitCanvas(canvas));
+      seed();
+    }
+    return { draw, resize };
+  }
+
+  // Page 9: Still Point — ripples expanding outward, calm center
+  function createStillPoint(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+
+    function draw(time) {
+      const t = time * 0.001;
+      const cx = width * 0.5;
+      const cy = height * 0.5;
+      const maxR = Math.min(width, height) * 0.44;
+
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.12)';
+      ctx.fillRect(0, 0, width, height);
+
+      const ringCount = 8;
+      for (let i = 0; i < ringCount; i++) {
+        const phase = (t * 0.5 + i * 0.8) % (ringCount * 0.8);
+        const r = (phase / (ringCount * 0.8)) * maxR;
+        const alpha = (1 - r / maxR) * 0.25;
+
+        ctx.strokeStyle = `rgba(52, 52, 52, ${alpha})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Still center
+      ctx.beginPath();
+      ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(34, 34, 34, 0.9)';
+      ctx.fill();
+    }
+
+    function resize() {
+      ({ ctx, width, height } = fitCanvas(canvas));
+    }
+    return { draw, resize };
+  }
+
+  // Page 10: Hive — connected nodes pulsing together (community)
+  function createHive(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+    const nodeCount = 24;
+    let nodes = [];
+
+    function seed() {
+      nodes = [];
+      const cx = width * 0.5;
+      const cy = height * 0.5;
+      const spread = Math.min(width, height) * 0.35;
+      for (let i = 0; i < nodeCount; i++) {
+        const angle = (i / nodeCount) * Math.PI * 2 + Math.random() * 0.3;
+        const dist = spread * (0.3 + Math.random() * 0.7);
+        nodes.push({
+          x: cx + Math.cos(angle) * dist,
+          y: cy + Math.sin(angle) * dist,
+          baseX: cx + Math.cos(angle) * dist,
+          baseY: cy + Math.sin(angle) * dist,
+          phase: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+    seed();
+
+    function draw(time) {
+      const t = time * 0.001;
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.12)';
+      ctx.fillRect(0, 0, width, height);
+
+      // Animate positions
+      for (const n of nodes) {
+        n.x = n.baseX + Math.sin(t * 0.4 + n.phase) * 6;
+        n.y = n.baseY + Math.cos(t * 0.3 + n.phase) * 6;
+      }
+
+      // Draw connections
+      const connectDist = Math.min(width, height) * 0.3;
+      ctx.lineWidth = 0.8;
+      for (let i = 0; i < nodeCount; i++) {
+        for (let j = i + 1; j < nodeCount; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < connectDist) {
+            const alpha = (1 - dist / connectDist) * 0.18;
+            ctx.strokeStyle = `rgba(52, 52, 52, ${alpha})`;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw nodes
+      const pulse = Math.sin(t * 1.2) * 0.3 + 0.7;
+      for (const n of nodes) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 2.5 * pulse, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(34, 34, 34, 0.7)';
+        ctx.fill();
+      }
+    }
+
+    function resize() {
+      ({ ctx, width, height } = fitCanvas(canvas));
+      seed();
+    }
+    return { draw, resize };
+  }
+
   function safeCreate(id, createFn) {
     const canvas = document.getElementById(id);
     if (!canvas) return null;
@@ -434,6 +802,13 @@
     safeCreate('art-bloom', createOnePurposeBloom),
     safeCreate('art-torus', createTorusKnowledge),
     safeCreate('art-citadel', createInnerCitadel),
+    safeCreate('art-erosion', createErosion),
+    safeCreate('art-reset', createReset),
+    safeCreate('art-dawn', createDawn),
+    safeCreate('art-truth', createTruth),
+    safeCreate('art-dye', createDye),
+    safeCreate('art-still', createStillPoint),
+    safeCreate('art-hive', createHive),
   ].filter(Boolean);
 
   function onResize() {
