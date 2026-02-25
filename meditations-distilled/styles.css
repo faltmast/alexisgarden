@@ -95,7 +95,6 @@ body {
 }
 
 .reader {
-  margin-left: var(--rail-width);
   position: relative;
   z-index: 2;
 }
@@ -107,6 +106,7 @@ body {
   display: flex;
   align-items: center;
   padding: 64px 28px 54px;
+  margin-left: var(--rail-width);
 }
 
 .page-grid {
@@ -270,14 +270,7 @@ body {
 }
 
 .page--title {
-  margin-left: calc(var(--rail-width) * -1);
-  width: calc(100% + var(--rail-width));
-  padding-left: 28px;
-  padding-right: 28px;
-}
-
-.page--title .page-grid {
-  max-width: none;
+  margin-left: 0;
 }
 
 .page--title .text-col {
@@ -420,10 +413,6 @@ body {
 
   .rail {
     width: var(--rail-width);
-  }
-
-  .reader {
-    margin-left: var(--rail-width);
   }
 
   .rail-link {
