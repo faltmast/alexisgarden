@@ -269,12 +269,14 @@ body {
   opacity: 0;
 }
 
+.page--title .page-grid {
+  transform: translateX(calc(var(--rail-width) / -2));
+}
+
 .page--title .text-col {
   max-width: 100%;
   font-family: 'IBM Plex Sans', sans-serif;
   text-align: center;
-  margin-left: calc(var(--rail-width) * -1);
-  width: 100vw;
 }
 
 .page--title .text-wrap {
