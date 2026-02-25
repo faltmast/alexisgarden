@@ -300,7 +300,7 @@ body {
   font-size: clamp(2.8rem, 8.5vw, 6.8rem);
   line-height: 1.03;
   letter-spacing: 0.17em;
-  text-indent: 0.17em;
+  text-indent: 0;
   color: rgba(20, 20, 20, 0.96);
 }
 
@@ -353,7 +353,7 @@ body {
 
 .book-mark {
   position: fixed;
-  left: 50%;
+  left: calc(50% + var(--rail-width) / 2);
   bottom: 18px;
   transform: translateX(-50%);
   z-index: 10;
