@@ -230,8 +230,9 @@ body {
 }
 
 .text-body .lead {
-  font-size: 1.08em;
-  letter-spacing: 0.01em;
+  font: italic 400 clamp(1.35rem, 2.2vw, 2.1rem) / 1.2 'EB Garamond', serif;
+  color: rgba(36, 33, 29, 0.9);
+  margin-bottom: 1.2rem;
 }
 
 .page--text-only .page-grid {
