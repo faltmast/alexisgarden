@@ -94,6 +94,18 @@ body {
   font-weight: 700;
 }
 
+.rail-link.rail-section {
+  font: 600 0.62rem/1 'Cinzel', serif;
+  letter-spacing: 0.1em;
+  color: rgba(32, 30, 27, 0.52);
+  padding: 6px 0 4px;
+  margin-top: 4px;
+}
+
+.rail-link.rail-section.active {
+  color: rgba(24, 22, 20, 0.95);
+}
+
 .meta {
   position: fixed;
   top: 18px;
