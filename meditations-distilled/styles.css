@@ -269,8 +269,15 @@ body {
   opacity: 0;
 }
 
+.page--title {
+  margin-left: calc(var(--rail-width) * -1);
+  width: calc(100% + var(--rail-width));
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
 .page--title .page-grid {
-  transform: translateX(calc(var(--rail-width) / -2));
+  max-width: none;
 }
 
 .page--title .text-col {
