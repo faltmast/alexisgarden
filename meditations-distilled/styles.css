@@ -407,15 +407,11 @@ body {
 
 @media (max-width: 680px) {
   :root {
-    --rail-width: 40px;
+    --rail-width: 0px;
   }
 
   .rail {
-    width: var(--rail-width);
-  }
-
-  .rail-link {
-    font-size: 0.61rem;
+    display: none;
   }
 
   .meta {
@@ -425,17 +421,60 @@ body {
   }
 
   .page {
-    padding: 64px 12px 72px;
+    padding: 48px 24px 48px;
+  }
+
+  .page--title .text-body .title-stack {
+    font-size: clamp(2rem, 12vw, 3.4rem);
+    letter-spacing: 0.1em;
+  }
+
+  .page--title .text-body .subtitle {
+    font-size: clamp(1rem, 5vw, 1.5rem);
+  }
+
+  .page--title .text-body .kicker {
+    font-size: 0.6rem;
+  }
+
+  .page--title .cover-credit {
+    font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+  }
+
+  .cover-mark {
+    width: clamp(120px, 35vw, 180px);
+  }
+
+  .text-col {
+    font-size: clamp(1rem, 4.2vw, 1.2rem);
+  }
+
+  .page--text-only .text-col {
+    font-size: clamp(1.05rem, 4.5vw, 1.3rem);
+  }
+
+  .text-wrap {
+    grid-template-columns: 16px 1fr;
+    gap: 10px;
+  }
+
+  .page-grid {
+    gap: 20px;
+  }
+
+  .art-col {
+    width: 100%;
+    max-width: 320px;
   }
 
   .book-mark {
     font-size: 0.62rem;
     bottom: 10px;
+    left: 50%;
   }
 
-  .text-wrap {
-    grid-template-columns: 16px minmax(160px, 31ch);
-    gap: 10px;
+  .text-body .lead {
+    font-size: clamp(1.15rem, 4.5vw, 1.5rem);
   }
 }
 
