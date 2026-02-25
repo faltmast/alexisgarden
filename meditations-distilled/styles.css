@@ -270,6 +270,7 @@ body {
 }
 
 .page--title .text-col {
+  width: 100%;
   max-width: 100%;
   font-family: 'IBM Plex Sans', sans-serif;
   text-align: center;
@@ -277,6 +278,7 @@ body {
 
 .page--title .text-wrap {
   display: block;
+  width: 100%;
 }
 
 .page--title .cover-body {
@@ -390,7 +392,7 @@ body {
   .page--title .text-body .title-stack {
     font-size: clamp(2.1rem, 10.8vw, 4.6rem);
     letter-spacing: 0.14em;
-    text-indent: 0.14em;
+    text-indent: 0;
   }
 
   .page--title .text-body .subtitle {
