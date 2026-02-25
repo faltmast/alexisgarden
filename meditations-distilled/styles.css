@@ -273,7 +273,8 @@ body {
   max-width: 100%;
   font-family: 'IBM Plex Sans', sans-serif;
   text-align: center;
-  transform: translateX(calc(var(--rail-width) * -0.5));
+  margin-left: calc(var(--rail-width) * -1);
+  width: 100vw;
 }
 
 .page--title .text-wrap {
