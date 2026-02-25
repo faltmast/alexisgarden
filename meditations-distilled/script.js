@@ -792,27 +792,235 @@
     return { draw, resize };
   }
 
-  function safeCreate(id, createFn) {
-    const canvas = document.getElementById(id);
-    if (!canvas) return null;
-    return createFn(canvas);
+  // Pages 11+: Waves — horizontal sine waves that shift slowly
+  function createWaves(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+    function draw(time) {
+      const t = time * 0.0008;
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.14)';
+      ctx.fillRect(0, 0, width, height);
+      ctx.strokeStyle = 'rgba(52, 52, 52, 0.18)';
+      ctx.lineWidth = 1;
+      for (let w = 0; w < 7; w++) {
+        const baseY = height * (0.2 + w * 0.09);
+        ctx.beginPath();
+        for (let x = 0; x <= width; x += 3) {
+          const y = baseY + Math.sin(x * 0.012 + t + w * 0.8) * (12 + w * 4) + Math.sin(x * 0.006 + t * 0.6) * 8;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+    }
+    function resize() { ({ ctx, width, height } = fitCanvas(canvas)); }
+    return { draw, resize };
   }
 
-  const systems = [
-    safeCreate('art-bloom', createOnePurposeBloom),
-    safeCreate('art-torus', createTorusKnowledge),
-    safeCreate('art-citadel', createInnerCitadel),
-    safeCreate('art-erosion', createErosion),
-    safeCreate('art-reset', createReset),
-    safeCreate('art-dawn', createDawn),
-    safeCreate('art-truth', createTruth),
-    safeCreate('art-dye', createDye),
-    safeCreate('art-still', createStillPoint),
-    safeCreate('art-hive', createHive),
-  ].filter(Boolean);
+  // Pages 11+: Flow Field — particles following an angle-based flow field
+  function createFlowField(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+    const count = reducedMotion ? 500 : 1500;
+    let particles = [];
+    function seed() {
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({ x: Math.random() * width, y: Math.random() * height, age: Math.random() * 100 });
+      }
+    }
+    seed();
+    function draw(time) {
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.04)';
+      ctx.fillRect(0, 0, width, height);
+      const t = time * 0.0003;
+      ctx.fillStyle = '#2f2f2f';
+      for (const p of particles) {
+        const angle = Math.sin(p.x * 0.008 + t) * Math.cos(p.y * 0.006 + t * 0.7) * Math.PI * 2;
+        p.x += Math.cos(angle) * 0.8;
+        p.y += Math.sin(angle) * 0.8;
+        p.age += 1;
+        if (p.x < 0 || p.x > width || p.y < 0 || p.y > height || p.age > 200) {
+          p.x = Math.random() * width; p.y = Math.random() * height; p.age = 0;
+        }
+        ctx.globalAlpha = Math.min(0.3, p.age * 0.01);
+        ctx.fillRect(p.x, p.y, 0.8, 0.8);
+      }
+      ctx.globalAlpha = 1;
+    }
+    function resize() { ({ ctx, width, height } = fitCanvas(canvas)); seed(); }
+    return { draw, resize };
+  }
+
+  // Pages 11+: Orbit — small circles orbiting a center point
+  function createOrbit(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+    const bodies = [];
+    for (let i = 0; i < 12; i++) {
+      bodies.push({
+        radius: 0.12 + i * 0.06,
+        speed: 0.3 + Math.random() * 0.4,
+        phase: Math.random() * Math.PI * 2,
+        size: 1.5 + Math.random() * 2,
+      });
+    }
+    function draw(time) {
+      const t = time * 0.001;
+      const cx = width * 0.5, cy = height * 0.5;
+      const scale = Math.min(width, height) * 0.5;
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.1)';
+      ctx.fillRect(0, 0, width, height);
+      // Orbit paths
+      ctx.strokeStyle = 'rgba(52, 52, 52, 0.06)';
+      ctx.lineWidth = 0.5;
+      for (const b of bodies) {
+        ctx.beginPath();
+        ctx.arc(cx, cy, b.radius * scale, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      // Bodies
+      for (const b of bodies) {
+        const angle = t * b.speed + b.phase;
+        const x = cx + Math.cos(angle) * b.radius * scale;
+        const y = cy + Math.sin(angle) * b.radius * scale;
+        ctx.beginPath();
+        ctx.arc(x, y, b.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(34, 34, 34, 0.6)';
+        ctx.fill();
+      }
+      // Center
+      ctx.beginPath();
+      ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(34, 34, 34, 0.85)';
+      ctx.fill();
+    }
+    function resize() { ({ ctx, width, height } = fitCanvas(canvas)); }
+    return { draw, resize };
+  }
+
+  // Pages 11+: Grid — dots that shift position subtly, creating a breathing pattern
+  function createGrid(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+    function draw(time) {
+      const t = time * 0.001;
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.18)';
+      ctx.fillRect(0, 0, width, height);
+      const spacing = 18;
+      const cols = Math.ceil(width / spacing);
+      const rows = Math.ceil(height / spacing);
+      ctx.fillStyle = '#2f2f2f';
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const bx = c * spacing + spacing * 0.5;
+          const by = r * spacing + spacing * 0.5;
+          const dx = Math.sin(t * 0.5 + c * 0.3 + r * 0.2) * 3;
+          const dy = Math.cos(t * 0.4 + r * 0.3 + c * 0.15) * 3;
+          const dist = Math.hypot(bx - width * 0.5, by - height * 0.5);
+          const maxDist = Math.hypot(width * 0.5, height * 0.5);
+          ctx.globalAlpha = 0.06 + (1 - dist / maxDist) * 0.22;
+          ctx.fillRect(bx + dx, by + dy, 1.2, 1.2);
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+    function resize() { ({ ctx, width, height } = fitCanvas(canvas)); }
+    return { draw, resize };
+  }
+
+  // Pages 11+: Breath — concentric circles that expand and contract rhythmically
+  function createBreath(canvas) {
+    let { ctx, width, height } = fitCanvas(canvas);
+    function draw(time) {
+      const t = time * 0.001;
+      const cx = width * 0.5, cy = height * 0.5;
+      const maxR = Math.min(width, height) * 0.4;
+      ctx.fillStyle = 'rgba(240, 238, 230, 0.12)';
+      ctx.fillRect(0, 0, width, height);
+      const ringCount = 6;
+      for (let i = 0; i < ringCount; i++) {
+        const breathPhase = Math.sin(t * 0.4 + i * 0.5);
+        const r = maxR * ((i + 1) / ringCount) * (0.8 + breathPhase * 0.2);
+        ctx.strokeStyle = `rgba(52, 52, 52, ${0.08 + (1 - i / ringCount) * 0.15})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      // Center dot
+      const coreSize = 2.5 + Math.sin(t * 0.4) * 1;
+      ctx.beginPath();
+      ctx.arc(cx, cy, coreSize, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(34, 34, 34, 0.8)';
+      ctx.fill();
+    }
+    function resize() { ({ ctx, width, height } = fitCanvas(canvas)); }
+    return { draw, resize };
+  }
+
+  // Animation types array — 15 total, cycling for pages 11-81
+  const animationTypes = [
+    createOnePurposeBloom,   // 0
+    createTorusKnowledge,    // 1
+    createInnerCitadel,      // 2
+    createErosion,           // 3
+    createReset,             // 4
+    createDawn,              // 5
+    createTruth,             // 6
+    createDye,               // 7
+    createStillPoint,        // 8
+    createHive,              // 9
+    createWaves,             // 10
+    createFlowField,         // 11
+    createOrbit,             // 12
+    createGrid,              // 13
+    createBreath,            // 14
+  ];
+
+  // Create systems with visibility tracking
+  const allSystems = [];
+  const canvasToSystem = new Map();
+
+  function registerCanvas(canvasId, createFn) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const system = createFn(canvas);
+    system.visible = false;
+    system.canvas = canvas;
+    allSystems.push(system);
+    canvasToSystem.set(canvas, system);
+  }
+
+  // Register pages 1-10 (specific mappings)
+  registerCanvas('art-bloom', createOnePurposeBloom);
+  registerCanvas('art-torus', createTorusKnowledge);
+  registerCanvas('art-citadel', createInnerCitadel);
+  registerCanvas('art-erosion', createErosion);
+  registerCanvas('art-reset', createReset);
+  registerCanvas('art-dawn', createDawn);
+  registerCanvas('art-truth', createTruth);
+  registerCanvas('art-dye', createDye);
+  registerCanvas('art-still', createStillPoint);
+  registerCanvas('art-hive', createHive);
+
+  // Register pages 11-81 (cycling through types)
+  for (let i = 11; i <= 81; i++) {
+    const typeIndex = (i - 1) % animationTypes.length;
+    registerCanvas('art-' + i, animationTypes[typeIndex]);
+  }
+
+  // IntersectionObserver for visibility
+  const visObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const sys = canvasToSystem.get(entry.target);
+        if (sys) sys.visible = entry.isIntersecting;
+      });
+    },
+    { rootMargin: '100% 0px 100% 0px' }
+  );
+
+  allSystems.forEach((sys) => visObserver.observe(sys.canvas));
 
   function onResize() {
-    systems.forEach((system) => system.resize());
+    allSystems.forEach((sys) => sys.resize());
     updateActiveFromScroll();
   }
 
@@ -828,12 +1036,15 @@
     goTo(initial, false);
   }, 30);
 
+  // Animation loop - only draw visible systems
   let lastFrame = 0;
   const frameInterval = reducedMotion ? 1000 : 1000 / 24;
 
   function animate(now) {
     if (now - lastFrame >= frameInterval) {
-      systems.forEach((system) => system.draw(now));
+      for (const sys of allSystems) {
+        if (sys.visible) sys.draw(now);
+      }
       lastFrame = now;
     }
     window.requestAnimationFrame(animate);

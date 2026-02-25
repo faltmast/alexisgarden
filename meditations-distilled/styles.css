@@ -220,6 +220,44 @@ body {
   color: rgba(30, 26, 22, 0.92);
 }
 
+.discipline-label {
+  display: block;
+  font: 500 0.58rem/1 'IBM Plex Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.9rem;
+  color: rgba(42, 36, 30, 0.38);
+}
+
+.discipline-label--judgement { color: rgba(90, 60, 30, 0.45); }
+.discipline-label--desire { color: rgba(60, 60, 90, 0.45); }
+.discipline-label--action { color: rgba(40, 80, 50, 0.45); }
+
+.page--book-divider .page-grid {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 0;
+}
+
+.page--book-divider .text-col {
+  text-align: center;
+  width: 100%;
+}
+
+.page--book-divider .book-num {
+  display: block;
+  font: 600 0.65rem/1 'IBM Plex Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(42, 36, 30, 0.4);
+  margin-bottom: 1rem;
+}
+
+.page--book-divider .book-title {
+  font: italic 400 clamp(1.6rem, 2.8vw, 2.6rem)/1.2 'EB Garamond', serif;
+  color: rgba(36, 33, 29, 0.88);
+}
+
 .text-body p {
   margin: 0 0 10px;
   text-wrap: normal;
