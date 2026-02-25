@@ -63,20 +63,30 @@ body {
 .rail-nav {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 2px;
   width: 100%;
   align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.rail-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .rail-link {
   width: 100%;
   text-align: center;
   text-decoration: none;
-  font: 600 0.67rem/1.2 'IBM Plex Sans', sans-serif;
+  font: 600 0.58rem/1.2 'IBM Plex Sans', sans-serif;
   letter-spacing: 0.06em;
   color: rgba(32, 30, 27, 0.28);
-  padding: 3px 0;
+  padding: 2px 0;
   transition: color 160ms ease;
+  flex-shrink: 0;
 }
 
 .rail-link.active {
