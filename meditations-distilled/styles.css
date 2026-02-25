@@ -269,10 +269,6 @@ body {
   opacity: 0;
 }
 
-.page--title {
-  margin-left: 0;
-}
-
 .page--title .text-col {
   max-width: 100%;
   font-family: 'IBM Plex Sans', sans-serif;
