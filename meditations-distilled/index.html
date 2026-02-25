@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meditations, Distilled - Scroll Prototype</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="design-tokens.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grain"></div>
+
+    <aside class="rail" aria-label="Page navigation">
+      <div class="rail-mark">MD</div>
+      <nav class="rail-nav">
+        <a class="rail-link active" href="#cover" data-anchor="cover">CV</a>
+        <a class="rail-link" href="#intro" data-anchor="intro">NT</a>
+        <a class="rail-link" href="#categories" data-anchor="categories">CG</a>
+        <a class="rail-link" href="#structure" data-anchor="structure">ST</a>
+        <a class="rail-link" href="#1" data-anchor="1">01</a>
+        <a class="rail-link" href="#2" data-anchor="2">02</a>
+        <a class="rail-link" href="#3" data-anchor="3">03</a>
+        <a class="rail-link" href="#interlude" data-anchor="interlude">IV</a>
+        <a class="rail-link" href="#close" data-anchor="close">CL</a>
+      </nav>
+    </aside>
+
+    <header class="meta" aria-label="Page meta">
+      <span id="pageIndicator">001 / 009</span>
+    </header>
+
+    <main class="reader" id="reader">
+      <section class="page page--title page--text-only" id="page-cover" data-anchor="cover" aria-label="Cover">
+        <div class="page-grid">
+          <article class="text-col">
+            <div class="text-body cover-body">
+              <p class="kicker">A Contemporary Guide Through Stoicism</p>
+              <p class="title-stack">MEDITATIONS<br />DISTILLED</p>
+              <p class="subtitle">The Timeless Art of Inner Command</p>
+              <div class="cover-mark" aria-hidden="true">
+                <span class="ring ring-a"></span>
+                <span class="ring ring-b"></span>
+                <span class="ring ring-c"></span>
+              </div>
+              <p class="cover-credit">Based on Marcus Aurelius<br />Adapted by Alexis Papageorgiou</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page page--text-only" id="page-intro" data-anchor="intro" aria-label="Introduction note">
+        <div class="page-grid">
+          <article class="text-col">
+            <div class="text-wrap">
+              <span class="inline-num">•</span>
+              <div class="text-body">
+                <p>Read this like a field note, not a lecture.</p>
+                <p>
+                  The lens is simple: how you judge, what you desire, how you act. The source remains
+                  Marcus.
+                </p>
+                <p>Do not optimize the reading. Apply one page at a time.</p>
+                <p class="signature">- Project Note</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="page page--text-only"
+        id="page-categories"
+        data-anchor="categories"
+        aria-label="Categories introduction"
+      >
+        <div class="page-grid">
+          <article class="text-col">
+            <div class="text-wrap">
+              <span class="inline-num">•</span>
+              <div class="text-body">
+                <p class="lead">Three Working Categories</p>
+                <p><b>Judgement</b>: how you interpret events, impressions, and people.</p>
+                <p><b>Desire</b>: what you accept, what you release, what you stop demanding.</p>
+                <p><b>Action</b>: what you do next, especially toward other people.</p>
+                <p>These categories are a reading tool. They help organize practice.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="page page--text-only"
+        id="page-structure"
+        data-anchor="structure"
+        aria-label="Book structure intro"
+      >
+        <div class="page-grid">
+          <article class="text-col">
+            <div class="text-wrap">
+              <span class="inline-num">•</span>
+              <div class="text-body">
+                <p class="lead">How This Book Is Structured</p>
+                <p>Full project: 81 main pages, one distilled passage per page.</p>
+                <p>Each page pairs text with an artwork system that embodies the idea.</p>
+                <p>Use the left rail to move between pages, or scroll one full page at a time.</p>
+                <p>This prototype shows the opening flow and three sample art pages.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="page-1" data-anchor="1" aria-label="Page 1">
+        <div class="page-grid">
+          <figure class="art-col">
+            <canvas id="art-bloom" aria-label="One purpose field"></canvas>
+          </figure>
+          <article class="text-col">
+            <div class="text-wrap">
+              <span class="inline-num">1</span>
+              <div class="text-body">
+                <p>External distractions scatter your life.</p>
+                <p>Hard work without clear direction is still wasted effort.</p>
+                <p>Give your thought and action one purpose.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="page-2" data-anchor="2" aria-label="Page 2">
+        <div class="page-grid">
+          <figure class="art-col">
+            <canvas id="art-torus" aria-label="Knowledge field dynamics"></canvas>
+          </figure>
+          <article class="text-col">
+            <div class="text-wrap">
+              <span class="inline-num">2</span>
+              <div class="text-body">
+                <p>Take care of your own mind first.</p>
+                <p>You do not suffer from ignoring other people’s inner life.</p>
+                <p>You suffer when you neglect your own.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="page-3" data-anchor="3" aria-label="Page 3">
+        <div class="page-grid">
+          <figure class="art-col">
+            <canvas id="art-citadel" aria-label="Inner citadel pressure field"></canvas>
+          </figure>
+          <article class="text-col">
+            <div class="text-wrap">
+              <span class="inline-num">3</span>
+              <div class="text-body">
+                <p>Events strike from outside. Judgment happens inside.</p>
+                <p>Guard the interval between what happens and what you decide it means.</p>
+                <p>A disciplined mind stays unconquered.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="page-interlude" data-anchor="interlude" aria-label="Interlude">
+        <div class="page-grid">
+          <figure class="art-col"><div class="art-static art-interlude"></div></figure>
+          <article class="text-col">
+            <div class="text-wrap">
+              <span class="inline-num">•</span>
+              <div class="text-body">
+                <p class="lead">Interlude</p>
+                <p>Zoom out. Rome becomes dust. The principle remains.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page page--text-only" id="page-close" data-anchor="close" aria-label="Closing note">
+        <div class="page-grid">
+          <article class="text-col">
+            <div class="text-wrap">
+              <span class="inline-num">•</span>
+              <div class="text-body">
+                <p>Do not collect quotes. Build character.</p>
+                <p>The test is not what you read, but what you do next.</p>
+                <p>
+                  Source: Marcus Aurelius, <i>Meditations</i> (Gregory Hays translation in project files).
+                </p>
+                <p>Creator: Alexis Papageorgiou. Assistant in the crime: Claude Code.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="book-mark">MEDITATIONS, DISTILLED - PROTOTYPE</footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
