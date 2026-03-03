@@ -363,6 +363,7 @@ body {
   display: grid;
   grid-template-columns: 28px minmax(280px, var(--max-reading-width));
   gap: 18px;
+  align-items: start;
 }
 
 .text-wrap--centered {
@@ -370,10 +371,12 @@ body {
 }
 
 .inline-num {
-  margin-top: 2px;
-  font-family: var(--font-reading);
-  font-size: 1.1rem;
-  font-weight: 400;
+  margin-top: 0;
+  padding-top: 1px;
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   color: var(--c-ink-muted);
 }
 
@@ -633,7 +636,7 @@ body {
   }
 
   .text-col {
-    font-size: clamp(1.02rem, 4vw, 1.2rem);
+    font-size: clamp(1.08rem, 4.2vw, 1.28rem);
   }
 
   .text-wrap {
