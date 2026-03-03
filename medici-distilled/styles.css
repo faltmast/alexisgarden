@@ -150,6 +150,9 @@ body {
   letter-spacing: 0.05em;
   color: var(--c-ink-muted);
   transition: color 160ms ease;
+  font-variant-numeric: tabular-nums;
+  min-width: 7.5ch;
+  text-align: right;
 }
 
 .meta__btn:hover {
