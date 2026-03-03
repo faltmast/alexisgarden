@@ -125,8 +125,19 @@
       </nav>
     </aside>
 
+    <!-- Mobile page picker overlay -->
+    <div class="page-picker" id="pagePicker" aria-hidden="true">
+      <div class="page-picker__header">
+        <span class="page-picker__title">Go to page</span>
+        <button class="page-picker__close" id="pagePickerClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="page-picker__grid" id="pagePickerGrid"></div>
+      <button class="page-picker__random" id="pagePickerRandom">Random meditation</button>
+    </div>
+
     <header class="meta" aria-label="Page meta">
-      <span id="pageIndicator">001 / 009</span>
+      <button class="meta__random" id="randomBtn" aria-label="Random meditation">Random</button>
+      <button class="meta__btn" id="pageIndicator">001 / 089</button>
     </header>
 
     <main class="reader" id="reader">

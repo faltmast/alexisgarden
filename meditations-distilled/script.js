@@ -34,6 +34,12 @@
     railLinks.forEach((link) => {
       link.classList.toggle('active', String(link.dataset.anchor) === normalized);
     });
+
+    // Sync picker grid active state
+    const pickerCells = document.querySelectorAll('.page-picker__cell[data-anchor]');
+    pickerCells.forEach((cell) => {
+      cell.classList.toggle('active', cell.dataset.anchor === normalized);
+    });
   }
 
   function setHash(anchor) {
@@ -75,7 +81,91 @@
     goTo(parseHash(), false);
   });
 
+  /* ─── Random Button ─── */
+
+  const quoteAnchors = anchors.filter((a) => /^\d+$/.test(a));
+  const randomBtn = document.getElementById('randomBtn');
+
+  if (randomBtn) {
+    randomBtn.addEventListener('click', () => {
+      const pick = quoteAnchors[Math.floor(Math.random() * quoteAnchors.length)];
+      goTo(pick, true);
+    });
+  }
+
+  /* ─── Page Picker ─── */
+
+  const picker = document.getElementById('pagePicker');
+  const pickerGrid = document.getElementById('pagePickerGrid');
+  const pickerClose = document.getElementById('pagePickerClose');
+  const pickerRandom = document.getElementById('pagePickerRandom');
+
+  function openPicker() {
+    picker.classList.add('open');
+    picker.setAttribute('aria-hidden', 'false');
+  }
+
+  function closePicker() {
+    picker.classList.remove('open');
+    picker.setAttribute('aria-hidden', 'true');
+  }
+
+  if (picker && pickerGrid) {
+    const sectionLabels = {
+      book1: 'Book I — Perception',
+      book2: 'Book II — Action',
+      book3: 'Book III — Will',
+    };
+    const pageLabels = {
+      cover: 'Cover', intro: 'Intro', structure: 'Structure', categories: 'Categories',
+      interlude: 'Interlude', close: 'Epilogue',
+    };
+
+    anchors.forEach((a) => {
+      if (sectionLabels[a]) {
+        const header = document.createElement('div');
+        header.className = 'page-picker__cell page-picker__cell--section';
+        header.textContent = sectionLabels[a];
+        pickerGrid.appendChild(header);
+      }
+      const btn = document.createElement('button');
+      btn.className = 'page-picker__cell';
+      btn.dataset.anchor = a;
+      if (/^\d+$/.test(a)) {
+        btn.textContent = a;
+      } else if (pageLabels[a]) {
+        btn.textContent = pageLabels[a];
+        btn.classList.add('page-picker__cell--label');
+      } else {
+        return; // skip book dividers as cells (they're section headers)
+      }
+      if (a === activeAnchor) btn.classList.add('active');
+      btn.addEventListener('click', () => {
+        goTo(a, true);
+        closePicker();
+      });
+      pickerGrid.appendChild(btn);
+    });
+
+    indicator.addEventListener('click', openPicker);
+    pickerClose.addEventListener('click', closePicker);
+    picker.addEventListener('click', (e) => {
+      if (e.target === picker) closePicker();
+    });
+
+    if (pickerRandom) {
+      pickerRandom.addEventListener('click', () => {
+        const pick = quoteAnchors[Math.floor(Math.random() * quoteAnchors.length)];
+        goTo(pick, true);
+        closePicker();
+      });
+    }
+  }
+
   document.addEventListener('keydown', (event) => {
+    if (picker && picker.classList.contains('open')) {
+      if (event.key === 'Escape') { closePicker(); return; }
+    }
     if (event.key === 'ArrowDown' || event.key === 'PageDown') {
       event.preventDefault();
       goRelative(1);
