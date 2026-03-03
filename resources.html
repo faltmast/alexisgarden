@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resources — alexis.garden</title>
+    <title>Resources — Alexis Papageorgiou</title>
     <meta name="description" content="Quizzes, guides, and tools to help you grow.">
     <link rel="icon" type="image/png" href="05_icons/icon_45_168_181_160.png">
     <link rel="stylesheet" href="styles.css">
@@ -20,7 +20,6 @@
         </button>
         <div class="nav-links">
             <a href="now.html">Now</a>
-
             <div class="nav-dropdown">
                 <button class="nav-dropdown-toggle">Services</button>
                 <div class="nav-dropdown-menu">
@@ -29,7 +28,6 @@
                     <a href="experiences.html">Experiences</a>
                 </div>
             </div>
-
             <div class="nav-dropdown">
                 <button class="nav-dropdown-toggle">Projects</button>
                 <div class="nav-dropdown-menu">
@@ -38,106 +36,107 @@
                     <a href="#" class="nav-coming-soon">CEO Lab<span class="soon-badge">Coming Soon</span></a>
                 </div>
             </div>
-
-            <a href="resources.html">Resources</a>
-
+            <a href="resources.html" class="nav-active">Resources</a>
             <a href="writing.html">Writing</a>
-            <a href="mailto:hello@alexis.garden" class="nav-cta">Say Hi</a>
+            <a href="mailto:hi.alexis@pm.me" class="nav-cta">Say Hi</a>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero writing-hero">
-        <div class="hero-content">
-            <div class="hero-left">
-                <div class="hero-intro">
-                    <p class="hero-subtitle">Tools for Growth</p>
-                    <h1>Resources</h1>
-                    <p class="hero-tagline">Quizzes, guides, and practical tools to help you think clearer and grow faster.</p>
-                </div>
-            </div>
-            <div class="folder-logo">
-                <img src="06_images/product_05_resources.png" alt="Resources illustration">
-            </div>
-        </div>
+    <!-- ===== HERO ===== -->
+    <section class="rs-hero">
+        <span class="cl-pill cl-fade" style="--d:0">Free tools</span>
+        <h1 class="rs-hero-title cl-fade" style="--d:1">Things I built<br>to help you <em>think.</em></h1>
+        <p class="rs-hero-sub cl-fade" style="--d:2">Quizzes, tools, and reading — made with care, free to use.</p>
     </section>
 
-    <!-- Resources Grid -->
-    <section class="resources-list">
-        <div class="showcase-grid">
-            <article class="showcase-card">
-                <a href="07_quizzes/hedonic-engineering-profile.html" target="_blank">
-                    <span class="showcase-badge quiz">Quiz</span>
-                    <h3>Hedonic Engineering Profile</h3>
-                    <p>A personal map of how you shift state, regulate, connect, and grow.</p>
-                    <span class="showcase-status live">Live</span>
-                </a>
-            </article>
-            <article class="showcase-card">
-                <a href="https://faltmast.github.io/focus-timer/" target="_blank">
-                    <span class="showcase-badge tool">Tool</span>
+    <!-- ===== RESOURCE CARDS — Image bento style ===== -->
+    <section class="rs-grid">
+
+        <!-- Featured card — full width with image -->
+        <a href="07_quizzes/hedonic-engineering-profile.html" target="_blank" class="rs-card rs-card-featured cl-reveal" style="--d:0">
+            <img src="06_images/01_photography samples/DSC09185.jpg" alt="" class="rs-card-bg">
+            <div class="rs-card-overlay"></div>
+            <div class="rs-card-content">
+                <span class="rs-badge">Quiz</span>
+                <h2>Hedonic Engineering Profile</h2>
+                <p>A personal map of how you shift state, regulate, connect, and grow. 12 questions, instant results.</p>
+                <span class="rs-card-link">Take the quiz <span class="rs-arrow">→</span></span>
+            </div>
+        </a>
+
+        <!-- Two cards side by side with images -->
+        <div class="rs-duo">
+            <a href="https://faltmast.github.io/focus-timer/" target="_blank" class="rs-card cl-reveal" style="--d:0">
+                <img src="06_images/01_photography samples/DSC02270.jpg" alt="" class="rs-card-bg">
+                <div class="rs-card-overlay"></div>
+                <div class="rs-card-content">
+                    <span class="rs-badge">Tool</span>
                     <h3>Focus Timer</h3>
-                    <p>A research-backed focus timer. Pick a method, hit start, work. No sign-up, no friction.</p>
-                    <span class="showcase-status live">Live</span>
-                </a>
-            </article>
-            <article class="showcase-card">
-                <a href="meditations-distilled/index.html" target="_blank">
-                    <span class="showcase-badge tool">Book</span>
+                    <p>Research-backed focus timer. Pick a method, hit start, work. No sign-up, no friction.</p>
+                    <span class="rs-card-link">Open timer <span class="rs-arrow">→</span></span>
+                </div>
+            </a>
+            <a href="meditations-distilled/index.html" target="_blank" class="rs-card cl-reveal" style="--d:1">
+                <img src="06_images/01_photography samples/DSC03329-2.jpg" alt="" class="rs-card-bg">
+                <div class="rs-card-overlay"></div>
+                <div class="rs-card-content">
+                    <span class="rs-badge">Book</span>
                     <h3>Meditations, Distilled</h3>
                     <p>Marcus Aurelius' ideas condensed into clear, modern language with Roman-Stoic visuals.</p>
-                    <span class="showcase-status live">Live</span>
-                </a>
-            </article>
+                    <span class="rs-card-link">Read now <span class="rs-arrow">→</span></span>
+                </div>
+            </a>
+        </div>
+
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cl-cta">
+        <h2 class="cl-reveal">Have an idea for a <em>tool</em>?</h2>
+        <p class="cl-reveal">I'm always building. Let me know what would help you.</p>
+        <div class="cl-hero-btns cl-reveal">
+            <a href="mailto:hi.alexis@pm.me" class="cl-btn-dark">Get in touch</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer-dark">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <a href="index.html" class="footer-logo">alexis.garden</a>
-                <p class="footer-tagline">Cultivating clarity.</p>
+    <footer class="cl-footer">
+        <div class="cl-footer-inner">
+            <div class="cl-footer-top">
+                <div class="cl-footer-brand">
+                    <a href="index.html" class="cl-footer-logo">alexis.garden</a>
+                    <p class="cl-footer-tagline">Cultivating clarity.</p>
+                </div>
+                <div class="cl-footer-nav">
+                    <div class="cl-footer-col">
+                        <h4>Services</h4>
+                        <a href="strategy.html">Strategy</a>
+                        <a href="photography.html">Photography</a>
+                        <a href="experiences.html">Experiences</a>
+                    </div>
+                    <div class="cl-footer-col">
+                        <h4>Projects</h4>
+                        <a href="https://wiseleadersfellowship.com" target="_blank">Wise Leaders Fellowship</a>
+                        <a href="volta.html">Volta</a>
+                    </div>
+                    <div class="cl-footer-col">
+                        <h4>Explore</h4>
+                        <a href="now.html">Now</a>
+                        <a href="resources.html">Resources</a>
+                        <a href="writing.html">Writing</a>
+                    </div>
+                    <div class="cl-footer-col">
+                        <h4>Connect</h4>
+                        <a href="mailto:hi.alexis@pm.me">hi.alexis@pm.me</a>
+                        <a href="https://www.instagram.com/faltmast" target="_blank">Instagram</a>
+                    </div>
+                </div>
             </div>
-            <div class="footer-nav">
-                <div class="footer-nav-column">
-                    <h4>Work</h4>
-                    <a href="strategy.html">Strategy</a>
-                    <a href="photography.html">Photography</a>
-                    <a href="experiences.html">Experiences</a>
-                </div>
-                <div class="footer-nav-column">
-                    <h4>Explore</h4>
-                    <a href="writing.html">Writing</a>
-                    <a href="resources.html">Resources</a>
-                    <a href="mailto:hello@alexis.garden">Contact</a>
-                </div>
-            </div>
-            <div class="footer-connect">
-                <h4>Connect</h4>
-                <div class="footer-social">
-                    <a href="https://www.instagram.com/faltmast" target="_blank" aria-label="Instagram">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="2" y="2" width="20" height="20" rx="5"/>
-                            <circle cx="12" cy="12" r="4"/>
-                            <circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/>
-                        </svg>
-                    </a>
-                    <a href="mailto:hello@alexis.garden" aria-label="Email">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="2" y="4" width="20" height="16" rx="2"/>
-                            <path d="M2 6l10 7 10-7"/>
-                        </svg>
-                    </a>
-                </div>
-                <a href="mailto:hello@alexis.garden" class="footer-email">hello@alexis.garden</a>
+            <div class="cl-footer-bottom">
+                <p>&copy; 2025 Alexis Papageorgiou</p>
+                <p>Made with presence</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Alexis Papageorgiou</p>
-            <p class="footer-made">Made with presence</p>
-        </div>
-        <div class="footer-brush" aria-hidden="true"></div>
     </footer>
 
     <script src="script.js"></script>

@@ -58,7 +58,7 @@ Sent from alexis.garden quiz
                 },
                 body: JSON.stringify({
                     from: 'alexis.garden <quiz@alexis.garden>',
-                    to: process.env.NOTIFICATION_EMAIL || 'hello@alexis.garden',
+                    to: process.env.NOTIFICATION_EMAIL || 'hi.alexis@pm.me',
                     subject: `🌱 New inquiry: ${helpLabels[help] || help}`,
                     text: emailBody
                 })

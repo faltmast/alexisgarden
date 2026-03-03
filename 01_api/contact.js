@@ -52,8 +52,8 @@ Sent from alexis.garden
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    from: 'alexis.garden <hello@alexis.garden>',
-                    to: process.env.NOTIFICATION_EMAIL || 'hello@alexis.garden',
+                    from: 'alexis.garden <hi.alexis@pm.me>',
+                    to: process.env.NOTIFICATION_EMAIL || 'hi.alexis@pm.me',
                     subject: `New inquiry: ${interestLabels[interest] || interest}`,
                     text: emailBody,
                     reply_to: email

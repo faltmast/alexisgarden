@@ -1,18 +1,15 @@
 // Alexis Garden
 
-// Intro Screen Animation
+// Intro Screen — scroll to dismiss
 const introScreen = document.getElementById('introScreen');
-const introPlantBtn = document.getElementById('introPlantBtn');
 
-if (introScreen && introPlantBtn) {
+if (introScreen) {
     const hasSeenIntro = sessionStorage.getItem('alexisGardenIntroSeen');
 
     if (hasSeenIntro) {
         introScreen.classList.add('hidden');
     } else {
-        document.body.style.overflow = 'hidden';
-
-        // Fade in chunks: title → tagline → button (slower)
+        // Fade in chunks: label → title → tagline → chevron
         const chunks = document.querySelectorAll('.intro-chunk');
         chunks.forEach((chunk, i) => {
             setTimeout(() => {
@@ -20,102 +17,49 @@ if (introScreen && introPlantBtn) {
             }, i * 500 + 250);
         });
 
-        // Click to plant
-        introPlantBtn.addEventListener('click', (e) => {
-            // Phase 1: Fade out title and tagline, transform button
-            introScreen.classList.add('planting');
-            introPlantBtn.classList.add('transforming');
+        // Dismiss on scroll (wheel or touch)
+        let dismissed = false;
 
-            // Phase 2: Show seed
-            setTimeout(() => {
-                const seed = document.createElement('div');
-                seed.className = 'intro-single-seed';
-                seed.textContent = '🌰';
-                introScreen.appendChild(seed);
-
-                setTimeout(() => seed.classList.add('appear'), 50);
-
-                // Keep seed visible and pulse
-                setTimeout(() => {
-                    seed.classList.add('visible');
-                    seed.classList.add('pulse');
-                }, 400);
-
-                // Phase 3: Seed becomes sprout
-                setTimeout(() => {
-                    seed.classList.remove('pulse');
-                    seed.classList.add('transform');
-
-                    // Create sprout
-                    setTimeout(() => {
-                        const sprout = document.createElement('div');
-                        sprout.className = 'intro-single-seed';
-                        sprout.textContent = '🌱';
-                        introScreen.appendChild(sprout);
-
-                        setTimeout(() => sprout.classList.add('appear'), 50);
-
-                        // Keep sprout visible and pulse
-                        setTimeout(() => {
-                            sprout.classList.add('visible');
-                            sprout.classList.add('pulse');
-                        }, 400);
-
-                        // Phase 4: Sprout becomes potted plant
-                        setTimeout(() => {
-                            sprout.classList.remove('pulse');
-                            sprout.classList.add('transform');
-
-                            // Create potted plant
-                            setTimeout(() => {
-                                const plant = document.createElement('div');
-                                plant.className = 'intro-potted-plant';
-                                plant.textContent = '🪴';
-                                introScreen.appendChild(plant);
-
-                                setTimeout(() => plant.classList.add('grow'), 50);
-
-                                // Gentle settle animation
-                                setTimeout(() => {
-                                    plant.classList.add('settled');
-                                }, 600);
-
-                                // Phase 5: Plant becomes middle finger that expands
-                                setTimeout(() => {
-                                    plant.classList.add('transform');
-
-                                    // Create middle finger
-                                    setTimeout(() => {
-                                        const middleFinger = document.createElement('div');
-                                        middleFinger.className = 'intro-middle-finger';
-                                        middleFinger.textContent = '🖕';
-                                        introScreen.appendChild(middleFinger);
-
-                                        setTimeout(() => middleFinger.classList.add('appear'), 50);
-
-                                        // Expand middle finger over whole page
-                                        setTimeout(() => {
-                                            middleFinger.classList.add('expand');
-                                        }, 400);
-                                    }, 200);
-                                }, 1100);
-                            }, 200);
-                        }, 900);
-                    }, 200);
-                }, 1100);
-            }, 300);
-
-            // Final fade and complete (adjusted timing for new animation)
-            setTimeout(() => {
-                introScreen.classList.add('final-fade');
-            }, 4800);
-
+        function dismissIntro() {
+            if (dismissed) return;
+            dismissed = true;
+            introScreen.classList.add('final-fade');
             setTimeout(() => {
                 introScreen.classList.add('hidden');
                 document.body.style.overflow = '';
                 sessionStorage.setItem('alexisGardenIntroSeen', 'true');
-            }, 5400);
+            }, 600);
+        }
+
+        // Block scroll until dismissed, then release
+        document.body.style.overflow = 'hidden';
+
+        window.addEventListener('wheel', function onWheel(e) {
+            if (e.deltaY > 0) {
+                dismissIntro();
+                window.removeEventListener('wheel', onWheel);
+            }
         });
+
+        // Touch swipe up to dismiss
+        let touchStartY = 0;
+        window.addEventListener('touchstart', function onTouchStart(e) {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', function onTouchEnd(e) {
+            const diff = touchStartY - e.changedTouches[0].clientY;
+            if (diff > 40) {
+                dismissIntro();
+                window.removeEventListener('touchend', onTouchEnd);
+            }
+        }, { passive: true });
+
+        // Chevron click also dismisses
+        const chevron = document.getElementById('introPlantBtn');
+        if (chevron) {
+            chevron.addEventListener('click', dismissIntro);
+        }
     }
 }
 
@@ -315,3 +259,80 @@ if (plantSeedBtn && plantContainer) {
         }, 3000);
     });
 }
+
+// Strategy page — Claura-style scroll reveal animations
+const clReveals = document.querySelectorAll('.cl-reveal');
+if (clReveals.length > 0) {
+    const clObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                clObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -60px 0px'
+    });
+
+    clReveals.forEach(el => clObserver.observe(el));
+}
+
+// Strategy page — services tab interaction
+const clTabs = document.querySelectorAll('.cl-tab');
+if (clTabs.length > 0) {
+    const serviceData = [
+        {
+            title: 'Brand Strategy',
+            desc: 'Defining who you are, what you stand for, and why it matters. The foundation everything else builds on.',
+            img: '06_images/hero.jpg'
+        },
+        {
+            title: 'Positioning',
+            desc: 'Finding your place in the market. The space only you can occupy, and making sure everyone knows it.',
+            img: '06_images/hero.jpg'
+        },
+        {
+            title: 'Go-to-Market',
+            desc: 'From strategy to launch. The plan that turns clarity into traction and gets your message in front of the right people.',
+            img: '06_images/hero.jpg'
+        }
+    ];
+
+    const detailTitle = document.querySelector('.cl-services-detail-title');
+    const detailDesc = document.querySelector('.cl-services-detail-desc');
+    const detailImg = document.querySelector('.cl-services-img img');
+
+    clTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            clTabs.forEach(t => t.classList.remove('cl-tab-active'));
+            tab.classList.add('cl-tab-active');
+            const idx = parseInt(tab.dataset.tab);
+            if (detailTitle) detailTitle.textContent = serviceData[idx].title;
+            if (detailDesc) detailDesc.textContent = serviceData[idx].desc;
+            if (detailImg) {
+                detailImg.style.opacity = '0';
+                setTimeout(() => {
+                    detailImg.src = serviceData[idx].img;
+                    detailImg.style.opacity = '1';
+                }, 200);
+            }
+        });
+    });
+}
+
+// Bento card nested links
+document.querySelectorAll('.bento-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const href = link.dataset.href;
+        if (href) {
+            if (href.startsWith('http')) {
+                window.open(href, '_blank', 'noopener');
+            } else {
+                window.location.href = href;
+            }
+        }
+    });
+});

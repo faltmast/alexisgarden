@@ -10,18 +10,6 @@
 </head>
 <body>
 
-    <!-- Intro Screen -->
-    <div class="intro-screen" id="introScreen">
-        <div class="intro-content">
-            <h1 class="intro-title intro-chunk" data-chunk="1">Welcome to<br>Alexis Garden</h1>
-            <p class="intro-tagline intro-chunk" data-chunk="2">Life happens slow.<br>So why not plant a seed?</p>
-            <button class="intro-plant-btn intro-chunk" data-chunk="3" id="introPlantBtn">
-                <span class="intro-seed">🌱</span>
-                <span>Plant a seed</span>
-            </button>
-        </div>
-    </div>
-
     <!-- Navigation -->
     <nav class="nav">
         <a href="index.html" class="nav-logo"><img src="05_icons/icon_23_168_181_160.png" alt="alexis.garden"></a>
@@ -32,7 +20,6 @@
         </button>
         <div class="nav-links">
             <a href="now.html">Now</a>
-
             <div class="nav-dropdown">
                 <button class="nav-dropdown-toggle">Services</button>
                 <div class="nav-dropdown-menu">
@@ -41,7 +28,6 @@
                     <a href="experiences.html">Experiences</a>
                 </div>
             </div>
-
             <div class="nav-dropdown">
                 <button class="nav-dropdown-toggle">Projects</button>
                 <div class="nav-dropdown-menu">
@@ -50,113 +36,149 @@
                     <a href="#" class="nav-coming-soon">CEO Lab<span class="soon-badge">Coming Soon</span></a>
                 </div>
             </div>
-
             <a href="resources.html">Resources</a>
-
             <a href="writing.html">Writing</a>
-            <a href="mailto:hello@alexis.garden" class="nav-cta">Say Hi</a>
+            <a href="mailto:hi.alexis@pm.me" class="nav-cta">Say Hi</a>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-left">
-                <div class="hero-intro">
-                    <p class="hero-subtitle">Media Strategist</p>
-                    <h1>Alexis<br>Digital<br>Garden</h1>
-                    <p class="hero-tagline"><span class="highlight">I help founders grow.</span><br>Mapping complexity, launching fast, and building strategy that lasts.</p>
-                </div>
-            </div>
-            <div class="folder-logo">
-                <img src="06_images/laptop_growing_3.png" alt="Laptop with plants growing">
-            </div>
+    <!-- ===== HERO ===== -->
+    <section class="hp-hero">
+        <div class="cl-hero-proof cl-fade" style="--d:0">
+            <span class="cl-stars">★★★★★</span>
+            <span>Strategy, photography, experiences</span>
         </div>
-
-        <!-- Scroll indicator -->
-        <div class="scroll-arrow">
-            <img src="06_images/arrow down.png" alt="Scroll down">
+        <h1 class="hp-hero-title cl-fade" style="--d:1">Helping founders<br>find what's <em>true.</em></h1>
+        <p class="cl-hero-sub cl-fade" style="--d:2">Brand strategy, documentary photography, and transformative<br>experiences — built with care for people who build things.</p>
+        <div class="cl-hero-btns cl-fade" style="--d:3">
+            <a href="mailto:hi.alexis@pm.me" class="cl-btn-dark">Get in touch</a>
+            <a href="strategy.html" class="cl-btn-light">How I work <span class="cl-btn-icon"><svg viewBox="0 0 24 24" fill="white"><polygon points="8,5 20,12 8,19"/></svg></span></a>
         </div>
     </section>
 
-    <!-- What I Do -->
-    <section class="intro-sentences">
-        <h2>I create <a href="strategy.html" class="accent-sage">media strategies</a> <img src="05_icons/icon_45_168_181_160.png" alt="" class="intro-icon"></h2>
-        <h2>I capture <a href="photography.html" class="accent-terracotta">authentic moments</a> <img src="05_icons/icon_31_196_145_123.png" alt="" class="intro-icon"></h2>
-        <h2>I lead <a href="experiences.html" class="accent-dusty-blue">transformative experiences</a> <img src="05_icons/icon_34_143_163_176.png" alt="" class="intro-icon"></h2>
-        <h2>I share <a href="writing.html" class="accent-sage">reflections on growth</a> <img src="05_icons/icon_65_168_181_160.png" alt="" class="intro-icon"></h2>
-        <h2>I build <a href="resources.html" class="accent-terracotta">tools for clarity</a> <img src="05_icons/icon_50_196_145_123.png" alt="" class="intro-icon"></h2>
+    <!-- ===== HERO IMAGE ===== -->
+    <section class="cl-hero-img cl-fade" style="--d:4">
+        <img src="06_images/hero.jpg" alt="Alexis Papageorgiou">
+    </section>
+
+    <!-- ===== SERVICES BENTO ===== -->
+    <section class="hp-services">
+        <span class="cl-pill cl-pill-center cl-reveal">What I do</span>
+        <h2 class="cl-section-title cl-reveal">Three ways I help<br><em>things grow.</em></h2>
+
+        <div class="hp-services-grid">
+            <a href="strategy.html" class="hp-service-card cl-reveal" style="--d:0">
+                <img src="06_images/product_01_strategy.png" alt="" class="hp-service-bg">
+                <div class="hp-service-overlay"></div>
+                <div class="hp-service-content">
+                    <span class="rs-badge">Services</span>
+                    <h3>Strategy</h3>
+                    <p>Brand strategy, positioning, and go-to-market for founders in AI, decentralised infrastructure, and human development.</p>
+                    <span class="rs-card-link">Learn more <span class="rs-arrow">→</span></span>
+                </div>
+            </a>
+            <a href="photography.html" class="hp-service-card cl-reveal" style="--d:1">
+                <img src="06_images/product_02_photography.png" alt="" class="hp-service-bg">
+                <div class="hp-service-overlay"></div>
+                <div class="hp-service-content">
+                    <span class="rs-badge">Services</span>
+                    <h3>Photography</h3>
+                    <p>Quiet documentary photography. Conferences, workshops, retreats — authentic moments, no poses.</p>
+                    <span class="rs-card-link">See my work <span class="rs-arrow">→</span></span>
+                </div>
+            </a>
+            <a href="experiences.html" class="hp-service-card cl-reveal" style="--d:2">
+                <img src="06_images/product_03_experiences.png" alt="" class="hp-service-bg">
+                <div class="hp-service-overlay"></div>
+                <div class="hp-service-content">
+                    <span class="rs-badge">Services</span>
+                    <h3>Experiences</h3>
+                    <p>Breathwork, ice baths, philosophy, and shared silence. Workshops and retreats that shift something real.</p>
+                    <span class="rs-card-link">Explore <span class="rs-arrow">→</span></span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIAL ===== -->
+    <section class="cl-testimonial-bento cl-reveal">
+        <div class="cl-testimonial-card-img">
+            <span class="cl-quote-mark">"</span>
+            <blockquote>There's a certain quality of attention Alexis brings that goes beyond a typical client-service provider relationship. It's in his photography, his dancing, in everything he does.</blockquote>
+            <div class="cl-testimonial-meta">
+                <span class="cl-meta-name">Moritz Bierling</span>
+                <span class="cl-meta-role">Statecraft Systems</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LATEST WRITING ===== -->
+    <section class="hp-writing">
+        <span class="cl-pill cl-pill-center cl-reveal">Latest writing</span>
+        <h2 class="cl-section-title cl-reveal">From the <em>garden.</em></h2>
+        <div class="hp-writing-cards">
+            <a href="03_blog/the-future-belongs-to-systems.html" class="hp-writing-card cl-reveal" style="--d:0">
+                <span class="cl-pill-sm">Strategy</span>
+                <time>February 6, 2026</time>
+                <h3>The Future Belongs To Systems That Cannot Change Their Mind</h3>
+                <span class="rs-card-link">Read <span class="rs-arrow">→</span></span>
+            </a>
+            <a href="03_blog/the-world-is-shifting.html" class="hp-writing-card cl-reveal" style="--d:1">
+                <span class="cl-pill-sm">Strategy</span>
+                <time>March 5, 2025</time>
+                <h3>The World Is Shifting</h3>
+                <span class="rs-card-link">Read <span class="rs-arrow">→</span></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cl-cta">
+        <h2 class="cl-reveal">Ready to start a <em>conversation</em>?</h2>
+        <p class="cl-reveal">Whether it's strategy, a shoot, or an experience — I'd love to hear what you're building.</p>
+        <div class="cl-hero-btns cl-reveal">
+            <a href="mailto:hi.alexis@pm.me" class="cl-btn-dark">Get in touch</a>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer-dark">
-        <div class="footer-content">
-            <!-- Left: Brand -->
-            <div class="footer-brand">
-                <a href="index.html" class="footer-logo">alexis.garden</a>
-                <p class="footer-tagline">Cultivating clarity.</p>
+    <footer class="cl-footer">
+        <div class="cl-footer-inner">
+            <div class="cl-footer-top">
+                <div class="cl-footer-brand">
+                    <a href="index.html" class="cl-footer-logo">alexis.garden</a>
+                    <p class="cl-footer-tagline">Cultivating clarity.</p>
+                </div>
+                <div class="cl-footer-nav">
+                    <div class="cl-footer-col">
+                        <h4>Services</h4>
+                        <a href="strategy.html">Strategy</a>
+                        <a href="photography.html">Photography</a>
+                        <a href="experiences.html">Experiences</a>
+                    </div>
+                    <div class="cl-footer-col">
+                        <h4>Projects</h4>
+                        <a href="https://wiseleadersfellowship.com" target="_blank">Wise Leaders Fellowship</a>
+                        <a href="volta.html">Volta</a>
+                    </div>
+                    <div class="cl-footer-col">
+                        <h4>Explore</h4>
+                        <a href="now.html">Now</a>
+                        <a href="resources.html">Resources</a>
+                        <a href="writing.html">Writing</a>
+                    </div>
+                    <div class="cl-footer-col">
+                        <h4>Connect</h4>
+                        <a href="mailto:hi.alexis@pm.me">hi.alexis@pm.me</a>
+                        <a href="https://www.instagram.com/faltmast" target="_blank">Instagram</a>
+                    </div>
+                </div>
             </div>
-
-            <!-- Center: Navigation -->
-            <div class="footer-nav">
-                <div class="footer-nav-column">
-                    <h4>Work</h4>
-                    <a href="strategy.html">Strategy</a>
-                    <a href="photography.html">Photography</a>
-                    <a href="experiences.html">Experiences</a>
-                </div>
-                <div class="footer-nav-column">
-                    <h4>Explore</h4>
-                    <a href="writing.html">Writing</a>
-                    <a href="resources.html">Resources</a>
-                    <a href="mailto:hello@alexis.garden">Contact</a>
-                </div>
-            </div>
-
-            <!-- Right: Connect -->
-            <div class="footer-connect">
-                <h4>Connect</h4>
-                <div class="footer-social">
-                    <a href="https://www.instagram.com/faltmast" target="_blank" aria-label="Instagram">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="2" y="2" width="20" height="20" rx="5"/>
-                            <circle cx="12" cy="12" r="4"/>
-                            <circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/>
-                        </svg>
-                    </a>
-                    <a href="mailto:hello@alexis.garden" aria-label="Email">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="2" y="4" width="20" height="16" rx="2"/>
-                            <path d="M2 6l10 7 10-7"/>
-                        </svg>
-                    </a>
-                </div>
-                <a href="mailto:hello@alexis.garden" class="footer-email">hello@alexis.garden</a>
+            <div class="cl-footer-bottom">
+                <p>&copy; 2025 Alexis Papageorgiou</p>
+                <p>Made with presence</p>
             </div>
         </div>
-
-        <!-- Plant a seed -->
-        <div class="seed-garden">
-            <div class="garden-ground">
-                <div class="plant-container" id="plantContainer">
-                    <!-- Plant grows here -->
-                </div>
-                <div class="soil"></div>
-            </div>
-            <button class="plant-seed-btn" id="plantSeedBtn">
-                <span class="seed-icon">🌱</span>
-                <span class="btn-text">Plant a seed</span>
-            </button>
-        </div>
-
-        <!-- Bottom bar -->
-        <div class="footer-bottom">
-            <p>&copy; 2025 Alexis Papageorgiou</p>
-            <p class="footer-made">Made with presence</p>
-        </div>
-
-        <!-- Decorative brush stroke -->
-        <div class="footer-brush" aria-hidden="true"></div>
     </footer>
 
     <script src="script.js"></script>
