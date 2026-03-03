@@ -34,7 +34,7 @@ const C = {
 };
 
 /* --- Alpha boost helper: clamp(alpha * boost, 0, 1) for visibility --- */
-function A(alpha) { return Math.min(1, alpha * 3.0); }
+function A(alpha) { return Math.min(1, alpha * 2.0); }
 
 /* --- Easing --- */
 function ease(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
@@ -159,11 +159,11 @@ function makeBlades(config) {
     }
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
 
-      ctx.strokeStyle = 'rgba(62, 55, 45, 0.54)';
+      ctx.strokeStyle = 'rgba(62, 55, 45, 0.36)';
       ctx.lineWidth = 1.2;
       ctx.beginPath();
       ctx.arc(cx, cy, Math.min(w, h) * 0.4, 0, TAU);
@@ -239,7 +239,7 @@ function makeBreathingRings(config) {
       const s = t * 0.001;
 
       if (showRadials) {
-        ctx.strokeStyle = 'rgba(62, 55, 45, 0.18)';
+        ctx.strokeStyle = 'rgba(62, 55, 45, 0.12)';
         ctx.lineWidth = 0.8;
         for (let i = 0; i < 12; i++) {
           const a = (i / 12) * TAU + s * 0.02;
@@ -262,7 +262,7 @@ function makeBreathingRings(config) {
       }
 
       if (showSpiral) {
-        ctx.strokeStyle = 'rgba(184, 146, 58, 0.54)';
+        ctx.strokeStyle = 'rgba(184, 146, 58, 0.36)';
         ctx.lineWidth = 2.0;
         ctx.beginPath();
         for (let a = 0; a < TAU * 4; a += 0.05) {
@@ -315,7 +315,7 @@ function makeCrystal(config) {
     }
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.03)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
       const pressure = 0.5 + 0.5 * Math.sin(s * growSpeed);
@@ -507,7 +507,7 @@ function makeRepetition(config) {
       ctx.arc(x, y, 2, 0, TAU);
       ctx.fill();
 
-      ctx.strokeStyle = 'rgba(62, 55, 45, 0.12)';
+      ctx.strokeStyle = 'rgba(62, 55, 45, 0.08)';
       ctx.lineWidth = 1.2;
       ctx.beginPath();
       if (shape === 'circle') {
@@ -558,7 +558,7 @@ function makePendulum(config) {
     }
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
 
@@ -567,7 +567,7 @@ function makePendulum(config) {
         const bx = p.px + Math.sin(angle) * p.len;
         const by = p.py + Math.cos(angle) * p.len;
 
-        ctx.strokeStyle = 'rgba(62, 55, 45, 0.54)';
+        ctx.strokeStyle = 'rgba(62, 55, 45, 0.36)';
         ctx.lineWidth = 1.2;
         ctx.beginPath();
         ctx.moveTo(p.px, p.py);
@@ -586,7 +586,7 @@ function makePendulum(config) {
         ctx.fill();
 
         // Trail arc
-        ctx.strokeStyle = 'rgba(184, 146, 58, 0.27)';
+        ctx.strokeStyle = 'rgba(184, 146, 58, 0.18)';
         ctx.lineWidth = 1.0;
         ctx.beginPath();
         ctx.arc(p.px, p.py, p.len, Math.PI / 2 - p.amp, Math.PI / 2 + p.amp);
@@ -633,7 +633,7 @@ function makeFlowField(config) {
     }
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
 
@@ -773,7 +773,7 @@ function makeMirror(config) {
     let { ctx, w, h, cx, cy } = fitCanvas(canvas);
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
       const maxR = Math.min(w, h) * 0.38;
@@ -848,7 +848,7 @@ function makeOrbit(config) {
     }
 
     function draw(t) {
-      ctx.fillStyle = showTrails ? 'rgba(245, 240, 228, 0.03)' : C.bg;
+      ctx.fillStyle = showTrails ? 'rgba(245, 240, 228, 0.05)' : C.bg;
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
 
@@ -857,7 +857,7 @@ function makeOrbit(config) {
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(o.tilt);
-        ctx.strokeStyle = 'rgba(62, 55, 45, 0.36)';
+        ctx.strokeStyle = 'rgba(62, 55, 45, 0.24)';
         ctx.lineWidth = 1.0;
         ctx.beginPath();
         ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, TAU);
@@ -902,7 +902,7 @@ function makeSpiral(config) {
     let { ctx, w, h, cx, cy } = fitCanvas(canvas);
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.03)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
       const maxR = Math.min(w, h) * 0.42;
@@ -1016,7 +1016,7 @@ function makeWave(config) {
     let { ctx, w, h, cx, cy } = fitCanvas(canvas);
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
       const amp = Math.min(w, h) * amplitude;
@@ -1165,7 +1165,7 @@ function makeVortex(config) {
     let { ctx, w, h, cx, cy } = fitCanvas(canvas);
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
       const maxR = Math.min(w, h) * 0.4;
@@ -1348,7 +1348,7 @@ function makeWeave(config) {
     let { ctx, w, h, cx, cy } = fitCanvas(canvas);
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
       const amp = Math.min(w, h) * amplitude;
@@ -1405,7 +1405,7 @@ function art_slow_growth(canvas) {
   function init() {}
 
   function draw(t) {
-    ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
+    ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
     ctx.fillRect(0, 0, w, h);
     const s = t * 0.001;
     const period = 12;
@@ -1463,7 +1463,7 @@ function art_slow_growth(canvas) {
     }
 
     ctx.font = '8px "IBM Plex Sans", sans-serif';
-    ctx.fillStyle = 'rgba(62, 55, 45, 0.36)';
+    ctx.fillStyle = 'rgba(62, 55, 45, 0.24)';
     ctx.textAlign = 'center';
     ctx.fillText('SLOW', leftX, cy + maxR + 20);
     ctx.fillText('FAST', rightX, cy + maxR + 20);
@@ -1522,7 +1522,7 @@ function art_book1_inner(canvas) {
       const a = (i / sides) * TAU + outerRot;
       ctx.beginPath();
       ctx.arc(cx + Math.cos(a) * outerR, cy + Math.sin(a) * outerR, 1.5, 0, TAU);
-      ctx.fillStyle = 'rgba(184, 146, 58, 0.45)';
+      ctx.fillStyle = 'rgba(184, 146, 58, 0.30)';
       ctx.fill();
     }
 
@@ -1546,7 +1546,7 @@ function art_book2_outer(canvas) {
   let { ctx, w, h, cx, cy } = fitCanvas(canvas);
 
   function draw(t) {
-    ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
+    ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
     ctx.fillRect(0, 0, w, h);
     const s = t * 0.001;
     const maxR = Math.min(w, h) * 0.36;
@@ -1604,7 +1604,7 @@ function art_book2_outer(canvas) {
       nodesB.push({ x: cx + Math.cos(a) * orbitR * 0.7, y: cy + Math.sin(a) * orbitR });
     }
 
-    ctx.strokeStyle = 'rgba(92, 61, 40, 0.27)';
+    ctx.strokeStyle = 'rgba(92, 61, 40, 0.18)';
     ctx.lineWidth = 0.8;
     for (const a of nodesA) {
       for (const b of nodesB) {
@@ -1682,7 +1682,7 @@ function art_book3_legacy(canvas) {
 
     ctx.beginPath();
     ctx.arc(cx, cy, 2, 0, TAU);
-    ctx.fillStyle = 'rgba(184, 146, 58, 0.6)';
+    ctx.fillStyle = 'rgba(184, 146, 58, 0.40)';
     ctx.fill();
   }
 
