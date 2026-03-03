@@ -66,6 +66,15 @@
 
   window.addEventListener('hashchange', () => goTo(parseHash(), false));
 
+  const randomBtn = document.getElementById('randomBtn');
+  if (randomBtn) {
+    const quoteAnchors = anchors.filter((a) => /^q\d+$/.test(a));
+    randomBtn.addEventListener('click', () => {
+      const pick = quoteAnchors[Math.floor(Math.random() * quoteAnchors.length)];
+      goTo(pick, true);
+    });
+  }
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goRelative(1); }
     if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); goRelative(-1); }
