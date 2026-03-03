@@ -27,14 +27,14 @@ const C = {
   goldSoft: 'rgba(184, 146, 58, 0.9)',
   ink: '#3e372d',
   inkSoft: 'rgba(62, 55, 45, 0.75)',
-  inkFaint: 'rgba(62, 55, 45, 0.3)',
-  bg: '#ede5d2',
+  inkFaint: 'rgba(62, 55, 45, 0.90)',
+  bg: '#f5f0e4',
   walnut: '#5c3d28',
   green: '#2d5a3a',
 };
 
-/* --- Alpha boost: multiply all drawing alphas for visibility --- */
-const ALPHA_BOOST = 3.0;
+/* --- Alpha boost helper: clamp(alpha * boost, 0, 1) for visibility --- */
+function A(alpha) { return Math.min(1, alpha * 3.0); }
 
 /* --- Easing --- */
 function ease(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
@@ -97,8 +97,8 @@ function makeNetwork(config) {
         const reveal = Math.min(1, s / c.reveal);
         if (reveal <= 0) continue;
         const alpha = reveal * (0.04 + 0.06 * (1 - c.dist / (Math.min(w, h) * connectionRadius)));
-        ctx.strokeStyle = `rgba(62, 55, 45, ${alpha})`;
-        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = `rgba(62, 55, 45, ${A(alpha)})`;
+        ctx.lineWidth = 1.2;
         ctx.beginPath();
         const mx = (ax + bx) / 2 + (ay - by) * 0.08;
         const my = (ay + by) / 2 + (bx - ax) * 0.08;
@@ -111,7 +111,7 @@ function makeNetwork(config) {
         const pulse = 0.6 + 0.4 * Math.sin(s * 1.5 + n.phase);
         ctx.beginPath();
         ctx.arc(n.x + n.dx, n.y + n.dy, n.radius * pulse, 0, TAU);
-        ctx.fillStyle = `rgba(184, 146, 58, ${0.15 + pulse * 0.2})`;
+        ctx.fillStyle = `rgba(184, 146, 58, ${A(0.15 + pulse * 0.2)})`;
         ctx.fill();
       }
 
@@ -119,7 +119,7 @@ function makeNetwork(config) {
         const cp = 0.5 + 0.5 * Math.sin(s);
         ctx.beginPath();
         ctx.arc(cx, cy, 4 + cp * 3, 0, TAU);
-        ctx.fillStyle = `rgba(184, 146, 58, ${0.1 + cp * 0.15})`;
+        ctx.fillStyle = `rgba(184, 146, 58, ${A(0.1 + cp * 0.15)})`;
         ctx.fill();
       }
     }
@@ -159,12 +159,12 @@ function makeBlades(config) {
     }
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.06)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
 
-      ctx.strokeStyle = 'rgba(62, 55, 45, 0.18)';
-      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = 'rgba(62, 55, 45, 0.54)';
+      ctx.lineWidth = 1.2;
       ctx.beginPath();
       ctx.arc(cx, cy, Math.min(w, h) * 0.4, 0, TAU);
       ctx.stroke();
@@ -185,7 +185,7 @@ function makeBlades(config) {
         const perpY = Math.sin(a + Math.PI / 2) * b.width;
 
         const alpha = 0.08 + Math.abs(breathe) * 0.12;
-        ctx.fillStyle = `rgba(62, 55, 45, ${alpha})`;
+        ctx.fillStyle = `rgba(62, 55, 45, ${A(alpha)})`;
         ctx.beginPath();
         ctx.moveTo(ix, iy);
         ctx.lineTo(ox + perpX, oy + perpY);
@@ -197,7 +197,7 @@ function makeBlades(config) {
       const centerPulse = 0.5 + 0.5 * Math.sin(s * 2);
       ctx.beginPath();
       ctx.arc(cx, cy, 3 + centerPulse * 2, 0, TAU);
-      ctx.fillStyle = `rgba(168, 90, 58, ${0.1 + centerPulse * 0.15})`;
+      ctx.fillStyle = `rgba(168, 90, 58, ${A(0.1 + centerPulse * 0.15)})`;
       ctx.fill();
     }
 
@@ -239,8 +239,8 @@ function makeBreathingRings(config) {
       const s = t * 0.001;
 
       if (showRadials) {
-        ctx.strokeStyle = 'rgba(62, 55, 45, 0.06)';
-        ctx.lineWidth = 0.3;
+        ctx.strokeStyle = 'rgba(62, 55, 45, 0.18)';
+        ctx.lineWidth = 0.8;
         for (let i = 0; i < 12; i++) {
           const a = (i / 12) * TAU + s * 0.02;
           const maxR = Math.min(w, h) * 0.45;
@@ -254,16 +254,16 @@ function makeBreathingRings(config) {
       for (const ring of rings) {
         const breathe = Math.sin(s * breatheSpeed + ring.phase) * ring.breatheAmp;
         const r = ring.baseR + breathe;
-        ctx.strokeStyle = `rgba(62, 55, 45, ${ring.opacity})`;
-        ctx.lineWidth = 0.6;
+        ctx.strokeStyle = `rgba(62, 55, 45, ${A(ring.opacity)})`;
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, TAU);
         ctx.stroke();
       }
 
       if (showSpiral) {
-        ctx.strokeStyle = 'rgba(184, 146, 58, 0.18)';
-        ctx.lineWidth = 0.8;
+        ctx.strokeStyle = 'rgba(184, 146, 58, 0.54)';
+        ctx.lineWidth = 2.0;
         ctx.beginPath();
         for (let a = 0; a < TAU * 4; a += 0.05) {
           const r = 5 * Math.pow(PHI, a / TAU) + Math.sin(s * 0.3 + a) * 2;
@@ -329,8 +329,8 @@ function makeCrystal(config) {
         const y1 = p.sy + Math.sin(p.angle) * dist * startFrac;
         const x2 = p.sx + Math.cos(p.angle) * dist * Math.min(endFrac, 0.85);
         const y2 = p.sy + Math.sin(p.angle) * dist * Math.min(endFrac, 0.85);
-        ctx.strokeStyle = `rgba(62, 55, 45, ${0.03 + pressure * 0.04})`;
-        ctx.lineWidth = 0.4;
+        ctx.strokeStyle = `rgba(62, 55, 45, ${A(0.03 + pressure * 0.04)})`;
+        ctx.lineWidth = 1.0;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
@@ -339,7 +339,7 @@ function makeCrystal(config) {
 
       const crystalR = Math.min(w, h) * (0.12 + pressure * 0.06);
       const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, crystalR * 1.5);
-      grad.addColorStop(0, `rgba(184, 146, 58, ${0.03 + pressure * 0.05})`);
+      grad.addColorStop(0, `rgba(184, 146, 58, ${A(0.03 + pressure * 0.05)})`);
       grad.addColorStop(1, 'rgba(184, 146, 58, 0)');
       ctx.fillStyle = grad;
       ctx.fillRect(cx - crystalR * 2, cy - crystalR * 2, crystalR * 4, crystalR * 4);
@@ -347,8 +347,8 @@ function makeCrystal(config) {
       for (let layer = 0; layer < layerCount; layer++) {
         const layerR = crystalR * (0.4 + layer * (0.6 / layerCount));
         const rotation = s * 0.05 * (layer % 2 === 0 ? 1 : -1);
-        ctx.strokeStyle = `rgba(184, 146, 58, ${0.06 + layer * 0.04 + pressure * 0.08})`;
-        ctx.lineWidth = 0.5 + layer * 0.3;
+        ctx.strokeStyle = `rgba(184, 146, 58, ${A(0.06 + layer * 0.04 + pressure * 0.08)})`;
+        ctx.lineWidth = 1.2 + layer * 0.3;
         ctx.beginPath();
         for (let i = 0; i <= facetSides; i++) {
           const a = (i / facetSides) * TAU + rotation;
@@ -361,8 +361,8 @@ function makeCrystal(config) {
 
         if (layer > 0) {
           const innerR = crystalR * (0.4 + (layer - 1) * (0.6 / layerCount));
-          ctx.strokeStyle = `rgba(184, 146, 58, ${0.03 + pressure * 0.04})`;
-          ctx.lineWidth = 0.3;
+          ctx.strokeStyle = `rgba(184, 146, 58, ${A(0.03 + pressure * 0.04)})`;
+          ctx.lineWidth = 0.8;
           for (let i = 0; i < facetSides; i++) {
             const a = (i / facetSides) * TAU + rotation;
             const aInner = (i / facetSides) * TAU + s * 0.05 * ((layer - 1) % 2 === 0 ? 1 : -1);
@@ -417,9 +417,9 @@ function makeMandala(config) {
 
         const rotation = s * 0.03 * (layer % 2 === 0 ? 1 : -1);
         ctx.strokeStyle = layer % 2 === 0
-          ? `rgba(184, 146, 58, ${opacity})`
-          : `rgba(62, 55, 45, ${opacity})`;
-        ctx.lineWidth = 0.5 + layer * 0.1;
+          ? `rgba(184, 146, 58, ${A(opacity)})`
+          : `rgba(62, 55, 45, ${A(opacity)})`;
+        ctx.lineWidth = 1.2 + layer * 0.1;
         ctx.beginPath();
         ctx.arc(cx, cy, r, rotation, rotation + TAU * layerBuild);
         ctx.stroke();
@@ -430,8 +430,8 @@ function makeMandala(config) {
             const a = (si / seg) * TAU + rotation;
             const px = cx + Math.cos(a) * r;
             const py = cy + Math.sin(a) * r;
-            ctx.strokeStyle = `rgba(184, 146, 58, ${opacity * 0.7})`;
-            ctx.lineWidth = 0.4;
+            ctx.strokeStyle = `rgba(184, 146, 58, ${A(opacity * 0.7)})`;
+            ctx.lineWidth = 1.0;
             ctx.beginPath();
             ctx.arc(px, py, petalR, 0, TAU);
             ctx.stroke();
@@ -455,8 +455,8 @@ function makeMandala(config) {
         if (p.life <= 0) { particles.splice(i, 1); continue; }
         const alpha = p.life * 0.2;
         ctx.fillStyle = p.gold
-          ? `rgba(184, 146, 58, ${alpha})`
-          : `rgba(62, 55, 45, ${alpha})`;
+          ? `rgba(184, 146, 58, ${A(alpha)})`
+          : `rgba(62, 55, 45, ${A(alpha)})`;
         ctx.fillRect(p.x, p.y, p.size, p.size);
       }
       while (particles.length > maxParticles) particles.shift();
@@ -507,8 +507,8 @@ function makeRepetition(config) {
       ctx.arc(x, y, 2, 0, TAU);
       ctx.fill();
 
-      ctx.strokeStyle = 'rgba(62, 55, 45, 0.04)';
-      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = 'rgba(62, 55, 45, 0.12)';
+      ctx.lineWidth = 1.2;
       ctx.beginPath();
       if (shape === 'circle') {
         ctx.arc(cx, cy, r, 0, TAU);
@@ -558,7 +558,7 @@ function makePendulum(config) {
     }
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
 
@@ -567,8 +567,8 @@ function makePendulum(config) {
         const bx = p.px + Math.sin(angle) * p.len;
         const by = p.py + Math.cos(angle) * p.len;
 
-        ctx.strokeStyle = 'rgba(62, 55, 45, 0.18)';
-        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = 'rgba(62, 55, 45, 0.54)';
+        ctx.lineWidth = 1.2;
         ctx.beginPath();
         ctx.moveTo(p.px, p.py);
         ctx.lineTo(bx, by);
@@ -576,18 +576,18 @@ function makePendulum(config) {
 
         ctx.beginPath();
         ctx.arc(p.px, p.py, 2, 0, TAU);
-        ctx.fillStyle = 'rgba(62, 55, 45, 0.3)';
+        ctx.fillStyle = 'rgba(62, 55, 45, 0.90)';
         ctx.fill();
 
         const pulse = 0.5 + 0.5 * Math.sin(s * 2 + p.phase);
         ctx.beginPath();
         ctx.arc(bx, by, 4 + pulse * 2, 0, TAU);
-        ctx.fillStyle = `rgba(184, 146, 58, ${0.1 + pulse * 0.15})`;
+        ctx.fillStyle = `rgba(184, 146, 58, ${A(0.1 + pulse * 0.15)})`;
         ctx.fill();
 
         // Trail arc
-        ctx.strokeStyle = 'rgba(184, 146, 58, 0.09)';
-        ctx.lineWidth = 0.4;
+        ctx.strokeStyle = 'rgba(184, 146, 58, 0.27)';
+        ctx.lineWidth = 1.0;
         ctx.beginPath();
         ctx.arc(p.px, p.py, p.len, Math.PI / 2 - p.amp, Math.PI / 2 + p.amp);
         ctx.stroke();
@@ -645,8 +645,8 @@ function makeFlowField(config) {
         const y2 = y1 + Math.sin(angle) * line.length;
 
         const alpha = 0.03 + 0.04 * Math.abs(Math.sin(s * 0.5 + line.phase));
-        ctx.strokeStyle = `rgba(62, 55, 45, ${alpha})`;
-        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = `rgba(62, 55, 45, ${A(alpha)})`;
+        ctx.lineWidth = 1.2;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         const cmx = (x1 + x2) / 2 + Math.sin(angle + Math.PI / 2) * line.length * 0.2;
@@ -657,7 +657,7 @@ function makeFlowField(config) {
         // Tiny dot at tip
         ctx.beginPath();
         ctx.arc(x2, y2, 0.8, 0, TAU);
-        ctx.fillStyle = `rgba(184, 146, 58, ${alpha * 2})`;
+        ctx.fillStyle = `rgba(184, 146, 58, ${A(alpha * 2)})`;
         ctx.fill();
       }
     }
@@ -728,15 +728,15 @@ function makeErosion(config) {
 
         const alpha = 0.08 + (1 - displacement) * 0.15;
         ctx.fillStyle = p.dist < Math.min(w, h) * 0.12
-          ? `rgba(184, 146, 58, ${alpha})`
-          : `rgba(62, 55, 45, ${alpha * 0.7})`;
+          ? `rgba(184, 146, 58, ${A(alpha)})`
+          : `rgba(62, 55, 45, ${A(alpha * 0.7)})`;
         ctx.fillRect(x - p.size / 2, y - p.size / 2, p.size, p.size);
       }
 
       // Ghost outline
       if (displacement > 0.1) {
-        ctx.strokeStyle = `rgba(62, 55, 45, ${0.03 * (1 - displacement)})`;
-        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = `rgba(62, 55, 45, ${A(0.03 * (1 - displacement))})`;
+        ctx.lineWidth = 1.2;
         ctx.beginPath();
         if (shape === 'circle') {
           ctx.arc(cx, cy, Math.min(w, h) * 0.25, 0, TAU);
@@ -796,9 +796,9 @@ function makeMirror(config) {
 
           const alpha = 0.04 + 0.03 * Math.sin(s * 0.8 + fold + c);
           ctx.strokeStyle = c % 2 === 0
-            ? `rgba(184, 146, 58, ${alpha})`
-            : `rgba(62, 55, 45, ${alpha})`;
-          ctx.lineWidth = 0.5;
+            ? `rgba(184, 146, 58, ${A(alpha)})`
+            : `rgba(62, 55, 45, ${A(alpha)})`;
+          ctx.lineWidth = 1.2;
           ctx.beginPath();
           ctx.moveTo(x1, y1);
           ctx.quadraticCurveTo(cpx, cpy, x2, y2);
@@ -810,7 +810,7 @@ function makeMirror(config) {
       const cp = 0.5 + 0.5 * Math.sin(s * 1.5);
       ctx.beginPath();
       ctx.arc(cx, cy, 2 + cp * 2, 0, TAU);
-      ctx.fillStyle = `rgba(184, 146, 58, ${0.08 + cp * 0.1})`;
+      ctx.fillStyle = `rgba(184, 146, 58, ${A(0.08 + cp * 0.1)})`;
       ctx.fill();
     }
 
@@ -857,8 +857,8 @@ function makeOrbit(config) {
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(o.tilt);
-        ctx.strokeStyle = 'rgba(62, 55, 45, 0.12)';
-        ctx.lineWidth = 0.4;
+        ctx.strokeStyle = 'rgba(62, 55, 45, 0.36)';
+        ctx.lineWidth = 1.0;
         ctx.beginPath();
         ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, TAU);
         ctx.stroke();
@@ -870,7 +870,7 @@ function makeOrbit(config) {
         const pulse = 0.7 + 0.3 * Math.sin(s * 2 + o.phase);
         ctx.beginPath();
         ctx.arc(bx, by, o.size * pulse, 0, TAU);
-        ctx.fillStyle = `rgba(184, 146, 58, ${0.1 + pulse * 0.2})`;
+        ctx.fillStyle = `rgba(184, 146, 58, ${A(0.1 + pulse * 0.2)})`;
         ctx.fill();
 
         ctx.restore();
@@ -880,7 +880,7 @@ function makeOrbit(config) {
       const cp = 0.5 + 0.5 * Math.sin(s * 0.5);
       ctx.beginPath();
       ctx.arc(cx, cy, 3 + cp * 2, 0, TAU);
-      ctx.fillStyle = `rgba(62, 55, 45, ${0.06 + cp * 0.06})`;
+      ctx.fillStyle = `rgba(62, 55, 45, ${A(0.06 + cp * 0.06)})`;
       ctx.fill();
     }
 
@@ -914,7 +914,7 @@ function makeSpiral(config) {
         ctx.strokeStyle = isGold
           ? `rgba(184, 146, 58, 0.18)`
           : `rgba(62, 55, 45, 0.15)`;
-        ctx.lineWidth = 0.6;
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
 
         let first = true;
@@ -934,7 +934,7 @@ function makeSpiral(config) {
       const cp = 0.5 + 0.5 * Math.sin(s * 0.8);
       ctx.beginPath();
       ctx.arc(cx, cy, 2 + cp * 2, 0, TAU);
-      ctx.fillStyle = `rgba(184, 146, 58, ${0.1 + cp * 0.1})`;
+      ctx.fillStyle = `rgba(184, 146, 58, ${A(0.1 + cp * 0.1)})`;
       ctx.fill();
     }
 
@@ -963,8 +963,8 @@ function makeTree(config) {
       const alpha = 0.03 + (d / depth) * 0.08;
       const isGold = d <= 2;
       ctx.strokeStyle = isGold
-        ? `rgba(184, 146, 58, ${alpha * 1.5})`
-        : `rgba(62, 55, 45, ${alpha})`;
+        ? `rgba(184, 146, 58, ${A(alpha * 1.5)})`
+        : `rgba(62, 55, 45, ${A(alpha)})`;
       ctx.lineWidth = d * 0.3;
       ctx.beginPath();
       ctx.moveTo(x, y);
@@ -974,7 +974,7 @@ function makeTree(config) {
       if (d <= 2) {
         ctx.beginPath();
         ctx.arc(endX, endY, 1.5, 0, TAU);
-        ctx.fillStyle = `rgba(184, 146, 58, ${alpha})`;
+        ctx.fillStyle = `rgba(184, 146, 58, ${A(alpha)})`;
         ctx.fill();
       }
 
@@ -1016,7 +1016,7 @@ function makeWave(config) {
     let { ctx, w, h, cx, cy } = fitCanvas(canvas);
 
     function draw(t) {
-      ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
+      ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
       const amp = Math.min(w, h) * amplitude;
@@ -1029,8 +1029,8 @@ function makeWave(config) {
         const isGold = wi === Math.floor(waveCount / 2);
         const alpha = 0.04 + 0.03 * Math.sin(s * 0.3 + wi);
         ctx.strokeStyle = isGold
-          ? `rgba(184, 146, 58, ${alpha * 2})`
-          : `rgba(62, 55, 45, ${alpha})`;
+          ? `rgba(184, 146, 58, ${A(alpha * 2)})`
+          : `rgba(62, 55, 45, ${A(alpha)})`;
         ctx.lineWidth = isGold ? 0.8 : 0.5;
 
         ctx.beginPath();
@@ -1093,8 +1093,8 @@ function makeParticleRise(config) {
         const wx = Math.sin(s * p.wobble + p.phase) * 15;
         const alpha = 0.05 + 0.15 * (1 - p.y / h);
         ctx.fillStyle = p.gold
-          ? `rgba(184, 146, 58, ${alpha})`
-          : `rgba(62, 55, 45, ${alpha * 0.6})`;
+          ? `rgba(184, 146, 58, ${A(alpha)})`
+          : `rgba(62, 55, 45, ${A(alpha * 0.6)})`;
         ctx.beginPath();
         ctx.arc(p.x + wx, p.y, p.size, 0, TAU);
         ctx.fill();
@@ -1132,8 +1132,8 @@ function makePulse(config) {
 
         const isGold = i % 3 === 0;
         ctx.strokeStyle = isGold
-          ? `rgba(184, 146, 58, ${alpha})`
-          : `rgba(62, 55, 45, ${alpha})`;
+          ? `rgba(184, 146, 58, ${A(alpha)})`
+          : `rgba(62, 55, 45, ${A(alpha)})`;
         ctx.lineWidth = (1 - phase) * 1.5;
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, TAU);
@@ -1144,7 +1144,7 @@ function makePulse(config) {
       const cp = 0.5 + 0.5 * Math.sin(s * frequency * TAU);
       ctx.beginPath();
       ctx.arc(cx, cy, 3 + cp * 2, 0, TAU);
-      ctx.fillStyle = `rgba(184, 146, 58, ${0.15 + cp * 0.15})`;
+      ctx.fillStyle = `rgba(184, 146, 58, ${A(0.15 + cp * 0.15)})`;
       ctx.fill();
     }
 
@@ -1177,9 +1177,9 @@ function makeVortex(config) {
         for (let d = 0; d < depth; d++) {
           const layerFrac = d / depth;
           ctx.strokeStyle = isGold
-            ? `rgba(184, 146, 58, ${0.03 + layerFrac * 0.05})`
-            : `rgba(62, 55, 45, ${0.03 + layerFrac * 0.04})`;
-          ctx.lineWidth = 0.4 + layerFrac * 0.4;
+            ? `rgba(184, 146, 58, ${A(0.03 + layerFrac * 0.05)})`
+            : `rgba(62, 55, 45, ${A(0.03 + layerFrac * 0.04)})`;
+          ctx.lineWidth = 1.0 + layerFrac * 0.4;
           ctx.beginPath();
 
           let first = true;
@@ -1199,7 +1199,7 @@ function makeVortex(config) {
       // Center void
       const cp = 0.5 + 0.5 * Math.sin(s * 2);
       const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 15);
-      grad.addColorStop(0, `rgba(62, 55, 45, ${0.06 + cp * 0.06})`);
+      grad.addColorStop(0, `rgba(62, 55, 45, ${A(0.06 + cp * 0.06)})`);
       grad.addColorStop(1, 'rgba(62, 55, 45, 0)');
       ctx.fillStyle = grad;
       ctx.beginPath();
@@ -1238,8 +1238,8 @@ function makeEclipse(config) {
         const alpha = 0.06 + 0.03 * Math.sin(s * 0.5 + i * 1.5);
         const isGold = i === 0;
         ctx.strokeStyle = isGold
-          ? `rgba(184, 146, 58, ${alpha * 1.5})`
-          : `rgba(62, 55, 45, ${alpha})`;
+          ? `rgba(184, 146, 58, ${A(alpha * 1.5)})`
+          : `rgba(62, 55, 45, ${A(alpha)})`;
         ctx.lineWidth = isGold ? 0.8 : 0.5;
         ctx.beginPath();
         ctx.arc(x, y, R, 0, TAU);
@@ -1247,15 +1247,15 @@ function makeEclipse(config) {
 
         // Fill with very faint color
         ctx.fillStyle = isGold
-          ? `rgba(184, 146, 58, ${alpha * 0.15})`
-          : `rgba(62, 55, 45, ${alpha * 0.08})`;
+          ? `rgba(184, 146, 58, ${A(alpha * 0.15)})`
+          : `rgba(62, 55, 45, ${A(alpha * 0.08)})`;
         ctx.fill();
       }
 
       // Intersection glow
       const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.5);
       const glowAlpha = 0.03 + 0.02 * Math.sin(s * 0.8);
-      grad.addColorStop(0, `rgba(184, 146, 58, ${glowAlpha})`);
+      grad.addColorStop(0, `rgba(184, 146, 58, ${A(glowAlpha)})`);
       grad.addColorStop(1, 'rgba(184, 146, 58, 0)');
       ctx.fillStyle = grad;
       ctx.beginPath();
@@ -1319,8 +1319,8 @@ function makeScatter(config) {
 
         const alpha = 0.08 + (1 - disp) * 0.12;
         ctx.fillStyle = f.gold
-          ? `rgba(184, 146, 58, ${alpha})`
-          : `rgba(62, 55, 45, ${alpha * 0.7})`;
+          ? `rgba(184, 146, 58, ${A(alpha)})`
+          : `rgba(62, 55, 45, ${A(alpha * 0.7)})`;
 
         ctx.save();
         ctx.translate(x, y);
@@ -1360,8 +1360,8 @@ function makeWeave(config) {
 
         const alpha = 0.04 + 0.03 * Math.sin(s * 0.4 + i);
         ctx.strokeStyle = isGold
-          ? `rgba(184, 146, 58, ${alpha * 2})`
-          : `rgba(62, 55, 45, ${alpha})`;
+          ? `rgba(184, 146, 58, ${A(alpha * 2)})`
+          : `rgba(62, 55, 45, ${A(alpha)})`;
         ctx.lineWidth = isGold ? 0.8 : 0.5;
 
         ctx.beginPath();
@@ -1382,7 +1382,7 @@ function makeWeave(config) {
           const crossY = yBase + Math.sin(crossProgress * TAU * 2 + phase) * amp;
           ctx.beginPath();
           ctx.arc(crossX, crossY, 1.5, 0, TAU);
-          ctx.fillStyle = `rgba(184, 146, 58, ${alpha * 1.5})`;
+          ctx.fillStyle = `rgba(184, 146, 58, ${A(alpha * 1.5)})`;
           ctx.fill();
         }
       }
@@ -1418,8 +1418,8 @@ function art_slow_growth(canvas) {
     for (let i = 0; i < ringCount; i++) {
       const r = maxR * ((i + 1) / 8);
       const alpha = 0.05 + i * 0.015;
-      ctx.strokeStyle = `rgba(184, 146, 58, ${alpha})`;
-      ctx.lineWidth = 0.8;
+      ctx.strokeStyle = `rgba(184, 146, 58, ${A(alpha)})`;
+      ctx.lineWidth = 2.0;
       ctx.beginPath();
       ctx.arc(leftX, cy, r, 0, TAU);
       ctx.stroke();
@@ -1428,8 +1428,8 @@ function art_slow_growth(canvas) {
     if (ringCount < 8) {
       const subPhase = (phase * 8) % 1;
       const growR = maxR * ((ringCount + subPhase) / 8);
-      ctx.strokeStyle = `rgba(184, 146, 58, ${0.03 + subPhase * 0.04})`;
-      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = `rgba(184, 146, 58, ${A(0.03 + subPhase * 0.04)})`;
+      ctx.lineWidth = 1.2;
       ctx.beginPath();
       ctx.arc(leftX, cy, growR, 0, TAU * subPhase);
       ctx.stroke();
@@ -1440,8 +1440,8 @@ function art_slow_growth(canvas) {
 
     if (shatterPhase < 1) {
       const burstR = maxR * burstPhase * 1.5;
-      ctx.strokeStyle = `rgba(62, 55, 45, ${0.1 * (1 - shatterPhase)})`;
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = `rgba(62, 55, 45, ${A(0.1 * (1 - shatterPhase))})`;
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
       ctx.arc(rightX, cy, burstR, 0, TAU);
       ctx.stroke();
@@ -1456,7 +1456,7 @@ function art_slow_growth(canvas) {
         const fy = cy + Math.sin(a) * fragR;
         const alpha = 0.08 * (1 - shatterPhase);
         if (alpha > 0.005) {
-          ctx.fillStyle = `rgba(62, 55, 45, ${alpha})`;
+          ctx.fillStyle = `rgba(62, 55, 45, ${A(alpha)})`;
           ctx.fillRect(fx - 1, fy - 1, 2, 2);
         }
       }
@@ -1502,9 +1502,9 @@ function art_book1_inner(canvas) {
       const alpha = 0.04 + ring * 0.025;
 
       ctx.strokeStyle = ring === 3
-        ? `rgba(184, 146, 58, ${alpha})`
-        : `rgba(62, 55, 45, ${alpha})`;
-      ctx.lineWidth = 0.5 + ring * 0.15;
+        ? `rgba(184, 146, 58, ${A(alpha)})`
+        : `rgba(62, 55, 45, ${A(alpha)})`;
+      ctx.lineWidth = 1.2 + ring * 0.15;
       ctx.beginPath();
       for (let i = 0; i <= sides; i++) {
         const a = (i / sides) * TAU + rotation;
@@ -1529,7 +1529,7 @@ function art_book1_inner(canvas) {
     const pulse = 0.5 + 0.5 * Math.sin(s * 1.2);
     ctx.beginPath();
     ctx.arc(cx, cy, 3 + pulse * 2, 0, TAU);
-    ctx.fillStyle = `rgba(184, 146, 58, ${0.08 + pulse * 0.1})`;
+    ctx.fillStyle = `rgba(184, 146, 58, ${A(0.08 + pulse * 0.1)})`;
     ctx.fill();
   }
 
@@ -1546,7 +1546,7 @@ function art_book2_outer(canvas) {
   let { ctx, w, h, cx, cy } = fitCanvas(canvas);
 
   function draw(t) {
-    ctx.fillStyle = 'rgba(245, 240, 228, 0.05)';
+    ctx.fillStyle = 'rgba(245, 240, 228, 0.04)';
     ctx.fillRect(0, 0, w, h);
     const s = t * 0.001;
     const maxR = Math.min(w, h) * 0.36;
@@ -1559,15 +1559,15 @@ function art_book2_outer(canvas) {
       const x = cx + Math.cos(a) * orbitR;
       const y = cy + Math.sin(a) * orbitR * 0.6;
 
-      ctx.strokeStyle = `rgba(184, 146, 58, ${0.02 + i * 0.005})`;
-      ctx.lineWidth = 0.4;
+      ctx.strokeStyle = `rgba(184, 146, 58, ${A(0.02 + i * 0.005)})`;
+      ctx.lineWidth = 1.0;
       ctx.beginPath();
       ctx.ellipse(cx, cy, orbitR, orbitR * 0.6, 0, 0, TAU);
       ctx.stroke();
 
       ctx.beginPath();
       ctx.arc(x, y, 2 + i * 0.3, 0, TAU);
-      ctx.fillStyle = `rgba(184, 146, 58, ${0.1 + i * 0.02})`;
+      ctx.fillStyle = `rgba(184, 146, 58, ${A(0.1 + i * 0.02)})`;
       ctx.fill();
     }
 
@@ -1579,15 +1579,15 @@ function art_book2_outer(canvas) {
       const x = cx + Math.cos(a) * orbitR * 0.7;
       const y = cy + Math.sin(a) * orbitR;
 
-      ctx.strokeStyle = `rgba(62, 55, 45, ${0.02 + i * 0.004})`;
-      ctx.lineWidth = 0.3;
+      ctx.strokeStyle = `rgba(62, 55, 45, ${A(0.02 + i * 0.004)})`;
+      ctx.lineWidth = 0.8;
       ctx.beginPath();
       ctx.ellipse(cx, cy, orbitR * 0.7, orbitR, 0, 0, TAU);
       ctx.stroke();
 
       ctx.beginPath();
       ctx.arc(x, y, 1.5 + i * 0.3, 0, TAU);
-      ctx.fillStyle = `rgba(62, 55, 45, ${0.08 + i * 0.02})`;
+      ctx.fillStyle = `rgba(62, 55, 45, ${A(0.08 + i * 0.02)})`;
       ctx.fill();
     }
 
@@ -1604,8 +1604,8 @@ function art_book2_outer(canvas) {
       nodesB.push({ x: cx + Math.cos(a) * orbitR * 0.7, y: cy + Math.sin(a) * orbitR });
     }
 
-    ctx.strokeStyle = 'rgba(92, 61, 40, 0.09)';
-    ctx.lineWidth = 0.3;
+    ctx.strokeStyle = 'rgba(92, 61, 40, 0.27)';
+    ctx.lineWidth = 0.8;
     for (const a of nodesA) {
       for (const b of nodesB) {
         const dist = Math.hypot(a.x - b.x, a.y - b.y);
@@ -1662,8 +1662,8 @@ function art_book3_legacy(canvas) {
       const isGold = i === ringCount - 1 || i === Math.floor(ringCount * 0.618);
 
       ctx.strokeStyle = isGold
-        ? `rgba(184, 146, 58, ${alpha * 1.5})`
-        : `rgba(62, 55, 45, ${alpha})`;
+        ? `rgba(184, 146, 58, ${A(alpha * 1.5)})`
+        : `rgba(62, 55, 45, ${A(alpha)})`;
       ctx.lineWidth = isGold ? 0.8 : 0.4;
 
       const breathe = Math.sin(s * 0.2 + ring.phase) * 2;
