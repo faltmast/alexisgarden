@@ -24,14 +24,17 @@ function fitCanvas(canvas) {
 /* --- Color Palette --- */
 const C = {
   gold: '#b8923a',
-  goldSoft: 'rgba(184, 146, 58, 0.3)',
+  goldSoft: 'rgba(184, 146, 58, 0.9)',
   ink: '#3e372d',
-  inkSoft: 'rgba(62, 55, 45, 0.12)',
-  inkFaint: 'rgba(62, 55, 45, 0.04)',
-  bg: '#f5f0e4',
+  inkSoft: 'rgba(62, 55, 45, 0.75)',
+  inkFaint: 'rgba(62, 55, 45, 0.3)',
+  bg: '#ede5d2',
   walnut: '#5c3d28',
   green: '#2d5a3a',
 };
+
+/* --- Alpha boost: multiply all drawing alphas for visibility --- */
+const ALPHA_BOOST = 3.0;
 
 /* --- Easing --- */
 function ease(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
@@ -160,7 +163,7 @@ function makeBlades(config) {
       ctx.fillRect(0, 0, w, h);
       const s = t * 0.001;
 
-      ctx.strokeStyle = 'rgba(62, 55, 45, 0.06)';
+      ctx.strokeStyle = 'rgba(62, 55, 45, 0.18)';
       ctx.lineWidth = 0.5;
       ctx.beginPath();
       ctx.arc(cx, cy, Math.min(w, h) * 0.4, 0, TAU);
@@ -236,7 +239,7 @@ function makeBreathingRings(config) {
       const s = t * 0.001;
 
       if (showRadials) {
-        ctx.strokeStyle = 'rgba(62, 55, 45, 0.02)';
+        ctx.strokeStyle = 'rgba(62, 55, 45, 0.06)';
         ctx.lineWidth = 0.3;
         for (let i = 0; i < 12; i++) {
           const a = (i / 12) * TAU + s * 0.02;
@@ -259,7 +262,7 @@ function makeBreathingRings(config) {
       }
 
       if (showSpiral) {
-        ctx.strokeStyle = 'rgba(184, 146, 58, 0.06)';
+        ctx.strokeStyle = 'rgba(184, 146, 58, 0.18)';
         ctx.lineWidth = 0.8;
         ctx.beginPath();
         for (let a = 0; a < TAU * 4; a += 0.05) {
@@ -499,12 +502,12 @@ function makeRepetition(config) {
         y = cy + lerp(Math.sin(a1), Math.sin(a2), segFrac) * r;
       }
 
-      ctx.fillStyle = 'rgba(184, 146, 58, 0.35)';
+      ctx.fillStyle = 'rgba(184, 146, 58, 0.9)';
       ctx.beginPath();
       ctx.arc(x, y, 2, 0, TAU);
       ctx.fill();
 
-      ctx.strokeStyle = 'rgba(62, 55, 45, 0.015)';
+      ctx.strokeStyle = 'rgba(62, 55, 45, 0.04)';
       ctx.lineWidth = 0.5;
       ctx.beginPath();
       if (shape === 'circle') {
@@ -564,7 +567,7 @@ function makePendulum(config) {
         const bx = p.px + Math.sin(angle) * p.len;
         const by = p.py + Math.cos(angle) * p.len;
 
-        ctx.strokeStyle = 'rgba(62, 55, 45, 0.06)';
+        ctx.strokeStyle = 'rgba(62, 55, 45, 0.18)';
         ctx.lineWidth = 0.5;
         ctx.beginPath();
         ctx.moveTo(p.px, p.py);
@@ -573,7 +576,7 @@ function makePendulum(config) {
 
         ctx.beginPath();
         ctx.arc(p.px, p.py, 2, 0, TAU);
-        ctx.fillStyle = 'rgba(62, 55, 45, 0.1)';
+        ctx.fillStyle = 'rgba(62, 55, 45, 0.3)';
         ctx.fill();
 
         const pulse = 0.5 + 0.5 * Math.sin(s * 2 + p.phase);
@@ -583,7 +586,7 @@ function makePendulum(config) {
         ctx.fill();
 
         // Trail arc
-        ctx.strokeStyle = 'rgba(184, 146, 58, 0.03)';
+        ctx.strokeStyle = 'rgba(184, 146, 58, 0.09)';
         ctx.lineWidth = 0.4;
         ctx.beginPath();
         ctx.arc(p.px, p.py, p.len, Math.PI / 2 - p.amp, Math.PI / 2 + p.amp);
@@ -854,7 +857,7 @@ function makeOrbit(config) {
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(o.tilt);
-        ctx.strokeStyle = 'rgba(62, 55, 45, 0.04)';
+        ctx.strokeStyle = 'rgba(62, 55, 45, 0.12)';
         ctx.lineWidth = 0.4;
         ctx.beginPath();
         ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, TAU);
@@ -909,8 +912,8 @@ function makeSpiral(config) {
         const isGold = arm % 2 === 0;
 
         ctx.strokeStyle = isGold
-          ? `rgba(184, 146, 58, 0.06)`
-          : `rgba(62, 55, 45, 0.05)`;
+          ? `rgba(184, 146, 58, 0.18)`
+          : `rgba(62, 55, 45, 0.15)`;
         ctx.lineWidth = 0.6;
         ctx.beginPath();
 
@@ -1460,7 +1463,7 @@ function art_slow_growth(canvas) {
     }
 
     ctx.font = '8px "IBM Plex Sans", sans-serif';
-    ctx.fillStyle = 'rgba(62, 55, 45, 0.12)';
+    ctx.fillStyle = 'rgba(62, 55, 45, 0.36)';
     ctx.textAlign = 'center';
     ctx.fillText('SLOW', leftX, cy + maxR + 20);
     ctx.fillText('FAST', rightX, cy + maxR + 20);
@@ -1519,7 +1522,7 @@ function art_book1_inner(canvas) {
       const a = (i / sides) * TAU + outerRot;
       ctx.beginPath();
       ctx.arc(cx + Math.cos(a) * outerR, cy + Math.sin(a) * outerR, 1.5, 0, TAU);
-      ctx.fillStyle = 'rgba(184, 146, 58, 0.15)';
+      ctx.fillStyle = 'rgba(184, 146, 58, 0.45)';
       ctx.fill();
     }
 
@@ -1601,7 +1604,7 @@ function art_book2_outer(canvas) {
       nodesB.push({ x: cx + Math.cos(a) * orbitR * 0.7, y: cy + Math.sin(a) * orbitR });
     }
 
-    ctx.strokeStyle = 'rgba(92, 61, 40, 0.03)';
+    ctx.strokeStyle = 'rgba(92, 61, 40, 0.09)';
     ctx.lineWidth = 0.3;
     for (const a of nodesA) {
       for (const b of nodesB) {
@@ -1679,7 +1682,7 @@ function art_book3_legacy(canvas) {
 
     ctx.beginPath();
     ctx.arc(cx, cy, 2, 0, TAU);
-    ctx.fillStyle = 'rgba(184, 146, 58, 0.2)';
+    ctx.fillStyle = 'rgba(184, 146, 58, 0.6)';
     ctx.fill();
   }
 
