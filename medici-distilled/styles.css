@@ -628,6 +628,14 @@ body {
     bottom: 10px;
   }
 
+  .art-col {
+    width: min(200px, 50vw);
+  }
+
+  .text-col {
+    font-size: clamp(1.02rem, 4vw, 1.2rem);
+  }
+
   .text-wrap {
     grid-template-columns: 16px minmax(160px, 38ch);
     gap: 10px;
