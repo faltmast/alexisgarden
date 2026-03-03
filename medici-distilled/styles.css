@@ -112,26 +112,6 @@ body {
   color: var(--c-accent-gold);
 }
 
-.rail-random {
-  all: unset;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  font-size: 0.9rem;
-  color: var(--c-ink-muted);
-  border: 1px solid rgba(35, 30, 24, 0.15);
-  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
-}
-
-.rail-random:hover {
-  color: var(--c-accent-gold);
-  border-color: var(--c-accent-gold);
-  background: rgba(184, 146, 58, 0.08);
-}
 
 /* ── Meta / page counter ── */
 
@@ -140,6 +120,27 @@ body {
   top: 18px;
   right: 22px;
   z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.meta__random {
+  all: unset;
+  cursor: pointer;
+  font: 600 0.68rem/1 var(--font-ui);
+  letter-spacing: 0.06em;
+  color: var(--c-ink-muted);
+  border: 1px solid rgba(35, 30, 24, 0.15);
+  border-radius: 14px;
+  padding: 5px 12px;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.meta__random:hover {
+  color: var(--c-accent-gold);
+  border-color: var(--c-accent-gold);
+  background: rgba(184, 146, 58, 0.08);
 }
 
 .meta__btn {
