@@ -150,6 +150,9 @@ body {
   letter-spacing: 0.05em;
   color: var(--c-ink-muted);
   transition: color 160ms ease;
+  font-variant-numeric: tabular-nums;
+  min-width: 7.5ch;
+  text-align: right;
 }
 
 .meta__btn:hover {
@@ -360,6 +363,7 @@ body {
   display: grid;
   grid-template-columns: 28px minmax(280px, var(--max-reading-width));
   gap: 18px;
+  align-items: start;
 }
 
 .text-wrap--centered {
@@ -367,10 +371,12 @@ body {
 }
 
 .inline-num {
-  margin-top: 2px;
-  font-family: var(--font-reading);
-  font-size: 1.1rem;
-  font-weight: 400;
+  margin-top: 0;
+  padding-top: 1px;
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   color: var(--c-ink-muted);
 }
 
@@ -587,34 +593,50 @@ body {
 
 @media (max-width: 680px) {
   :root {
-    --rail-width: 40px;
+    --rail-width: 0px;
   }
 
   .rail {
-    width: var(--rail-width);
+    display: none;
   }
 
   .reader {
-    margin-left: var(--rail-width);
+    margin-left: 0;
   }
 
-  .rail-link {
-    font-size: 0.61rem;
+  .page--title .text-col {
+    transform: none;
   }
 
   .meta {
     right: 10px;
     top: 12px;
+  }
+
+  .meta__random {
+    font-size: 0.62rem;
+    padding: 4px 10px;
+  }
+
+  .meta__btn {
     font-size: 0.74rem;
   }
 
   .page {
-    padding: 64px 12px 72px;
+    padding: 48px 16px 60px;
   }
 
   .book-mark {
     font-size: 0.6rem;
     bottom: 10px;
+  }
+
+  .art-col {
+    width: min(200px, 50vw);
+  }
+
+  .text-col {
+    font-size: clamp(1.08rem, 4.2vw, 1.28rem);
   }
 
   .text-wrap {
