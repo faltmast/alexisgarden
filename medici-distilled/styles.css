@@ -86,6 +86,20 @@ body {
   font-weight: 700;
 }
 
+.rail-link--section {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--c-line);
+  font-family: var(--font-numeral);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(32, 30, 27, 0.45);
+}
+
+.rail-link--section.active {
+  color: var(--c-accent-gold);
+}
+
 /* ── Meta / page counter ── */
 
 .meta {
