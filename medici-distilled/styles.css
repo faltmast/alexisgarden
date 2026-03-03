@@ -590,29 +590,37 @@ body {
 
 @media (max-width: 680px) {
   :root {
-    --rail-width: 40px;
+    --rail-width: 0px;
   }
 
   .rail {
-    width: var(--rail-width);
+    display: none;
   }
 
   .reader {
-    margin-left: var(--rail-width);
+    margin-left: 0;
   }
 
-  .rail-link {
-    font-size: 0.61rem;
+  .page--title .text-col {
+    transform: none;
   }
 
   .meta {
     right: 10px;
     top: 12px;
+  }
+
+  .meta__random {
+    font-size: 0.62rem;
+    padding: 4px 10px;
+  }
+
+  .meta__btn {
     font-size: 0.74rem;
   }
 
   .page {
-    padding: 64px 12px 72px;
+    padding: 48px 16px 60px;
   }
 
   .book-mark {
