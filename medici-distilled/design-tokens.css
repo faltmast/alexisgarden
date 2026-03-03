@@ -1,0 +1,52 @@
+:root {
+  /* Renaissance palette — richer than Roman parchment */
+  --c-bg: #f5f0e4;
+  --c-bg-elev: #ede5d2;
+  --c-bg-shadow: #d9ceb5;
+
+  --c-ink: #1a1714;
+  --c-ink-soft: #3e372d;
+  --c-ink-muted: #6b5f50;
+
+  --c-line: #c2b49a;
+  --c-line-strong: #a08b6d;
+
+  --c-accent-gold: #b8923a;
+  --c-accent-medici-green: #2d5a3a;
+  --c-accent-terracotta: #a85a3a;
+  --c-accent-walnut: #5c3d28;
+
+  --c-focus: #2d5a3a;
+  --c-danger: #7a2a26;
+
+  --font-reading: "EB Garamond", "Iowan Old Style", "Palatino Linotype", serif;
+  --font-numeral: "Cinzel", "Trajan Pro", "Times New Roman", serif;
+  --font-ui: "IBM Plex Sans", "Avenir Next", sans-serif;
+
+  --fs-reading: clamp(1.18rem, 1.9vw, 1.62rem);
+  --fs-reading-mobile: clamp(1.02rem, 4vw, 1.2rem);
+  --fs-page-number: clamp(0.82rem, 0.95vw, 0.94rem);
+  --lh-reading: 1.52;
+  --ls-reading: 0.003em;
+  --max-reading-width: 54ch;
+
+  --space-1: 0.375rem;
+  --space-2: 0.625rem;
+  --space-3: 0.9rem;
+  --space-4: 1.25rem;
+  --space-5: 1.8rem;
+  --space-6: 2.8rem;
+  --space-7: 4.2rem;
+
+  --motion-fast: 160ms;
+  --motion-base: 260ms;
+  --motion-slow: 320ms;
+
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --fs-reading: var(--fs-reading-mobile);
+  }
+}
