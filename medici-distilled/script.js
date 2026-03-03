@@ -28,8 +28,21 @@
     activeIndex = anchorToIndex.get(n) || 1;
     indicator.textContent = `${String(activeIndex).padStart(3, '0')} / ${String(MAX_PAGE).padStart(3, '0')}`;
     railLinks.forEach((link) => {
-      link.classList.toggle('active', String(link.dataset.anchor) === n);
+      const isActive = String(link.dataset.anchor) === n;
+      link.classList.toggle('active', isActive);
+      if (isActive) {
+        const nav = link.closest('.rail-nav');
+        if (nav) {
+          const linkTop = link.offsetTop - nav.offsetTop;
+          const navH = nav.clientHeight;
+          nav.scrollTop = linkTop - navH / 2 + link.offsetHeight / 2;
+        }
+      }
     });
+    // Update picker active state
+    document.querySelectorAll('.page-picker__cell.active').forEach((c) => c.classList.remove('active'));
+    const activeCell = document.querySelector(`.page-picker__cell[data-anchor="${n}"]`);
+    if (activeCell) activeCell.classList.add('active');
   }
 
   function setHash(anchor) {
@@ -75,7 +88,69 @@
     });
   }
 
+  /* ─── Page Picker ─── */
+
+  const picker = document.getElementById('pagePicker');
+  const pickerGrid = document.getElementById('pagePickerGrid');
+  const pickerClose = document.getElementById('pagePickerClose');
+  const pickerRandom = document.getElementById('pagePickerRandom');
+
+  function openPicker() {
+    picker.classList.add('open');
+    picker.setAttribute('aria-hidden', 'false');
+  }
+
+  function closePicker() {
+    picker.classList.remove('open');
+    picker.setAttribute('aria-hidden', 'true');
+  }
+
+  if (picker && pickerGrid) {
+    // Build grid cells
+    const bookLabels = { book1: 'Book I — The Inner Game', book2: 'Book II — The Outer Game', book3: 'Book III — The Long Game' };
+
+    anchors.forEach((a) => {
+      if (bookLabels[a]) {
+        const header = document.createElement('div');
+        header.className = 'page-picker__cell page-picker__cell--section';
+        header.textContent = bookLabels[a];
+        pickerGrid.appendChild(header);
+      }
+      // Only show quote pages in the grid
+      if (/^q\d+$/.test(a)) {
+        const btn = document.createElement('button');
+        btn.className = 'page-picker__cell';
+        btn.dataset.anchor = a;
+        btn.textContent = a.replace('q', '');
+        if (a === activeAnchor) btn.classList.add('active');
+        btn.addEventListener('click', () => {
+          goTo(a, true);
+          closePicker();
+        });
+        pickerGrid.appendChild(btn);
+      }
+    });
+
+    indicator.addEventListener('click', openPicker);
+    pickerClose.addEventListener('click', closePicker);
+    picker.addEventListener('click', (e) => {
+      if (e.target === picker) closePicker();
+    });
+
+    if (pickerRandom) {
+      const quoteAnchorsForPicker = anchors.filter((a) => /^q\d+$/.test(a));
+      pickerRandom.addEventListener('click', () => {
+        const pick = quoteAnchorsForPicker[Math.floor(Math.random() * quoteAnchorsForPicker.length)];
+        goTo(pick, true);
+        closePicker();
+      });
+    }
+  }
+
   document.addEventListener('keydown', (e) => {
+    if (picker && picker.classList.contains('open')) {
+      if (e.key === 'Escape') { closePicker(); return; }
+    }
     if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goRelative(1); }
     if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); goRelative(-1); }
   });
