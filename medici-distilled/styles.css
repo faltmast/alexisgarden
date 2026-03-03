@@ -246,6 +246,14 @@ body {
   color: #fff;
 }
 
+.page-picker__cell--label {
+  aspect-ratio: auto;
+  padding: 8px 6px;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  grid-column: span 2;
+}
+
 .page-picker__cell--section {
   background: transparent;
   font-family: var(--font-numeral);

@@ -107,28 +107,40 @@
 
   if (picker && pickerGrid) {
     // Build grid cells
-    const bookLabels = { book1: 'Book I — The Inner Game', book2: 'Book II — The Outer Game', book3: 'Book III — The Long Game' };
+    const sectionLabels = {
+      book1: 'Book I — The Inner Game',
+      book2: 'Book II — The Outer Game',
+      book3: 'Book III — The Long Game',
+    };
+    const pageLabels = {
+      cover: 'Cover', epigraph: 'Epigraph', intro: 'Intro', intro2: 'Intro',
+      postscript: 'Postscript', colophon: 'Colophon',
+    };
 
     anchors.forEach((a) => {
-      if (bookLabels[a]) {
+      if (sectionLabels[a]) {
         const header = document.createElement('div');
         header.className = 'page-picker__cell page-picker__cell--section';
-        header.textContent = bookLabels[a];
+        header.textContent = sectionLabels[a];
         pickerGrid.appendChild(header);
       }
-      // Only show quote pages in the grid
+      const btn = document.createElement('button');
+      btn.className = 'page-picker__cell';
+      btn.dataset.anchor = a;
       if (/^q\d+$/.test(a)) {
-        const btn = document.createElement('button');
-        btn.className = 'page-picker__cell';
-        btn.dataset.anchor = a;
         btn.textContent = a.replace('q', '');
-        if (a === activeAnchor) btn.classList.add('active');
-        btn.addEventListener('click', () => {
-          goTo(a, true);
-          closePicker();
-        });
-        pickerGrid.appendChild(btn);
+      } else if (pageLabels[a]) {
+        btn.textContent = pageLabels[a];
+        btn.classList.add('page-picker__cell--label');
+      } else {
+        return; // skip book dividers as cells (they're section headers)
       }
+      if (a === activeAnchor) btn.classList.add('active');
+      btn.addEventListener('click', () => {
+        goTo(a, true);
+        closePicker();
+      });
+      pickerGrid.appendChild(btn);
     });
 
     indicator.addEventListener('click', openPicker);
